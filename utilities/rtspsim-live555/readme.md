@@ -8,7 +8,7 @@ The following instructions enable using [Live555 Media Server](http://www.live55
 
 ## Building the docker container
 
-1. Create a new directory on your machine and copy Dockerfile and win10.mkv from this folder to that directory.
+1. Create a new directory on your machine and copy Dockerfile and win10.mkv from this GitHub folder to that directory.
 2. Build the container image (should take around 10 minutes or less) by running the following docker command from a command window in that directory
 
     ```powershell
