@@ -47,6 +47,3 @@ Test the stream
 
 my-media-file refers to a media file in your local_media_folder. Note that only file formats supported by Live555 will work.
 
-## Jupyter notebook
-
-There is also a Jupyter notebook in this folder that enables you to create a docker container and then push it to your Azure container registry
