@@ -32,7 +32,7 @@ Test the stream using a RTSP media player such as [VLC media player](https://www
     vlc rtsp://localhost:554/media/win10.mkv
 ```
 
-You can also run the container while mounting the /media folder in the container to a <local_media_folder> (e.g. /home/xyz/Videos/) on your host machine
+You can also run the container while mounting the /media folder in the container to a local media folder (e.g. /home/xyz/Videos/) on your host machine
 
 ```powershell
     # This exposes the 554 port on the host and mounts the media library to the server
@@ -42,10 +42,10 @@ You can also run the container while mounting the /media folder in the container
 Test the stream
 
 ```powershell
-    vlc rtsp://localhost:554/media/<my-file>
+    vlc rtsp://localhost:554/media/<my-media-file>
 ```
 
-<my-file> refers to a media file in your local_media_folder. Note that only file formats supported by Live555 will work.
+my-media-file refers to a media file in your local_media_folder. Note that only file formats supported by Live555 will work.
 
 ## Jupyter notebook
 
