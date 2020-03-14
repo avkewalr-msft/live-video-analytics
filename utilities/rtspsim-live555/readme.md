@@ -2,6 +2,10 @@
 
 The following instructions enable using [Live555 Media Server](http://www.live555.com/mediaServer/) as a RTSP simulator in a docker container.
 
+## Prerequisites
+1. [Install Docker](http://docs.docker.com/docker-for-windows/install/) on your machine
+2. Install a RTSP player such as [VLC Media Player](http://www.videolan.org/vlc/) on your machine. This will be useful for testing.
+
 ## Building the docker container
 
 1. Create a new directory on your machine and copy Dockerfile and win10.mkv from this folder to that directory.
