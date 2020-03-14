@@ -1,3 +1,3 @@
-# RTSP Simulator
+# Capture media
 
-The Jupyter notebook in this folder shows how to create a docker container for simulating a RTSP stream using [Live555 Media Server](http://www.live555.com/mediaServer/)
+The sub-folders in this folder have components for capturing media
