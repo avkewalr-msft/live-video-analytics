@@ -66,3 +66,7 @@ Once stopped, you can remove the container with the following command
 ```powershell
     docker rm <container-id> 
 ```
+
+## Upload docker image to Azure container registry
+
+Follow instruction in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
