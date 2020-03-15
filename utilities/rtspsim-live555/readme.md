@@ -17,7 +17,7 @@ The following instructions enable using [Live555 Media Server](http://www.live55
 
     The build may generate warnings, but they should not prevent the server from working
 
-## Running
+## Running and Testing
 
 Run the container using the following docker command
 
@@ -35,7 +35,7 @@ Test the stream using a RTSP media player such as [VLC media player](https://www
 You can also run the container while mounting the /media folder in the container to a local media folder (e.g. /home/xyz/Videos/) on your host machine
 
 ```powershell
-    # This exposes the 554 port on the host and mounts the media library to the server
+    # This exposes the 554 port on the host and mounts the local media folder to the /media folder in the server
     docker run -p 554:554 -v <local_media_folder>:/live/mediaServer/media -i live555:latest 
 ```
 
@@ -47,3 +47,22 @@ Test the stream
 
 my-media-file refers to a media file in your local_media_folder. Note that only file formats supported by Live555 will work.
 
+## Cleanup
+
+Once you are done, stop the docker container by executing the following commands
+
+```powershell
+    docker ps -a 
+```
+
+This will enumerate all the containers. Copy the container id of the live555:latest container
+
+```powershell
+    docker stop <container-id> 
+```
+
+Once stopped, you can remove the container with the following command
+
+```powershell
+    docker rm <container-id> 
+```
