@@ -92,7 +92,7 @@ Follow instruction in [Deploy module from Azure portal](https://docs.microsoft.c
     }
 ```
 
-You can now play a video from your local_media_folder using a RTSP media player such as [VLC media player](https://www.videolan.org/vlc/)
+You can now play a video (located in local_media_folder) on the IoT Edge device using a RTSP media player such as [VLC media player](https://www.videolan.org/vlc/)
 
 ```powershell
     vlc rtsp://localhost:5001/media/<my-media>
