@@ -70,3 +70,30 @@ Once stopped, you can remove the container with the following command
 ## Upload docker image to Azure container registry
 
 Follow instruction in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
+
+## Deploy as an Azure IoT Edge module
+
+Follow instruction in [Deploy module from Azure portal](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-deploy-modules-portal) to deploy the container image as an IoT Edge module. In the instructions, use the IoT Edge module option. To play videos from a RTSP client, you will need to bind the container port to a host port and mount a local media folder to the /media folder, you will need to specify the following in the "Container Create Options"
+
+```
+    {
+        "HostConfig": {
+        "Binds": [
+            "<local_media_folder>:/live/mediaServer/media"
+            ]
+        }
+        "PortBindings" : {
+            "554/tcp" : [
+                {
+                    "HostPort": "5001"
+                }
+            ]
+        }
+    }
+```
+
+You can now play a video from your local_media_folder using a RTSP media player such as [VLC media player](https://www.videolan.org/vlc/)
+
+```powershell
+    vlc rtsp://localhost:5001/media/<my-media>
+```
