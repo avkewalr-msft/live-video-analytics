@@ -73,7 +73,7 @@ Follow instruction in [Push and Pull Docker images  - Azure Container Registry](
 
 ## Deploy as an Azure IoT Edge module
 
-Follow instruction in [Deploy module from Azure portal](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-deploy-modules-portal) to deploy the container image as an IoT Edge module. In the instructions, use the IoT Edge module option. To play videos from a RTSP client, you will need to bind the container port to a host port and mount a local media folder to the /media folder. You can do this by specifying the following in the "Container Create Options"
+Follow instruction in [Deploy module from Azure portal](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-deploy-modules-portal) to deploy the container image as an IoT Edge module (use the IoT Edge module option). To play videos from a RTSP client, you will need to bind the container port to a host port and mount a local media folder to the /media folder. You can do this by specifying the following in the "Container Create Options"
 
 ```
     {
