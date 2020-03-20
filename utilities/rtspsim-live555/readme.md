@@ -34,7 +34,7 @@ Test the stream using a RTSP media player such as [VLC media player](https://www
 
 You can also run the container while mounting the /media folder in the container to a local media folder (e.g. /home/xyz/Videos/) on your host machine
 
-```
+```powershell
     # This exposes the 554 port on the host and mounts the local media folder to the /media folder in the server
     docker run -p 554:554 -v <local_media_folder>:/live/mediaServer/media -i live555:latest 
 ```
