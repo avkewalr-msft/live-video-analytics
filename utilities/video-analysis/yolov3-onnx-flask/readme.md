@@ -1,6 +1,6 @@
 # Yolov3 ONNX model with Flask
 
-The following instruction will enable you to build a docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [Flask](https://github.com/pallets/flask). This is reasonable to use for development purposes but not recommended for a production deployment.
+The following instruction will enable you to build a docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [Flask](https://github.com/pallets/flask). This container is reasonable to use this for development purposes but not recommended for a production deployment.
 
 ## Prerequisites
 1. [Install Docker](http://docs.docker.com/docker-for-windows/install/) on your machine
