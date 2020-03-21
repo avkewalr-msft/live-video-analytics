@@ -35,3 +35,30 @@ Test the container using the following command
 ```
 
 If everything worked as expected, you should see a JSON output with the list of detected objects
+
+## Upload docker image to Azure container registry
+
+Follow instruction in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
+
+## Deploy as an Azure IoT Edge module
+
+Follow instruction in [Deploy module from Azure portal](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-deploy-modules-portal) to deploy the container image as an IoT Edge module (use the IoT Edge module option). To submit images for inferencing, you will need to bind the container port to a host port. You can do this by specifying the following in the "Container Create Options"
+
+```
+    {
+        "HostConfig": {
+        "PortBindings" : {
+            "8888/tcp" : [
+                {
+                    "HostPort": "5002"
+                }
+            ]
+        }
+    }
+```
+
+Test the container using the following command (when running it on the Edge device itself)
+
+```
+   curl -X POST http://localhost:5002/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+```
