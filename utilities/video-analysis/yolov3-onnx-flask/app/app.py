@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 import onnxruntime
 from PIL import Image
 import numpy as np
