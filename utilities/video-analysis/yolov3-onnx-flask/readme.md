@@ -34,7 +34,15 @@ Test the container using the following command
    curl -X POST http://<my_yolo_container_ip_address>:8888/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
-If everything worked as expected, you should see a JSON output with the list of detected objects
+If everything worked as expected, you should see a JSON output with the list of detected objects.
+
+To see the bounding boxes overlaid on the image run the following command
+
+```
+   curl -X POST http://<my_yolo_container_ip_address>:8888/annotate -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg> --output out.jpeg
+```
+
+If successful, you will see a file out.jpeg with bounding boxes overlaid on the input image.
 
 ## Upload docker image to Azure container registry
 
