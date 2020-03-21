@@ -2,14 +2,15 @@
 # Licensed under the MIT License.
 
 import onnxruntime
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import time
 import io
 import json
 
+
 # Imports for the REST API
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 
 session = None
 
@@ -44,7 +45,7 @@ def preprocess(img):
     return image_data
 
 def postprocess(boxes, scores, indices):
-    objects_identified = indices.shape[0]   
+    # objects_identified = indices.shape[0]   
     detected_objects = []
     
     for idx_ in indices:
@@ -61,27 +62,8 @@ def postprocess(boxes, scores, indices):
         
     return detected_objects
 
-
-
-# Imports for prediction
-# from predict import initialize, predict_image, predict_url
-
-app = Flask(__name__)
-
-# 4MB Max image size limit
-# app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024 
-
-
-
-# /score routes to scoring function 
-@app.route('/score', methods=['POST'])
-def score():
-
+def processImage(img):
     try:
-        imageData = io.BytesIO(request.get_data())
-        # load the image
-        img = Image.open(imageData)
-
         # Preprocess input according to the functions specified above
         img_data = preprocess(img)
         img_size = np.array([img.size[1], img.size[0]], dtype=np.float32).reshape(1, 2)
@@ -92,6 +74,45 @@ def score():
         inference_duration = np.round(inference_time_end - inference_time_start, 2)
         
         detected_objects = postprocess(boxes, scores, indices)
+        return inference_duration, detected_objects
+
+    except Exception as e:
+        print('EXCEPTION:', str(e))
+        return 'Error processing image', 500
+
+
+def drawBboxes(image, detected_objects):
+    objects_identified = len(detected_objects)
+    
+    draw = ImageDraw.Draw(image)    
+
+    textfont = ImageFont.load_default()
+    
+    for pos in range(objects_identified):        
+        x1, y1, x2, y2 = detected_objects[pos]['box']                
+        objClass = detected_objects[pos]['class']        
+
+        draw.rectangle((x1, y1, x2, y2), outline = 'blue', width = 2)
+        print('rectangle drawn')
+        draw.text((x1, y1), str(objClass), fill = "white", font = textfont)
+     
+    return image
+
+
+app = Flask(__name__)
+
+# /score routes to scoring function 
+# This function returns a JSON object with inference duration and detected objects
+@app.route('/score', methods=['POST'])
+def score():
+
+    try:
+        imageData = io.BytesIO(request.get_data())
+        # load the image
+        img = Image.open(imageData)
+
+        inference_duration, detected_objects = processImage(img)
+
         respBody = {
                     "time": inference_duration,                         
                     "objects" : detected_objects
@@ -101,6 +122,29 @@ def score():
     except Exception as e:
         print('EXCEPTION:', str(e))
         return 'Error processing image', 500
+
+# /annotate routes to annotation function 
+# This function returns an image with bounding boxes drawn around detected objects
+@app.route('/annotate', methods=['POST'])
+def annotate():
+    try:
+        imageData = io.BytesIO(request.get_data())
+        # load the image
+        img = Image.open(imageData)
+
+        inference_duration, detected_objects = processImage(img)
+        #print('Inference duration=' + str(inference_duration))
+
+        img = drawBboxes(img, detected_objects)
+        
+        imgByteArr = io.BytesIO()        
+        img.save(imgByteArr, format = 'JPEG')        
+        imgByteArr = imgByteArr.getvalue()                
+
+        return Response(response = imgByteArr, status = 200, mimetype = "image/jpeg")
+    except Exception as e:
+        print('EXCEPTION:', str(e))
+        return Response(response='Error processing image', status= 500)
 
 if __name__ == '__main__':
     # Load and intialize the model
