@@ -1,5 +1,7 @@
 
-# Below is placeholder text that was auto-generated
+# Live Video Analytics
+
+[Live Video Analytics](http://placeholder-url) enables you to build intelligent video apps using custom AI models. LVA product documentation can be found on Azure documentation page. This GitHub repo contains a set of components that can be used with LVA to simplify development and realize a variety of business scenarios. This repo is open source and contributions are welcome (please see "Contributing" section below).
 
 ### Contributing
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
