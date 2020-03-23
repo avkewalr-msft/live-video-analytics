@@ -12,7 +12,7 @@ The following instruction will enable you to build a docker container with [Yolo
 
 ## Building the docker container
 
-1. Create a new directory on your machine and copy all the files from this GitHub folder to that directory.
+1. Create a new directory on your machine and copy all the files (including the sub-folders) from this GitHub folder to that directory.
 2. Build the container image (should take some minutes) by running the following docker command from a command window in that directory
 
     ```
