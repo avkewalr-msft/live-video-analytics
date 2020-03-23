@@ -81,7 +81,7 @@ Follow instruction in [Deploy module from Azure portal](https://docs.microsoft.c
         "Binds": [
             "<local_media_folder>:/live/mediaServer/media"
             ]
-        }
+        },
         "PortBindings" : {
             "554/tcp" : [
                 {
