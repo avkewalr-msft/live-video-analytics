@@ -20,4 +20,6 @@ WORKDIR /live/mediaServer
 
 ADD ./win10.mkv /live/mediaServer/media/
 
+EXPOSE 554
+
 ENTRYPOINT [ "./live555MediaServer" ]
