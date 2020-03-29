@@ -83,9 +83,6 @@ To play videos from an RTSP client, you will need to bind the container port to 
 
 ```
     {
-        "ExposedPorts": {
-            "554/tcp": {}
-        },
         "HostConfig": {
             "Binds": [
                 "<local_media_folder>:/live/mediaServer/media"
