@@ -6,9 +6,9 @@ MEVA Dataset Copyright Notice and Disclaimers: © 2019 Kitware Inc. and the Inte
 
 The following files are from the MEVA dataset
 
-| Media file copy | Original file from MEVA | Description |
+| Copy of video from MEVA dataset | Original file from MEVA | Description |
 | --------------- |:-----------------------:| :---------: |
-| https://lvamedia.blob.core.windows.net/public/camera-300s.mkv | xyz | 5 minute video file showing cars on a freeway |
+| abc | xyz | 5 minute video file showing cars on a freeway |
 
 
 
