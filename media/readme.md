@@ -6,18 +6,13 @@ This folder has media files from different datasets that can be used for testing
 
 The following files are from the MEVA dataset
 
-| Copy of video from MEVA dataset | Original file from MEVA | Description |
-| --------------- |:-----------------------:| :---------: |
-| abc | xyz | 5 minute video file showing cars on a freeway |
+* 
 
 
 
 
 ## Other dataset
-
-| Media file | Description |
-| ---------- |:-----------:|
-| https://lvamedia.blob.core.windows.net/public/camera-300s.mkv | 5 minute video file showing cars on a freeway |
+* [Cars on freeway](https://lvamedia.blob.core.windows.net/public/camera-300s.mkv)
 
 
 
