@@ -24,7 +24,7 @@ The following instruction will enable you to build a docker container with [Yolo
 Run the container using the following docker command
 
 ```
-    docker run --name my_yolo_container -d  -i yolov3-onnx:latest
+    docker run --name my_yolo_container -d  -i yolov3:latest
 ```
 
 Get the IP address of the container by running the following command (replace grep with findstr if running on Windows)
