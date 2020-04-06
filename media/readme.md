@@ -21,6 +21,7 @@ The following files are from the MEVA dataset
 
 ## Other dataset
 * [Cars on freeway](https://lvamedia.blob.core.windows.net/public/camera-300s.mkv)
+* [Toy Car Training Dataset](https://lvamedia.blob.core.windows.net/public/ToyCarTrainingImages.zip)
 
 
 
