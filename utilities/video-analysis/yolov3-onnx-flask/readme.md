@@ -2,6 +2,8 @@
 
 The following instruction will enable you to build a docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [Flask](https://github.com/pallets/flask). This container is reasonable to use this for development purposes but not recommended for a production deployment.
 
+Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provides right for the third-party software. For more information on third-party software please see the links provided above.
+
 ## Prerequisites
 1. [Install Docker](http://docs.docker.com/docker-for-windows/install/) on your machine
 2. Install [curl](http://curl.haxx.se/)
