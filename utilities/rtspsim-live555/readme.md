@@ -2,7 +2,7 @@
 
 The following instructions enable using [Live555 Media Server](http://www.live555.com/mediaServer/) as a RTSP simulator in a docker container.
 
-Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provides rights for the third-party software. For more information on third-party software please see [Live555 Media Server](http://www.live555.com/mediaServer/).
+Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provide rights for the third-party software. For more information on third-party software please see [Live555 Media Server](http://www.live555.com/mediaServer/).
 
 ## Prerequisites
 1. [Install Docker](http://docs.docker.com/docker-for-windows/install/) on your machine
