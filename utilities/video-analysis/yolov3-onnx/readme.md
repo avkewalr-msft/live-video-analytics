@@ -42,6 +42,43 @@ To get a list of detected objected using the following command
 ```
    curl -X POST http://<my_yolo_container_ip_address>/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
+If successful, you will see JSON printed on your screen that looks something like this
+```
+{
+    "inferences": [                
+        {
+            "entity": {
+                "box": {
+                    "h": 0.3498992351271351,
+                    "l": 0.027884870008988812,
+                    "t": 0.6497463818662655,
+                    "w": 0.212033897746693
+                },
+                "tag": {
+                    "confidence": 0.9857677221298218,
+                    "value": "person"
+                }
+            },
+            "type": "entity"
+        },
+        {
+            "entity": {
+                "box": {
+                    "h": 0.3593513820482337,
+                    "l": 0.6868949751420454,
+                    "t": 0.6334065123374417,
+                    "w": 0.26539528586647726
+                },
+                "tag": {
+                    "confidence": 0.9851594567298889,
+                    "value": "person"
+                }
+            },
+            "type": "entity"
+        }
+    ]
+}
+```
 
 ### /annotate
 To see the bounding boxes overlaid on the image run the following command
