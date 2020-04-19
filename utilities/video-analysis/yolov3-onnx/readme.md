@@ -34,21 +34,36 @@ Get the IP address of the container by running the following command (replace gr
     docker inspect my_yolo_container | grep IPAddress
 ```
 
-Test the container using the following command
+Test the container using the following commands
+
+### /score
+To get a list of detected objected using the following command
 
 ```
    curl -X POST http://<my_yolo_container_ip_address>/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
-If everything worked as expected, you should see a JSON output with the list of detected objects.
-
+### /annotate
 To see the bounding boxes overlaid on the image run the following command
 
 ```
    curl -X POST http://<my_yolo_container_ip_address>/annotate -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg> --output out.jpeg
 ```
-
 If successful, you will see a file out.jpeg with bounding boxes overlaid on the input image.
+
+### /score-debug
+To get the list of detected objects and also generate an annotated image run the following command
+
+```
+   curl -X POST http://<my_yolo_container_ip_address>/score-debug -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+```
+If successful, you will see a list of detected objected in JSON. The annotated image will be genereated in the /app/images directory inside the container. You can copy the images out to your host machine by using the following command
+
+```
+   docker cp my_yolo_container:/app/images ./
+```
+The entire /images folder will be copied to ./images on your host machine. Image files have the following format dd_mm_yyyy_HH_MM_SS.jpeg
+
 
 ## Upload docker image to Azure container registry
 
