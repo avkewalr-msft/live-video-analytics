@@ -1,9 +1,9 @@
 
 # Live Video Analytics
 
-[Live Video Analytics](http://placeholder-url) (LVA) enables you to build intelligent video apps using custom AI models. LVA product documentation can be found on [Azure documentation page](http://linkto-LVA-documentation). This repository is a starting point to learn about and engage in LVA open source projects.
+Live Video Analytics (LVA) enables you to build intelligent video apps using custom AI models. LVA is currently offered to a limited set of qualified customers. If you are interested in learning more about LVA please send an email to amshelp@microsoft.com.
 
-This repository is not an official LVA support location, however, we will respond to issues filed here as best we can. Please file LVA product issues at [LVA/issues](https://github.com/Azure/live-video-analytics/issues).
+This repository is a starting point to learn about and engage in LVA open source projects.This repository is not an official LVA support location, however, we will respond to issues filed here as best we can. Please file LVA product issues at [LVA/issues](https://github.com/Azure/live-video-analytics/issues).
 
 ## Contributing
 This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
