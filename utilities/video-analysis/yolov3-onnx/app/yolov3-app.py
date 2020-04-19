@@ -38,7 +38,10 @@ def init():
             line = line.strip()
             tags.append(line) 
 
-    os.mkdir(output_dir)
+    if (os.path.exists(output_dir)):
+        print(output_dir + " already exits")
+    else:
+        os.mkdir(output_dir)
     
 
 def letterbox_image(image, size):
