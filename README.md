@@ -1,9 +1,15 @@
 
 # Live Video Analytics
 
-Live Video Analytics (LVA) enables you to build intelligent video apps using custom AI models. LVA is currently offered to a limited set of qualified customers. If you are interested in learning more about LVA please send an email to amshelp@microsoft.com.
+## Introduction
+Live video analytics (LVA) is an Azure platform service that is currently offered to a limited set of qualified customers. If you are interested in learning more about LVA, please send an email to <amshelp@microsoft.com>
 
-This repository is a starting point to learn about and engage in LVA open source projects.This repository is not an official LVA support location, however, we will respond to issues filed here as best we can. Please file LVA product issues at [LVA/issues](https://github.com/Azure/live-video-analytics/issues).
+LVA provides a platform for you to build intelligent video applications that span the edge and the cloud. The platform offers the capability to capture, record, analyze live video and publish the results (video and/or video analytics) to Azure services (in the cloud and/or the edge). The platform can be used to enhance IoT solutions with video analytics. 
+
+Live video analytics on IoT Edge functionality can be combined with other Azure edge modules such as Stream Analytics on IoT Edge, Cognitive Services on IoT Edge as well as Azure services in the cloud such as Media Services, Event Hub, Cognitive Services, etc. to build powerful hybrid (i.e. edge + cloud) applications. Live video analytics on IoT Edge is designed to be a pluggable platform, enabling you to plug video analysis edge modules (e.g. Cognitive services containers, custom edge modules built by you with open source machine learning models or custom models trained with your own data) and use them to analyze live video without worrying about the complexity of building and running a live video pipeline.
+
+## This repo
+This repository is a starting point to learn about and engage in LVA open source projects.This repository is not an official LVA product support location, however, we will respond to issues filed here as best we can. Please file LVA product issues at [LVA/issues](https://github.com/Azure/live-video-analytics/issues).
 
 ## Contributing
 This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
