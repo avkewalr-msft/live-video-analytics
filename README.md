@@ -9,6 +9,15 @@ LVA provides a platform for you to build intelligent video applications that spa
 ## Live video analytics on IoT Edge
 Live video analytics on IoT Edge is an [IoT Edge module](http://docs.microsoft.com/en-us/azure/marketplace/iot-edge-module). It offers functionality can be combined with other Azure edge modules such as Stream Analytics on IoT Edge, Cognitive Services on IoT Edge as well as Azure services in the cloud such as Media Services, Event Hub, Cognitive Services, etc. to build powerful hybrid (i.e. edge + cloud) applications. Live video analytics on IoT Edge is designed to be a pluggable platform, enabling you to plug video analysis edge modules (e.g. Cognitive services containers, custom edge modules built by you with open source machine learning models or custom models trained with your own data) and use them to analyze live video without worrying about the complexity of building and running a live video pipeline.
 
+With Live video analytics on IoT Edge, you can continue to use your CCTV cameras with your existing video management systems (VMS) and build video analytics apps independently. Live video analytics on IoT Edge can be used in conjunction with computer vision SDKs and toolkits such as Nvidia DeepStream, Intel OpenVINO, and others to build cutting edge hardware accelerated live video analytics enabled IoT solutions. The diagram below illustrates this.
+
+<br />
+<p align="center">
+  <img src="./images/LVA-product-diagram.png" title="LVA on IoT Edge"/>
+</p>
+<br />
+
+
 ## This repo
 This repository is a starting point to learn about and engage in LVA open source projects.This repository is not an official LVA product support location, however, we will respond to issues filed here as best we can. Please file LVA product issues at [LVA/issues](https://github.com/Azure/live-video-analytics/issues).
 
