@@ -14,3 +14,5 @@ A Media Graph has the following nodes:
 3.	A sink node, which represents delivery of the processing results outside the Media Graph
 
 Live video analytics enables you to manage media graphs via two entities – “Graph Topology” and “Graph Instance”. A Graph Topology enables you to define a blueprint of a Media Graph, with parameters as placeholders for values. This topology defines what nodes are used in the Media Graph, and how they are connected within it. A Graph Instance enables you to provide values for parameters in a Graph Topology. The graph instance can then be activated to enable the flow of data.
+
+You can learn more on the Media Graph concept page
