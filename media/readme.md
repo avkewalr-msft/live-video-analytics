@@ -20,7 +20,9 @@ The following files are from the MEVA dataset
 
 
 ## Other dataset
-* [Cars on freeway](https://lvamedia.blob.core.windows.net/public/camera-300s.mkv)
+* [Vehicles on freeway - 5 minutes](https://lvamedia.blob.core.windows.net/public/camera-300s.mkv)
+* [Vehicles on freeway - 30 minutes](https://lvamedia.blob.core.windows.net/public/camera-1800s.mkv)
+* [Vehicles on freeway - 60 minutes](https://lvamedia.blob.core.windows.net/public/camera-3600s.mkv)
 * [Toy Car Training Dataset](https://lvamedia.blob.core.windows.net/public/ToyCarTrainingImages.zip)
 * [Toy Car Inference Video](https://lvamedia.blob.core.windows.net/public/t2.mkv)
 
