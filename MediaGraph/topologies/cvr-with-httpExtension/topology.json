@@ -1,6 +1,6 @@
 {
     "@apiVersion": "1.0",
-    "name": "CVRWithGraphExtension",
+    "name": "CVRWithHttpExtension",
     "properties": {
       "description": "CVR and inferencing through HTTP Graph Extension",
   

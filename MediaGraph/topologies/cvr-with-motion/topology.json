@@ -1,6 +1,6 @@
 {
     "@apiVersion": "1.0",
-    "name": "CVRWithMD",
+    "name": "CVRWithMotionDetection",
     "properties": {
         "description": "CVR with motion detection on incoming live video stream",
         "parameters": [

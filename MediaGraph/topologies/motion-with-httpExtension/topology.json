@@ -1,8 +1,8 @@
 {
     "@apiVersion": "1.0",
-    "name": "YoloV3Inferencing2",
+    "name": "RecordOnMotionWithHttpExtension",
     "properties": {
-      "description": "Inference through HTTP Extension",
+      "description": "Record on motion to AMS Asset and record events from external models through HTTP Extension",
       "parameters": [
         {
             "name": "rtspUserName",
@@ -22,37 +22,23 @@
             "description": "rtsp Url"
         },
         {
-            "name": "inferencingUrl",
+            "name": "motionSensitivity",
             "type": "String",
-            "description": "inferencing Url",
-            "default" : "http://yolov3/score"
+            "description": "motion detection sensitivity",
+            "default" : "medium"
         },
         {
-            "name": "inferencingUserName",
+            "name": "hubSinkOutputName",
             "type": "String",
-            "description": "inferencing endpoint user name.",
-            "default": "dummyUserName"
-        },
-        {
-            "name": "inferencingPassword",
-            "type": "String",
-            "description": "inferencing endpoint password.",
-            "default" : "dummyPassword"
-        },          
-        {
-            "name" : "imageEncoding",
-            "type" : "String",
-            "description" : "image encoding for frames",
-            "default" : "bmp"
-        }
-    ],          
+            "description": "hub sink output name",
+            "default" : "iothubsinkoutput"
+        }                              
+    ],         
 
       "sources": [
-
         {
           "@type": "#Microsoft.Media.MediaGraphRtspSource",
           "name": "rtspSource",
-          "transport": "tcp",
           "endpoint": {
             "@type": "#Microsoft.Media.MediaGraphClearEndpoint",
             "url": "${rtspUrl}",
@@ -60,33 +46,48 @@
               "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",
               "username": "${rtspUserName}",
               "password": "${rtspPassword}"
-            }
+  }
           }
         }
       ],
-        
       "processors": [
         {
-          "@type": "#Microsoft.Media.MediaGraphFrameRateFilterProcessor",
-          "name": "frameRateFilter",
+          "@type": "#Microsoft.Media.MediaGraphMotionDetector",
+          "name": "md",
+          "sensitivity": "${motionSensitivity}",
           "inputs": [
             {
               "moduleName": "rtspSource"
             }
-          ],
-          "maximumFps": 2
+          ]
         },
         {
-          
+          "@type": "#Microsoft.Media.MediaGraphSignalGateProcessor",
+          "name": "signalGateProcessor",
+          "inputs": [
+            {
+              "moduleName": "md"
+            },
+            {
+              "moduleName": "rtspSource"
+            }
+          ],
+          "activationEvaluationWindow": "PT1S",
+          "activationSignalOffset": "PT0S",
+          "minimumActivationTime": "PT30S",
+          "maximumActivationTime": "PT30S"
+        },
+        {
+          // gRPC Extension
           "@type": "#Microsoft.Media.MediaGraphHttpExtension",
           "name": "httpExtension",
           "endpoint": {
             "@type": "#Microsoft.Media.MediaGraphClearEndpoint",
-            "url": "${inferencingUrl}",
+            "url": "http://yolov3/score",
             "credentials": {
              "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",
-              "username": "${inferencingUserName}",
-              "password": "${inferencingPassword}"
+              "username": "user",
+              "password": "test123"
             }
           },
           "image": {
@@ -97,22 +98,31 @@
             },
             "format": {
               "@type": "#Microsoft.Media.MediaGraphImageFormatEncoded",
-              "encoding": "${imageEncoding}"
+              "encoding": "bmp"
             }
           },
           "inputs": [
             {
-              "moduleName": "frameRateFilter"
+              "moduleName": "md"
             }
           ]
-        }
+        }		
       ],
-  
       "sinks": [
+        {
+          "@type": "#Microsoft.Media.MediaGraphAssetSink",
+          "name": "assetSink",
+          "assetNamePattern": "assetMD-${System.DateTime}",
+          "inputs": [
+            {
+              "moduleName": "signalGateProcessor"
+            }
+          ]
+        },
         {
           "@type": "#Microsoft.Media.MediaGraphIoTHubMessageSink",
           "name": "hubSink",
-          "hubOutputName": "inferences",
+          "hubOutputName": "${hubSinkOutputName}",
           "inputs": [
             {
               "moduleName": "httpExtension"
@@ -122,4 +132,3 @@
       ]
     }
   }
-  

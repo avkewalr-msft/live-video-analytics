@@ -1,6 +1,6 @@
 {
     "@apiVersion": "1.0",
-    "name": "RecordAssetOnMD",
+    "name": "RecordAssetsOnMotionDetecion",
     "properties": {
       "description": "Record AMS Asset on motion detection",
       "parameters": [
