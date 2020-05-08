@@ -27,12 +27,12 @@
                 "description": "motion detection sensitivity",
                 "default": "medium"
             },
-			{
-				"name" : "hubSourceInput",
-				"type" : "String",
-				"description" : "input name for hub source",
-				"default" : "recordingTrigger"
-			},
+	    {
+		"name" : "hubSourceInput",
+		"type" : "String",
+		"description" : "input name for hub source",
+		"default" : "recordingTrigger"
+	    },
             {
                 "name": "fileSinkOutputName",
                 "type": "String",
