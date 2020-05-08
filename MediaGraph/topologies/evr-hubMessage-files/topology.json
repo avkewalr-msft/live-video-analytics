@@ -88,16 +88,6 @@
           }
         ],
         "filePathPattern": "/var/media/video-${System.DateTime}"
-      },
-      {
-        "@type": "#Microsoft.Media.MediaGraphIoTHubMessageSink",
-        "name": "hubSink",
-        "hubOutputName": "iothubsinkoutput",
-        "inputs": [
-          {
-            "moduleName": "iotMessageSource"
-          }
-        ]
       }
     ]
   }
