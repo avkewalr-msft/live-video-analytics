@@ -2,7 +2,7 @@
   "@apiVersion": "1.0",
   "name": "RecordOnSignalFileSink",
   "properties": {
-    "description": "Record on signal to file sink and capture signal event on hub",
+    "description": "Record on signal from IotHub to file sink",
         "parameters": [
             {
                 "name": "rtspUserName",
