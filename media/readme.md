@@ -16,7 +16,17 @@ The following files are from the MEVA dataset
 * [Cafeteria 3](https://lvamedia.blob.core.windows.net/public/2018-03-07.16-50-00.16-55-00.school.G421.mkv)
 
 
+## OTW dataset
+[OTW dataset](https://stresearch.github.io/otw/) The Out the Window (OTW) dataset is a crowdsourced activity dataset containing 5,668 instances of 17 activities from the NIST Activities in Extended Video (ActEV) challenge. This dataset was introduced by the following paper:
 
+G. Castanon, N. Shnidman, T. Anderson and J. Byrne, Out the Window: A Crowd-Sourced Dataset for Activity Classification in Security Video, arXiv:1908.10899v2, 2019
+
+It is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Please see [OTW](https://stresearch.github.io/otw/) for more information.
+
+* [Parking lot 1](https://lvamedia.blob.core.windows.net/public/lots_284.mkv)
+* [Parking lot 2](https://lvamedia.blob.core.windows.net/public/lots_015.mkv)
+* [Home 1](https://lvamedia.blob.core.windows.net/public/homes_00425.mkv)
+* [Home 2](https://lvamedia.blob.core.windows.net/public/homes_00477.mkv)
 
 
 ## Other dataset
