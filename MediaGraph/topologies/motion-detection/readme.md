@@ -1,9 +1,9 @@
-# Detect motion and output events
+# Analyzing live video to detect motion and emit events
 
-This topology enables you to detect motion in the video stream and publish such events to the IoT Hub
+The video from an RTSP-capable camera is analyzed for the presence of motion. When motion is detected, those events are published to the IoT Hub. 
 
 <br>
 <p align="center">
-  <img src="./topology.png" title="Detect motion and publish events to Hub"/>
+  <img src="./topology.png" title="Analyzing live video to detect motion and emit events"/>
 </p>
 <br>

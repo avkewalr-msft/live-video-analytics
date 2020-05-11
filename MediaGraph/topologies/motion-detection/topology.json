@@ -2,7 +2,7 @@
     "@apiVersion": "1.0",
     "name": "MotionDetection",
     "properties": {
-        "description": "Motion detection on incoming live video stream",
+        "description": "Analyzing live video to detect motion and emit events",
         "parameters": [
             {
                 "name": "rtspUserName",
@@ -39,7 +39,7 @@
         ],
         "processors": [
             {
-                "@type": "#Microsoft.Media.MediaGraphMotionDetector",
+                "@type": "#Microsoft.Media.MediaGraphMotionDetectionProcessor",
                 "name": "md",
                 "sensitivity": "medium",
                 "inputs": [

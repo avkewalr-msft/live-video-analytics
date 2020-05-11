@@ -1,9 +1,9 @@
-# HTTP Graph extension for inferencing
+# Analyzing live video using HTTP Extension to send images to an external inference engine 
 
-This topology enables you to extend the Media graph by interfacing it with an External AI module. In addition the graph collects the inference events from the external AI module and publishes them onto the Hub. You can read more about the scenario in this documentation page.
+This topology enables you to run video analytics on a live feed from an RTSP-capable camera. A subset of the video frames from the camera (as controlled by the Frame Rate Filter) are converted to images, and sent to an external AI inference engine. The results are then published to the IoT Hub.
 
 <br>
 <p align="center">
-  <img src="./topology.png" title="Analyze video via external AI and publish inference events to Hub"/>
+  <img src="./topology.png" title="Analyzing live video using HTTP Extension to send images to an external inference engine"/>
 </p>
 <br>

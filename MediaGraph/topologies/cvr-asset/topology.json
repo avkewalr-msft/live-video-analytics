@@ -2,7 +2,7 @@
     "name": "ContinuousVideoRecordingToAMSAsset",
     "@apiVersion": "1.0",
     "properties": {
-        "description": "Record video continuously to an asset",
+        "description": "Continuous video recording to an Azure Media Services Asset",
         "parameters": [
             {
                 "name": "rtspUserName",
@@ -42,7 +42,10 @@
             {
                 "@type": "#Microsoft.Media.MediaGraphAssetSink",
                 "name": "assetSink",
-                "assetNamePattern": "sampleAssetFromLVAEdge-${System.DateTime}",
+                "assetNamePattern": "sampleAssetFromCVR-LVAEdge-${System.DateTime}",
+                "segmentLength": "PT0M30S",
+                "localMediaCacheMaximumSizeMb": "2048",
+                "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
                 "inputs": [
                     {
                         "moduleName": "rtspSource"
