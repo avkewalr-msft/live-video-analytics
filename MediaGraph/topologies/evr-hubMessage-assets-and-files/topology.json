@@ -1,13 +1,14 @@
 {
     "@apiVersion": "1.0",
-    "name": "RecordAssetsandFilesOnObjectSignal",
+    "name": "EVRtoAssetsAndFilesBasedOnDetectingSpecificObject",
     "properties": {
-        "description": "Record to cloud and local file system when desired object is found",
+        "description": "Event-based video recording to Assets and to local filesystem, based on specific objects being detected by external inference engine",
         "parameters": [
             {
                 "name": "camName",
                 "type": "String",
-                "description": "Camera Name"
+                "description": "Camera Name",
+                "default": "dummyCameraName"
             },
             {
                 "name": "rtspUserName",
@@ -96,7 +97,7 @@
                     }
                 ],
                 "activationEvaluationWindow": "PT1S",
-                "activationSignalOffset": "-PT10S",
+                "activationSignalOffset": "-PT5S",
                 "minimumActivationTime": "PT30S",
                 "maximumActivationTime": "PT30S"
             },
@@ -112,7 +113,7 @@
                     }
                 ],
                 "activationEvaluationWindow": "PT1S",
-                "activationSignalOffset": "-PT10S",
+                "activationSignalOffset": "-PT5S",
                 "minimumActivationTime": "PT30S",
                 "maximumActivationTime": "PT30S"
             },
@@ -170,7 +171,10 @@
             {
                 "@type": "#Microsoft.Media.MediaGraphAssetSink",
                 "name": "assetSink",
-                "assetNamePattern": "evr-${camName}-${System.DateTime}",
+                "assetNamePattern": "sampleAssetsFromEVR-${camName}-${System.DateTime}",
+                "segmentLength": "PT0M30S",
+                "localMediaCacheMaximumSizeMb": "2048",
+                "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
                 "inputs": [
                     {
                         "moduleName": "signalGateProcessor"
@@ -179,13 +183,13 @@
             },
             {
                 "@type": "#Microsoft.Media.MediaGraphFileSink",
-                "name": "filesink",
+                "name": "fileSink",
                 "inputs": [
                     {
                         "moduleName": "signalGateProcessor2"
                     }
                 ],
-                "filePathPattern": "/var/media/video-${camName}-${System.DateTime}"
+                "filePathPattern": "/var/media/sampleFilesFromEVR-${camName}-${System.DateTime}"
             }
         ]
     }

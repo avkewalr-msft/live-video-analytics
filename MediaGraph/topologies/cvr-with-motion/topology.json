@@ -2,7 +2,7 @@
     "@apiVersion": "1.0",
     "name": "CVRWithMotionDetection",
     "properties": {
-        "description": "CVR with motion detection on incoming live video stream",
+        "description": "Continuous video recording with Motion Detection",
         "parameters": [
             {
                 "name": "rtspUserName",
@@ -51,7 +51,7 @@
         ],
         "processors": [
             {
-                "@type": "#Microsoft.Media.MediaGraphMotionDetector",
+                "@type": "#Microsoft.Media.MediaGraphMotionDetectionProcessor",
                 "name": "md",
                 "sensitivity": "${motionSensitivity}",
                 "inputs": [
@@ -74,8 +74,11 @@
             },
             {
                 "@type": "#Microsoft.Media.MediaGraphAssetSink",
-                "name": "assetSink",                
-                "assetNamePattern": "cvrMDAsset-${System.DateTime}",
+                "name": "assetSink",
+                "assetNamePattern": "sampleAssetFromCVR-LVAEdge-${System.DateTime}",
+                "segmentLength": "PT0M30S",
+                "localMediaCacheMaximumSizeMb": "2048",
+                "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",   
                 "inputs": [
                     {
                         "moduleName": "rtspSource"
