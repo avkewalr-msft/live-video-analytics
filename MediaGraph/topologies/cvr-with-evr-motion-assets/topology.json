@@ -57,7 +57,7 @@
                 "sensitivity": "medium",
                 "inputs": [
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ]
             },
@@ -66,16 +66,16 @@
                 "name": "signalGateProcessor",
                 "inputs": [
                     {
-                        "moduleName": "md"
+                        "nodeName": "md"
                     },
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ],
                 "activationEvaluationWindow": "PT1S",
                 "activationSignalOffset": "PT0S",
-                "minimumActivationTime": "PT5S",
-                "maximumActivationTime": "PT5S"
+                "minimumActivationTime": "PT15S",
+                "maximumActivationTime": "PT15S"
             }
         ],
         "sinks": [
@@ -88,7 +88,7 @@
                 "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
                 "inputs": [
                     {
-                        "moduleName": "signalGateProcessor"
+                        "nodeName": "signalGateProcessor"
                     }
                 ]
             },
@@ -101,7 +101,7 @@
                 "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
                 "inputs": [
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ]
             },
@@ -111,7 +111,7 @@
                 "hubOutputName": "iothubsinkoutput",
                 "inputs": [
                     {
-                        "moduleName": "md"
+                        "nodeName": "md"
                     }
                 ]
             }
