@@ -83,7 +83,7 @@
           "name": "frameRateFilter",
           "inputs": [
             {
-              "moduleName": "rtspSource"
+              "nodeName": "rtspSource"
             }
           ],
           "maximumFps": 1
@@ -114,7 +114,7 @@
           },
           "inputs": [
             {
-              "moduleName": "frameRateFilter"
+              "nodeName": "frameRateFilter"
             }
           ]
         }
@@ -127,7 +127,7 @@
           "hubOutputName": "${hubSinkOutputName}",
           "inputs": [
             {
-              "moduleName": "httpExtension"
+              "nodeName": "httpExtension"
             }
           ]
         },
@@ -140,7 +140,7 @@
             "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
             "inputs": [
                 {
-                    "moduleName": "rtspSource"
+                    "nodeName": "rtspSource"
                 }
             ]
         }                    

@@ -56,7 +56,7 @@
                 "sensitivity": "${motionSensitivity}",
                 "inputs": [
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ]
             }
@@ -68,7 +68,7 @@
                 "hubOutputName": "${hubSinkOutputName}",
                 "inputs": [
                     {
-                        "moduleName": "md"
+                        "nodeName": "md"
                     }
                 ]
             },
@@ -81,7 +81,7 @@
                 "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",   
                 "inputs": [
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ]
             }            
