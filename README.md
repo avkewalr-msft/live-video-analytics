@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Live video analytics (LVA) is an Azure platform service that is currently offered to a limited set of qualified customers. If you are interested in learning more about LVA, please send an email to <amshelp@microsoft.com>
+Live video analytics (LVA) is a new capability of Azure Media Services that is currently offered to a limited set of qualified customers. If you are interested in learning more about LVA, please send an email to <amshelp@microsoft.com>
 
 LVA provides a platform for you to build intelligent video applications that span the edge and the cloud. The platform offers the capability to capture, record, analyze live video and publish the results (video and/or video analytics) to Azure services (in the cloud and/or the edge). The platform can be used to enhance IoT solutions with video analytics. 
 
