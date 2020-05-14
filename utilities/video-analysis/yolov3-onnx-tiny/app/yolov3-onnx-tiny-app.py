@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 import io
 import onnxruntime
+import json
 
 # Imports for the REST API
 from flask import Flask, request, jsonify, Response
@@ -92,11 +93,15 @@ def score():
         # Infer Image
         detectedObjects = yolo.Score(cvImage)
 
-        respBody = {                    
-                    "inferences" : detectedObjects
-                   }                   
-        
-        return respBody
+        if len(detectedObjects) > 0:
+            respBody = {                    
+                        "inferences" : detectedObjects
+                    }
+
+            respBody = json.dumps(respBody)
+            return Response(respBody, status= 200, mimetype ='application/json')
+        else:
+            return Response(status= 204)
 
     except:
         return Response(response='Error processing image', status=500)

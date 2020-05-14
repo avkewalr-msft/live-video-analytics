@@ -171,11 +171,16 @@ def score():
         inference_duration, detected_objects = processImage(img)
         print('Inference duration was ', str(inference_duration))
 
-        respBody = {                    
-                    "inferences" : detected_objects
-                    }                   
-        
-        return respBody
+        if len(detected_objects) > 0:
+            respBody = {                    
+                        "inferences" : detected_objects
+                    }
+
+            respBody = json.dumps(respBody)
+            return Response(respBody, status= 200, mimetype ='application/json')
+        else:
+            return Response(status= 204)
+
     except Exception as e:
         print('EXCEPTION:', str(e))
         return Response(response='Error processing image', status= 500)
