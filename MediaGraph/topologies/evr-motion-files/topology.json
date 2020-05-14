@@ -31,7 +31,7 @@
                 "name": "fileSinkOutputName",
                 "type": "String",
                 "description": "file sink output name",
-                "default": "filesinkoutput"
+                "default": "filesinkOutput"
             }
         ],
         "sources": [
@@ -52,7 +52,7 @@
         "processors": [
             {
                 "@type": "#Microsoft.Media.MediaGraphMotionDetectionProcessor",
-                "name": "md",
+                "name": "motionDetection",
                 "sensitivity": "${motionSensitivity}",
                 "inputs": [
                     {
@@ -65,7 +65,7 @@
                 "name": "signalGateProcessor",
                 "inputs": [
                     {
-                        "nodeName": "md"
+                        "nodeName": "motionDetection"
                     },
                     {
                         "nodeName": "rtspSource"

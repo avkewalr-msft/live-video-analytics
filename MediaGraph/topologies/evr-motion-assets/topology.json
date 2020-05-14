@@ -31,7 +31,7 @@
             "name": "hubSinkOutputName",
             "type": "String",
             "description": "hub sink output name",
-            "default" : "iothubsinkoutput"
+            "default" : "inferenceOutput"
         }                              
     ],         
 
@@ -53,11 +53,11 @@
       "processors": [
         {
           "@type": "#Microsoft.Media.MediaGraphMotionDetectionProcessor",
-          "name": "md",
+          "name": "motionDetection",
           "sensitivity": "${motionSensitivity}",
           "inputs": [
             {
-              "moduleName": "rtspSource"
+              "nodeName": "rtspSource"
             }
           ]
         },
@@ -66,10 +66,10 @@
           "name": "signalGateProcessor",
           "inputs": [
             {
-              "moduleName": "md"
+              "nodeName": "motionDetection"
             },
             {
-              "moduleName": "rtspSource"
+              "nodeName": "rtspSource"
             }
           ],
           "activationEvaluationWindow": "PT1S",
@@ -83,12 +83,12 @@
           "@type": "#Microsoft.Media.MediaGraphAssetSink",
           "name": "assetSink",
           "assetNamePattern": "sampleAssetFromEVR-LVAEdge-${System.DateTime}",
-          "segmentLength": "PT0M30S",
+          "segmentLength": "PT30S",
           "localMediaCacheMaximumSizeMb": "2048",
           "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
           "inputs": [
             {
-              "moduleName": "signalGateProcessor"
+              "nodeName": "signalGateProcessor"
             }
           ]
         },
@@ -98,7 +98,7 @@
           "hubOutputName": "${hubSinkOutputName}",
           "inputs": [
             {
-              "moduleName": "md"
+              "nodeName": "motionDetection"
             }
           ]
         }

@@ -40,11 +40,11 @@
         "processors": [
             {
                 "@type": "#Microsoft.Media.MediaGraphMotionDetectionProcessor",
-                "name": "md",
+                "name": "motionDetection",
                 "sensitivity": "medium",
                 "inputs": [
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ]
             }
@@ -53,10 +53,10 @@
             {
                 "@type": "#Microsoft.Media.MediaGraphIoTHubMessageSink",
                 "name": "hubSink",
-                "hubOutputName": "iothubsinkoutput",
+                "hubOutputName": "inferenceOutput",
                 "inputs": [
                     {
-                        "moduleName": "md"
+                        "nodeName": "motionDetection"
                     }
                 ]
             }

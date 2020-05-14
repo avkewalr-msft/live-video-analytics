@@ -50,7 +50,7 @@
           "name": "hubSinkOutputName",
           "type": "String",
           "description": "hub sink output name",
-          "default" : "inferencing"
+          "default" : "inferenceOutput"
       },
       {
         "name" : "assetName",
@@ -135,7 +135,7 @@
             "@type": "#Microsoft.Media.MediaGraphAssetSink",
             "name": "assetSink",
             "assetNamePattern": "${assetName}-${System.DateTime}",
-            "segmentLength": "PT0M30S",
+            "segmentLength": "PT30S",
             "localMediaCacheMaximumSizeMb": "2048",
             "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
             "inputs": [
@@ -147,4 +147,3 @@
       ]
     }
   }
-  
