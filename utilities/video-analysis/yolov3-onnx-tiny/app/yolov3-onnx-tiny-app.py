@@ -101,7 +101,7 @@ def score():
             respBody = json.dumps(respBody)
             return Response(respBody, status= 200, mimetype ='application/json')
         else:
-            return Response(json.dumps({}), status= 204, mimetype ='application/json')
+            return Response(status= 204)
 
     except:
         return Response(response='Error processing image', status=500)
