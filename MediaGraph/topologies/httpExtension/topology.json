@@ -107,7 +107,7 @@
       {
         "@type": "#Microsoft.Media.MediaGraphIoTHubMessageSink",
         "name": "hubSink",
-        "hubOutputName": "inferences",
+        "hubOutputName": "inferenceOutput",
         "inputs": [
           {
             "nodeName": "httpExtension"

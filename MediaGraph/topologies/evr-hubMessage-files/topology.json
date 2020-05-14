@@ -37,7 +37,7 @@
                 "name": "fileSinkOutputName",
                 "type": "String",
                 "description": "file sink output name",
-                "default": "filesinkoutput"
+                "default": "filesinkOutput"
             }
         ],
 		"sources": [

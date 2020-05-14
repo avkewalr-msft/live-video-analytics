@@ -31,7 +31,7 @@
                 "name": "hubSinkOutputName",
                 "type": "String",
                 "description": "hub sink output name",
-                "default": "iothubsinkoutput"
+                "default": "inferenceOutput"
             }
         ],
         "sources": [
@@ -83,7 +83,7 @@
                 "@type": "#Microsoft.Media.MediaGraphAssetSink",
                 "name": "assetSinkEVR",
                 "assetNamePattern": "sampleAssetFromEVR-LVAEdge-${System.DateTime}",
-                "segmentLength": "PT0M30S",
+                "segmentLength": "PT30S",
                 "localMediaCacheMaximumSizeMb": "2048",
                 "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
                 "inputs": [
@@ -96,7 +96,7 @@
                 "@type": "#Microsoft.Media.MediaGraphAssetSink",
                 "name": "assetSinkCVR",
                 "assetNamePattern": "sampleAssetFromCVR-LVAEdge-${System.DateTime}",
-                "segmentLength": "PT0M30S",
+                "segmentLength": "PT30S",
                 "localMediaCacheMaximumSizeMb": "2048",
                 "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
                 "inputs": [
@@ -108,7 +108,7 @@
             {
                 "@type": "#Microsoft.Media.MediaGraphIoTHubMessageSink",
                 "name": "hubSink",
-                "hubOutputName": "iothubsinkoutput",
+                "hubOutputName": "inferenceOutput",
                 "inputs": [
                     {
                         "nodeName": "motionDetection"

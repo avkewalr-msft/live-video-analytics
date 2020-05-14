@@ -53,7 +53,7 @@
             {
                 "@type": "#Microsoft.Media.MediaGraphIoTHubMessageSink",
                 "name": "hubSink",
-                "hubOutputName": "iothubsinkoutput",
+                "hubOutputName": "inferenceOutput",
                 "inputs": [
                     {
                         "nodeName": "motionDetection"
