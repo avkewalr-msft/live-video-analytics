@@ -56,7 +56,7 @@
                 "sensitivity": "${motionSensitivity}",
                 "inputs": [
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ]
             },
@@ -65,10 +65,10 @@
                 "name": "signalGateProcessor",
                 "inputs": [
                     {
-                        "moduleName": "md"
+                        "nodeName": "md"
                     },
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ],
                 "activationEvaluationWindow": "PT1S",
@@ -83,7 +83,7 @@
                 "name": "fileSink",
                 "inputs": [
                     {
-                        "moduleName": "signalGateProcessor"
+                        "nodeName": "signalGateProcessor"
                     }
                 ],
                 "filePathPattern": "/var/media/sampleFilesFromEVR-${fileSinkOutputName}-${System.DateTime}"
