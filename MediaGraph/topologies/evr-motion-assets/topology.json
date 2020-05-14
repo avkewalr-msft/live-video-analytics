@@ -57,7 +57,7 @@
           "sensitivity": "${motionSensitivity}",
           "inputs": [
             {
-              "moduleName": "rtspSource"
+              "nodeName": "rtspSource"
             }
           ]
         },
@@ -66,10 +66,10 @@
           "name": "signalGateProcessor",
           "inputs": [
             {
-              "moduleName": "md"
+              "nodeName": "md"
             },
             {
-              "moduleName": "rtspSource"
+              "nodeName": "rtspSource"
             }
           ],
           "activationEvaluationWindow": "PT1S",
@@ -88,7 +88,7 @@
           "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
           "inputs": [
             {
-              "moduleName": "signalGateProcessor"
+              "nodeName": "signalGateProcessor"
             }
           ]
         },
@@ -98,7 +98,7 @@
           "hubOutputName": "${hubSinkOutputName}",
           "inputs": [
             {
-              "moduleName": "md"
+              "nodeName": "md"
             }
           ]
         }

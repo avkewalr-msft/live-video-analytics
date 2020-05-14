@@ -44,7 +44,7 @@
                 "sensitivity": "medium",
                 "inputs": [
                     {
-                        "moduleName": "rtspSource"
+                        "nodeName": "rtspSource"
                     }
                 ]
             }
@@ -56,7 +56,7 @@
                 "hubOutputName": "iothubsinkoutput",
                 "inputs": [
                     {
-                        "moduleName": "md"
+                        "nodeName": "md"
                     }
                 ]
             }

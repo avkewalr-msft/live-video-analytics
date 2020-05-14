@@ -1,6 +1,6 @@
 {
   "@apiVersion": "1.0",
-  "name": "EVRtoFilesBasedOnHubSourceMessages",
+  "name": "EVRtoFilesBasedOnHubMessages",
   "properties": {
     "description": "Event-based recording of video to files based on messages from via hub source",
         "parameters": [
@@ -66,10 +66,10 @@
         "name": "signalGateProcessor",
         "inputs": [
           {
-            "moduleName": "iotMessageSource"
+            "nodeName": "iotMessageSource"
           },
           {
-            "moduleName": "rtspSource"
+            "nodeName": "rtspSource"
           }
         ],
         "activationEvaluationWindow": "PT1S",
@@ -84,7 +84,7 @@
         "name": "fileSink",
         "inputs": [
           {
-            "moduleName": "signalGateProcessor"
+            "nodeName": "signalGateProcessor"
           }
         ],
         "filePathPattern": "/var/media/sampleFilesFromEVR-${System.DateTime}"

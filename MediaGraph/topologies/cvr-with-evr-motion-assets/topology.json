@@ -1,6 +1,6 @@
 {
     "@apiVersion": "1.0",
-    "name": "CVRAndEVROnMotionDetectiontoAssets",
+    "name": "CVRAndEVROnMotiontoAssets",
     "properties": {
         "description": "Continuous video recording and motion event-based recording to Azure Media Service Assets",
         "parameters": [
