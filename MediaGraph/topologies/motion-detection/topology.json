@@ -40,7 +40,7 @@
         "processors": [
             {
                 "@type": "#Microsoft.Media.MediaGraphMotionDetectionProcessor",
-                "name": "md",
+                "name": "motionDetection",
                 "sensitivity": "medium",
                 "inputs": [
                     {
@@ -56,7 +56,7 @@
                 "hubOutputName": "iothubsinkoutput",
                 "inputs": [
                     {
-                        "nodeName": "md"
+                        "nodeName": "motionDetection"
                     }
                 ]
             }
