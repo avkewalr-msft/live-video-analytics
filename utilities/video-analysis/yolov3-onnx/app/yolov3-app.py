@@ -179,7 +179,7 @@ def score():
             respBody = json.dumps(respBody)
             return Response(respBody, status= 200, mimetype ='application/json')
         else:
-            return Response(json.dumps({}), status= 204, mimetype ='application/json')
+            return Response(status= 204)
 
     except Exception as e:
         print('EXCEPTION:', str(e))
