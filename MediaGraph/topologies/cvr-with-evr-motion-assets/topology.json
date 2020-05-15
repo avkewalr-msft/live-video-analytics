@@ -1,8 +1,10 @@
 {
     "@apiVersion": "1.0",
-    "name": "CVRAndEVROnMotiontoAssets",
+
+    "name": "CVRAndEVROnMotiontoFiles",
+
     "properties": {
-        "description": "Continuous video recording and motion event-based recording to Azure Media Service Assets",
+        "description": "Continuous video recording and motion event-based recording to file",
         "parameters": [
             {
                 "name": "rtspUserName",
@@ -79,18 +81,16 @@
             }
         ],
         "sinks": [
+          
             {
-                "@type": "#Microsoft.Media.MediaGraphAssetSink",
-                "name": "assetSinkEVR",
-                "assetNamePattern": "sampleAssetFromEVR-LVAEdge-${System.DateTime}",
-                "segmentLength": "PT30S",
-                "localMediaCacheMaximumSizeMb": "2048",
-                "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
+                "@type": "#Microsoft.Media.MediaGraphFileSink",
+                "name": "fileSink",
                 "inputs": [
-                    {
-                        "nodeName": "signalGateProcessor"
-                    }
-                ]
+                  {
+                    "nodeName": "signalGateProcessor"
+                  }
+                ],
+                "filePathPattern": "/var/media/sampleFilesFromEVR-${System.DateTime}"
             },
             {
                 "@type": "#Microsoft.Media.MediaGraphAssetSink",
