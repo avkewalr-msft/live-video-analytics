@@ -61,6 +61,16 @@
         ]
       },
       {
+        "@type": "#Microsoft.Media.MediaGraphFrameRateFilterProcessor",
+        "name": "frameRateFilter",
+        "inputs": [
+          {
+            "nodeName": "motionDetection"
+          }
+        ],
+        "maximumFps": 2
+      },
+      {
         "@type": "#Microsoft.Media.MediaGraphSignalGateProcessor",
         "name": "signalGateProcessor",
         "inputs": [
@@ -101,7 +111,7 @@
         },
         "inputs": [
           {
-            "nodeName": "motionDetection"
+            "nodeName": "frameRateFilter"
           }
         ]
       }
