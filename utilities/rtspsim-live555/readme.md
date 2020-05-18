@@ -5,19 +5,19 @@ The following instructions enable using [Live555 Media Server](http://www.live55
 Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provide rights for the third-party software. For more information on third-party software please see [Live555 Media Server](http://www.live555.com/mediaServer/).
 
 ## Prerequisites
+
 1. [Install Docker](http://docs.docker.com/docker-for-windows/install/) on your machine
 2. Install a RTSP player such as [VLC Media Player](http://www.videolan.org/vlc/) on your machine. This will be useful for testing.
 
 ## Building the docker container
 
-1. Create a new directory on your machine and copy Dockerfile and win10.mkv from this GitHub folder to that directory.
-2. Build the container image (should take around 10 minutes or less) by running the following docker command from a command window in that directory
+Build the container image (should take around 10 minutes or less) by running the following docker command from a command window in that directory
 
-    ```powershell
+```powershell
     docker build . -t live555:latest
-    ```
+```
 
-    The build may generate warnings, but they should not prevent the server from working.
+The build may generate warnings, but they should not prevent the server from working.
 
 ## Running and Testing
 
@@ -26,7 +26,6 @@ Run the container using the following docker command
 ```powershell
     docker run -p 554:554  -i live555:latest
 ```
-
 
 Test the stream using a RTSP media player such as [VLC media player](https://www.videolan.org/vlc/)
 
@@ -56,19 +55,19 @@ Note that only file formats supported by Live555 will work. Further, in order to
 Once you are done, stop the docker container by executing the following commands
 
 ```powershell
-    docker ps -a 
+    docker ps -a
 ```
 
 This will enumerate all the containers. Copy the container id of the live555:latest container
 
 ```powershell
-    docker stop <container-id> 
+    docker stop <container-id>
 ```
 
 Once stopped, you can remove the container with the following command
 
 ```powershell
-    docker rm <container-id> 
+    docker rm <container-id>
 ```
 
 ## Upload docker image to Azure container registry
@@ -83,7 +82,7 @@ Follow the instructions in [Deploy module from Azure portal](https://docs.micros
 
 To play videos from an RTSP client, you will need to bind the container port to a host port and mount a local media folder to the /media folder. You can do this by specifying the following in the "Container Create Options"
 
-```
+```JSON
     {
         "HostConfig": {
             "Binds": [
@@ -99,6 +98,7 @@ To play videos from an RTSP client, you will need to bind the container port to 
         }
      }
 ```
+
 Note: after you have reviewed and created the IoT Edge module, on your Edge device, you can run "sudo docker ps -a" to list the available containers. The "live555" container should be in that list, and it should have an entry such as "0.0.0.0:5001->554/tcp" under the PORTS column.
 
 You can now play a video file, in the appropriate format, (located in local_media_folder) on the IoT Edge device using a RTSP media player such as [VLC media player](https://www.videolan.org/vlc/)
