@@ -13,22 +13,17 @@ Note: References to third-party software in this repo are for informational and 
 1. Create a new directory on your machine and copy all the files (including the sub-folders) from this GitHub folder to that directory.
 2. Build the container image (should take some minutes) by running the following docker command from a command window in that directory
 
-    ```
-    docker build . -t yolov3-onnx-tiny:latest
-    ```
+```bash
+docker build . -t yolov3-onnx-tiny:latest
+```
     
 ## Running and testing
 REST endpoint accepts image with the size of 416 pixels by 416 pixels. This is requirement by YoloV3 model. Since LVA edge module is capable of sending specified size image in specified format, we are not preprocessing the incoming images for resize them. This is mainly because performance improvement.
 
 Run the container using the following docker command
 
-```
-    docker run  --name my_yolo_container -d  -i yolov3-onnx-tiny:latest
-```
-
-Get the IP address of the container by running the following command (replace grep with findstr if running on Windows)
-```
-    docker inspect my_yolo_container | grep IPAddress
+```bash
+docker run  --name my_yolo_container -p 80:80 -d  -i yolov3-onnx-tiny:latest
 ```
 
 Test the container using the following commands
@@ -36,11 +31,11 @@ Test the container using the following commands
 ### /score
 To get a list of detected objected using the following command
 
-```
-   curl -X POST http://<my_yolo_container_ip_address>/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+```bash
+curl -X POST http://127.0.0.1/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 If successful, you will see JSON printed on your screen that looks something like this
-```
+```json
 {
     "inferences": [                
         {
@@ -75,6 +70,13 @@ If successful, you will see JSON printed on your screen that looks something lik
         }
     ]
 }
+```
+
+Terminate the container using the following docker commands
+
+```bash
+docker stop my_yolo_container
+docker rm my_yolo_container
 ```
 
 ## Upload docker image to Azure container registry

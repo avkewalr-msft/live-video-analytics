@@ -27,13 +27,7 @@ Build the container image (should take some minutes) by running the following do
 Run the container using the following docker command
 
 ```bash
-    docker run  --name my_yolo_container -d  -i yolov3-onnx:latest
-```
-
-Get the IP address of the container by running the following command (replace grep with findstr if running on Windows)
-
-```bash
-    docker inspect my_yolo_container | grep IPAddress
+    docker run  --name my_yolo_container -p 80:80 -d  -i yolov3-onnx:latest
 ```
 
 Test the container using the following commands
@@ -43,7 +37,7 @@ Test the container using the following commands
 To get a list of detected objected using the following command
 
 ```bash
-   curl -X POST http://<my_yolo_container_ip_address>/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+   curl -X POST http://127.0.0.1/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
 If successful, you will see JSON printed on your screen that looks something like this
@@ -83,6 +77,13 @@ If successful, you will see JSON printed on your screen that looks something lik
         }
     ]
 }
+```
+
+Terminate the container using the following docker commands
+
+```bash
+docker stop my_yolo_container
+docker rm my_yolo_container
 ```
 
 ### /annotate
