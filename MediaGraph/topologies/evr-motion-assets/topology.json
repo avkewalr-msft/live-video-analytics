@@ -40,7 +40,7 @@
           "@type": "#Microsoft.Media.MediaGraphRtspSource",
           "name": "rtspSource",
           "endpoint": {
-            "@type": "#Microsoft.Media.MediaGraphClearEndpoint",
+            "@type": "#Microsoft.Media.MediaGraphUnsecuredEndpoint",
             "url": "${rtspUrl}",
             "credentials": {
               "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",
@@ -84,7 +84,7 @@
           "name": "assetSink",
           "assetNamePattern": "sampleAssetFromEVR-LVAEdge-${System.DateTime}",
           "segmentLength": "PT30S",
-          "localMediaCacheMaximumSizeMb": "2048",
+          "localMediaCacheMaximumSizeMiB": "2048",
           "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
           "inputs": [
             {
