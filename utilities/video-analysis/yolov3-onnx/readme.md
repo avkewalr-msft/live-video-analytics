@@ -91,7 +91,7 @@ docker rm my_yolo_container
 To see the bounding boxes overlaid on the image run the following command
 
 ```bash
-   curl -X POST http://<my_yolo_container_ip_address>/annotate -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg> --output out.jpeg
+   curl -X POST http://127.0.0.1/annotate -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg> --output out.jpeg
 ```
 
 If successful, you will see a file out.jpeg with bounding boxes overlaid on the input image.
@@ -101,7 +101,7 @@ If successful, you will see a file out.jpeg with bounding boxes overlaid on the 
 To get the list of detected objects and also generate an annotated image run the following command
 
 ```bash
-   curl -X POST http://<my_yolo_container_ip_address>/score-debug -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+   curl -X POST http://127.0.0.1/score-debug -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
 If successful, you will see a list of detected objected in JSON. The annotated image will be genereated in the /app/images directory inside the container. You can copy the images out to your host machine by using the following command
