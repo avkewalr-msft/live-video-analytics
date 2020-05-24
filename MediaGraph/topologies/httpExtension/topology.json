@@ -52,7 +52,7 @@
         "name": "rtspSource",
         "transport": "tcp",
         "endpoint": {
-          "@type": "#Microsoft.Media.MediaGraphClearEndpoint",
+          "@type": "#Microsoft.Media.MediaGraphUnsecuredEndpoint",
           "url": "${rtspUrl}",
           "credentials": {
             "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",
@@ -77,7 +77,7 @@
         "@type": "#Microsoft.Media.MediaGraphHttpExtension",
         "name": "httpExtension",
         "endpoint": {
-          "@type": "#Microsoft.Media.MediaGraphClearEndpoint",
+          "@type": "#Microsoft.Media.MediaGraphUnsecuredEndpoint",
           "url": "${inferencingUrl}",
           "credentials": {
             "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",

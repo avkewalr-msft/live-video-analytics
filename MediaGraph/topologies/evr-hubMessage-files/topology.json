@@ -3,49 +3,49 @@
   "name": "EVRtoFilesBasedOnHubMessages",
   "properties": {
     "description": "Event-based recording of video to files based on messages from via hub source",
-        "parameters": [
-            {
-                "name": "rtspUserName",
-                "type": "String",
-                "description": "rtsp source user name.",
-                "default": "dummyUserName"
-            },
-            {
-                "name": "rtspPassword",
-                "type": "String",
-                "description": "rtsp source password.",
-                "default": "dummyPassword"
-            },
-            {
-                "name": "rtspUrl",
-                "type": "String",
-                "description": "rtsp Url"
-            },
-            {
-                "name": "motionSensitivity",
-                "type": "String",
-                "description": "motion detection sensitivity",
-                "default": "medium"
-            },
-	          {
-                "name" : "hubSourceInput",
-                "type" : "String",
-                "description" : "input name for hub source",
-                "default" : "recordingTrigger"
-            },
-            {
-                "name": "fileSinkOutputName",
-                "type": "String",
-                "description": "file sink output name",
-                "default": "filesinkOutput"
-            }
-        ],
-		"sources": [
+    "parameters": [
+      {
+        "name": "rtspUserName",
+        "type": "String",
+        "description": "rtsp source user name.",
+        "default": "dummyUserName"
+      },
+      {
+        "name": "rtspPassword",
+        "type": "String",
+        "description": "rtsp source password.",
+        "default": "dummyPassword"
+      },
+      {
+        "name": "rtspUrl",
+        "type": "String",
+        "description": "rtsp Url"
+      },
+      {
+        "name": "motionSensitivity",
+        "type": "String",
+        "description": "motion detection sensitivity",
+        "default": "medium"
+      },
+      {
+        "name": "hubSourceInput",
+        "type": "String",
+        "description": "input name for hub source",
+        "default": "recordingTrigger"
+      },
+      {
+        "name": "fileSinkOutputName",
+        "type": "String",
+        "description": "file sink output name",
+        "default": "filesinkOutput"
+      }
+    ],
+    "sources": [
       {
         "@type": "#Microsoft.Media.MediaGraphRtspSource",
         "name": "rtspSource",
         "endpoint": {
-          "@type": "#Microsoft.Media.MediaGraphClearEndpoint",
+          "@type": "#Microsoft.Media.MediaGraphUnsecuredEndpoint",
           "url": "rtsp://rtspsim:554/media/camera-300s.mkv",
           "credentials": {
             "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",

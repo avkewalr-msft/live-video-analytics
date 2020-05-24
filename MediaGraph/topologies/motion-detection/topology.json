@@ -14,20 +14,20 @@
                 "name": "rtspPassword",
                 "type": "String",
                 "description": "rtsp source password.",
-                "default" : "dummyPassword"
+                "default": "dummyPassword"
             },
             {
                 "name": "rtspUrl",
                 "type": "String",
                 "description": "rtsp Url"
             }
-        ],        
+        ],
         "sources": [
             {
                 "@type": "#Microsoft.Media.MediaGraphRtspSource",
                 "name": "rtspSource",
                 "endpoint": {
-                    "@type": "#Microsoft.Media.MediaGraphClearEndpoint",
+                    "@type": "#Microsoft.Media.MediaGraphUnsecuredEndpoint",
                     "url": "${rtspUrl}",
                     "credentials": {
                         "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",
@@ -62,4 +62,4 @@
             }
         ]
     }
-  }
+}
