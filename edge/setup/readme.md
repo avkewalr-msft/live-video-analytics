@@ -1,6 +1,6 @@
-# Setting up resources for the samples
+# Setting up Azure resources for Live Video Analytics on IoT Edge
 
-This folder contains:
+This folder contains a bash script and other files listed below, that can be used to create and setup Azure resources that can be used to run Live Video Analytics on IoT Edge samples.
 
 - [setup.sh]() is bash script intended to be use in [Azure Cloud Shell](http://shell.azure.com/). Other files in the folder are referenced by this script.
 - [cloud-init.yml]() defines the configuration for the VM acting as the edge runtime for LVA. More info can be found [here](https://docs.microsoft.com/azure/virtual-machines/linux/using-cloud-init).
