@@ -4,7 +4,7 @@ This folder has a set of video analysis related utilities
 
 ## Contents
 
-| File/folder          | Description                                       |
+| Folders              | Description                                       |
 |----------------------|---------------------------------------------------|
 | `yolov3-onnx`        | Docker container with YoloV3 ONNX model           |
 | `yolov3-onnx-tiny`   | Docker container with YoloV3 Tiny ONNX model      |
