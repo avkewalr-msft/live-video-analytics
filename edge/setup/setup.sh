@@ -18,7 +18,7 @@ BLUE='\033[1;34m'
 NC='\033[0m' # No Color
 
 # script configuration
-BASE_URL='https://raw.githubusercontent.com/bennage/live-video-analytics/setup-script/edge/setup' # location of remote files used by the script
+BASE_URL='https://raw.githubusercontent.com/Azure/live-video-analytics/master/edge/setup' # location of remote files used by the script
 DEFAULT_REGION='centralus'
 ENV_FILE='edge-deployment/.env'
 APP_SETTINGS_FILE='appsettings.json'
@@ -27,16 +27,15 @@ ARM_TEMPLATE_URL="$BASE_URL/deploy.json"
 CLOUD_INIT_URL="$BASE_URL/cloud-init.yml"
 CLOUD_INIT_FILE='cloud-init.yml'
 DEPLOYMENT_MANIFEST_URL="$BASE_URL/deployment.template.json"
-DEPLOYMENT_MANIFEST_FILE='deployment.amd64.json'
+DEPLOYMENT_MANIFEST_FILE='edge-deployment/deployment.amd64.json'
 ROLE_DEFINITION_URL="$BASE_URL/LVAEdgeUserRoleDefinition.json"
 ROLE_DEFINITION_FILE='role_definition.json'
 RESOURCE_GROUP='lva-sample-resources'
 IOT_EDGE_VM_NAME='lva-sample-iot-edge-device'
 IOT_EDGE_VM_ADMIN='lvaadmin'
 IOT_EDGE_VM_PWD="Password@$(shuf -i 1000-9999 -n 1)"
-INPUT_VIDEO_FOLDER_ON_DEVICE='/home/lvaadmin/samples/input'
-OUTPUT_VIDEO_FOLDER_ON_DEVICE='/home/lvaadmin/samples/output'
 CLOUD_SHELL_FOLDER="$HOME/clouddrive/lva-sample"
+APPDATA_FOLDER_ON_DEVICE="/var/local/mediaservices"
 
 checkForError() {
     if [ $? -ne 0 ]; then
@@ -301,10 +300,11 @@ echo "IOTHUB_CONNECTION_STRING=$IOTHUB_CONNECTION_STRING" >> $ENV_FILE
 echo "AAD_TENANT_ID=$AAD_TENANT_ID" >> $ENV_FILE
 echo "AAD_SERVICE_PRINCIPAL_ID=$AAD_SERVICE_PRINCIPAL_ID" >> $ENV_FILE
 echo "AAD_SERVICE_PRINCIPAL_SECRET=$AAD_SERVICE_PRINCIPAL_SECRET" >> $ENV_FILE
-echo "INPUT_VIDEO_FOLDER_ON_DEVICE=\"$INPUT_VIDEO_FOLDER_ON_DEVICE\"" >> $ENV_FILE
-echo "OUTPUT_VIDEO_FOLDER_ON_DEVICE=\"$OUTPUT_VIDEO_FOLDER_ON_DEVICE\"" >> $ENV_FILE
-echo "CONTAINER_REGISTRY_USERNAME_myacr=\"$CONTAINER_REGISTRY_USERNAME\"" >> $ENV_FILE
-echo "CONTAINER_REGISTRY_PASSWORD_myacr=\"$CONTAINER_REGISTRY_PASSWORD\"" >> $ENV_FILE
+echo "INPUT_VIDEO_FOLDER_ON_DEVICE=\"/home/lvaadmin/samples/input\"" >> $ENV_FILE
+echo "OUTPUT_VIDEO_FOLDER_ON_DEVICE=\"/home/lvaadmin/samples/output\"" >> $ENV_FILE
+echo "APPDATA_FOLDER_ON_DEVICE=\"/var/local/mediaservices\"" >> $ENV_FILE
+echo "CONTAINER_REGISTRY_USERNAME_myacr=$CONTAINER_REGISTRY_USERNAME" >> $ENV_FILE
+echo "CONTAINER_REGISTRY_PASSWORD_myacr=$CONTAINER_REGISTRY_PASSWORD" >> $ENV_FILE
 
 echo -e "
 We've generated some configuration files for the deployed resource.
@@ -339,13 +339,20 @@ curl -s $DEPLOYMENT_MANIFEST_URL > $DEPLOYMENT_MANIFEST_FILE
 
 sed -i "s/\$CONTAINER_REGISTRY_USERNAME_myacr/$CONTAINER_REGISTRY_USERNAME/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$CONTAINER_REGISTRY_PASSWORD_myacr/${CONTAINER_REGISTRY_PASSWORD//\//\\/}/" $DEPLOYMENT_MANIFEST_FILE
-sed -i "s/\$INPUT_VIDEO_FOLDER_ON_DEVICE/${INPUT_VIDEO_FOLDER_ON_DEVICE//\//\\/}/" $DEPLOYMENT_MANIFEST_FILE
+sed -i "s/\$INPUT_VIDEO_FOLDER_ON_DEVICE/\/home\/lvaadmin\/samples\/input/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$SUBSCRIPTION_ID/$SUBSCRIPTION_ID/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$RESOURCE_GROUP/$RESOURCE_GROUP/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$AMS_ACCOUNT/$AMS_ACCOUNT/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$AAD_TENANT_ID/$AAD_TENANT_ID/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$AAD_SERVICE_PRINCIPAL_ID/$AAD_SERVICE_PRINCIPAL_ID/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$AAD_SERVICE_PRINCIPAL_SECRET/$AAD_SERVICE_PRINCIPAL_SECRET/" $DEPLOYMENT_MANIFEST_FILE
+sed -i "s/\$OUTPUT_VIDEO_FOLDER_ON_DEVICE/\/home\/lvaadmin\/samples\/output/" $DEPLOYMENT_MANIFEST_FILE
+sed -i "s/\$APPDATA_FOLDER_ON_DEVICE/${APPDATA_FOLDER_ON_DEVICE//\//\\/}/" $DEPLOYMENT_MANIFEST_FILE
+
+echo -e "
+You can find the deployment manifest file here:
+- ${BLUE}${DEPLOYMENT_MANIFEST_FILE}${NC}
+"
 
 # cleanup
 # rm $ROLE_DEFINITION_FILE &> /dev/null
