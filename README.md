@@ -3,9 +3,7 @@
 
 ## Introduction
 
-Live video analytics (LVA) is a new capability of Azure Media Services that is currently offered to a limited set of qualified customers. If you are interested in learning more about LVA, please send an email to <amshelp@microsoft.com>
-
-LVA provides a platform for you to build intelligent video applications that span the edge and the cloud. The platform offers the capability to capture, record, analyze live video and publish the results (video and/or video analytics) to Azure services (in the cloud and/or the edge). The platform can be used to enhance IoT solutions with video analytics. 
+[Live video analytics](https://azure.microsoft.com/en-us/services/media-services/live-video-analytics/) (LVA) is a new capability of Azure Media Services. LVA provides a platform for you to build intelligent video applications that span the edge and the cloud. The platform offers the capability to capture, record, analyze live video and publish the results (video and/or video analytics) to Azure services (in the cloud and/or the edge). The platform can be used to enhance IoT solutions with video analytics. 
 
 ## Live video analytics on IoT Edge
 
@@ -21,7 +19,7 @@ With Live video analytics on IoT Edge, you can continue to use your CCTV cameras
 
 ## This repo
 
-This repository is a starting point to learn about and engage in LVA open source projects.This repository is not an official LVA product support location, however, we will respond to issues filed here as best we can. Please file LVA product issues at [LVA/issues](https://github.com/Azure/live-video-analytics/issues).
+This repository is a starting point to learn about and engage in LVA open source projects.This repository is not an official LVA product support location, however, we will respond to issues filed here as best we can.
 
 ## Contributing
 
