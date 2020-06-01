@@ -48,7 +48,7 @@ Test the stream
 
 my-media-file refers to a media file in your local_media_folder. 
 
-Note that only file formats supported by Live555 will work. Further, in order to use Live555 with Azure Media Services Live Video Analytics, we recommend that you use an MKV, MPEG-TS, or MPG file with H.264 video (and, optionally, AAC audio).
+Note that only file formats supported by Live555 will work. Further, in order to use Live555 with Live Video Analytics, we recommend that you use an MKV, MPEG-TS, or MPG file with H.264 video (and, optionally, AAC audio).
 
 ## Cleanup
 
@@ -74,7 +74,7 @@ Once stopped, you can remove the container with the following command
 
 Follow the instructions in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image in your private Azure container registry for later use on another machine.
 
-Note: In the next section, you will be using Azure Portal in order to deploy the container as an IoT Edge module. The Azure Portal today requires you to provide a user name as password to enable IoT Edge to connect to your container registry. A quick way to accomplish this is by creating an [Admin Account](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication#admin-account) for your container registry.
+Note: In the next section, you will be using Azure portal in order to deploy the container as an IoT Edge module. The Azure portal today requires you to provide a user name as password to enable IoT Edge to connect to your container registry. A quick way to accomplish this is by creating an [Admin Account](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication#admin-account) for your container registry.
 
 ## Deploy as an Azure IoT Edge module
 
