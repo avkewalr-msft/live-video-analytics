@@ -79,13 +79,6 @@ If successful, you will see JSON printed on your screen that looks something lik
 }
 ```
 
-Terminate the container using the following Docker commands
-
-```bash
-docker stop my_yolo_container
-docker rm my_yolo_container
-```
-
 ### /annotate
 
 To see the bounding boxes overlaid on the image run the following command
@@ -111,6 +104,13 @@ If successful, you will see a list of detected objected in JSON. The annotated i
 ```
 
 The entire /images folder will be copied to ./images on your host machine. Image files have the following format dd_mm_yyyy_HH_MM_SS.jpeg
+
+## Terminate the container using the following Docker commands
+
+```bash
+docker stop my_yolo_container
+docker rm my_yolo_container
+```
 
 ## Upload Docker image to Azure container registry
 
