@@ -1,6 +1,6 @@
 # Yolov3 ONNX model
 
-The following instruction will enable you to build a docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), and [runit](http://smarden.org/runit/).
+The following instructions will enable you to build a Docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), [runit](http://smarden.org/runit/), and [pillow](https://pillow.readthedocs.io/en/stable/index.html).
 
 Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provide rights for the third-party software. For more information on third-party software please see the links provided above.
 
@@ -16,7 +16,7 @@ Note: References to third-party software in this repo are for informational and 
 
 ## Building the docker container
 
-Build the container image (should take some minutes) by running the following docker command from a command window in that directory
+Build the container image (should take some minutes) by running the following Docker command from a command window in that directory
 
 ```bash
     docker build . -t yolov3-onnx:latest
@@ -24,7 +24,7 @@ Build the container image (should take some minutes) by running the following do
 
 ## Running and testing
 
-Run the container using the following docker command
+Run the container using the following Docker command
 
 ```bash
     docker run  --name my_yolo_container -p 80:80 -d  -i yolov3-onnx:latest
@@ -79,7 +79,7 @@ If successful, you will see JSON printed on your screen that looks something lik
 }
 ```
 
-Terminate the container using the following docker commands
+Terminate the container using the following Docker commands
 
 ```bash
 docker stop my_yolo_container
@@ -112,7 +112,7 @@ If successful, you will see a list of detected objected in JSON. The annotated i
 
 The entire /images folder will be copied to ./images on your host machine. Image files have the following format dd_mm_yyyy_HH_MM_SS.jpeg
 
-## Upload docker image to Azure container registry
+## Upload Docker image to Azure container registry
 
 Follow instruction in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
 

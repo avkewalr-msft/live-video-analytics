@@ -1,6 +1,6 @@
 # Tiny Yolov3 ONNX model
 
-The following instruction will enable you to build a docker container with [Tiny Yolov3](https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/tiny-yolov3) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), and [runit](http://smarden.org/runit/).
+The following instructions will enable you to build a Docker container with [Tiny Yolov3](https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/tiny-yolov3) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), [runit](http://smarden.org/runit/), and [pillow](https://pillow.readthedocs.io/en/stable/index.html).
 
 Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provide rights for the third-party software. For more information on third-party software please see the links provided above.
 
@@ -79,7 +79,7 @@ docker stop my_yolo_container
 docker rm my_yolo_container
 ```
 
-## Upload docker image to Azure container registry
+## Upload Docker image to Azure container registry
 
 Follow instruction in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
 
