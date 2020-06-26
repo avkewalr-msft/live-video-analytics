@@ -105,7 +105,7 @@ If successful, you will see a list of detected objected in JSON. The annotated i
 
 The entire /images folder will be copied to ./images on your host machine. Image files have the following format dd_mm_yyyy_HH_MM_SS.jpeg
 
-## Terminate the container using the following Docker commands
+## Terminating the container
 
 ```bash
 docker stop my_yolo_container
