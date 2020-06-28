@@ -1,6 +1,6 @@
 # Yolov3 ONNX model
 
-The following instructions will enable you to build a Docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), [runit](http://smarden.org/runit/), and [pillow](https://pillow.readthedocs.io/en/stable/index.html).
+The following instruction will enable you to build a docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), and [runit](http://smarden.org/runit/).
 
 Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provide rights for the third-party software. For more information on third-party software please see the links provided above.
 
@@ -16,7 +16,7 @@ Note: References to third-party software in this repo are for informational and 
 
 ## Building the docker container
 
-Build the container image (should take some minutes) by running the following Docker command from a command window in that directory
+Build the container image (should take some minutes) by running the following docker command from a command window in that directory
 
 ```bash
     docker build . -t yolov3-onnx:latest
@@ -24,7 +24,7 @@ Build the container image (should take some minutes) by running the following Do
 
 ## Running and testing
 
-Run the container using the following Docker command
+Run the container using the following docker command
 
 ```bash
     docker run  --name my_yolo_container -p 80:80 -d  -i yolov3-onnx:latest
@@ -34,7 +34,7 @@ Test the container using the following commands
 
 ### /score
 
-To get a list of detected objected using the following command
+To get a list of detected objects using the following command
 
 ```bash
    curl -X POST http://127.0.0.1/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
@@ -79,6 +79,22 @@ If successful, you will see JSON printed on your screen that looks something lik
 }
 ```
 
+To filter the list of detected objects use the following command
+
+```bash
+   curl -X POST "http://127.0.0.1/score?object=<objectType>" -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+```
+
+The above command will only return objects of objectType
+
+To filter the list of detected objects above a certain confidence threshold use the following command
+
+```bash
+   curl -X POST "http://127.0.0.1/score?object=<objectType>&confidence=<confidenceThreshold>" -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+```
+
+In the above command, confidenceThreshold should be specified as a float value.
+
 ### /annotate
 
 To see the bounding boxes overlaid on the image run the following command
@@ -105,14 +121,16 @@ If successful, you will see a list of detected objected in JSON. The annotated i
 
 The entire /images folder will be copied to ./images on your host machine. Image files have the following format dd_mm_yyyy_HH_MM_SS.jpeg
 
-## Terminating the container
+## Terminating
+
+Terminate the container using the following docker commands
 
 ```bash
 docker stop my_yolo_container
 docker rm my_yolo_container
 ```
 
-## Upload Docker image to Azure container registry
+## Upload docker image to Azure container registry
 
 Follow instruction in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
 
