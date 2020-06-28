@@ -68,40 +68,51 @@ def preprocess(img):
     
     return image_data
 
-def postprocess(boxes, scores, indices, iw, ih):
+def postprocess(boxes, scores, indices, iw, ih, objectType=None, confidenceThreshold=0.0):
     
     detected_objects = []
     
     for idx_ in indices:
         idx_1 = (idx_[0], idx_[2])
+
+        objectTag = tags[idx_[1].tolist()]
+        confidence = scores[tuple(idx_)].tolist()
+
+        
         y1, x1, y2, x2 = boxes[idx_1].tolist()
 
-        x2 = (x2 - x1) / iw
-        y2 = (y2 - y1) / ih
-        x1 = x1 / iw
-        y1 = y1 / ih
+        width = (x2 - x1) / iw
+        height = (y2 - y1) / ih
+        left = x1 / iw
+        top = y1 / ih
         
         dobj = {
             "type" : "entity",
             "entity" : {
                 "tag" : {
-                    "value" : tags[idx_[1].tolist()],
-                    "confidence" : scores[tuple(idx_)].tolist()
+                    "value" : objectTag,
+                    "confidence" : confidence
                 },
                 "box" : {
-                    "l" : x1,
-                    "t" : y1,
-                    "w" : x2,
-                    "h" : y2
+                    "l" : left,
+                    "t" : top,
+                    "w" : width,
+                    "h" : height
                 }
             }
         }
+
+        if (objectType is None):
+            detected_objects.append(dobj)
+        else:
+            if (objectType == objectTag) and (confidence > confidenceThreshold):
+                detected_objects.append(dobj)
+
         
-        detected_objects.append(dobj)
         
     return detected_objects
 
-def processImage(img):
+def processImage(img, objectType=None, confidenceThreshold=0.0):
     try:
         # Preprocess input according to the functions specified above
         img_data = preprocess(img)
@@ -113,7 +124,7 @@ def processImage(img):
         inference_duration = np.round(inference_time_end - inference_time_start, 2)
         
         iw, ih = img.size
-        detected_objects = postprocess(boxes, scores, indices, iw, ih)
+        detected_objects = postprocess(boxes, scores, indices, iw, ih, objectType, confidenceThreshold)
         return inference_duration, detected_objects
 
     except Exception as e:
@@ -160,15 +171,23 @@ def defaultPage():
 
 # /score routes to scoring function 
 # This function returns a JSON object with inference duration and detected objects
-@app.route('/score', methods=['POST'])
+@app.route("/score", methods=['POST'])
 def score():
-
     try:
+        objectType = None
+        confidenceThreshold = 0.0
+        if (request.args):
+            try:
+                objectType = request.args.get('object')
+                confidenceThreshold = float(request.args.get('confidence'))
+            except:
+                print("incorrect query string")                            
+
         imageData = io.BytesIO(request.get_data())
         # load the image
         img = Image.open(imageData)
 
-        inference_duration, detected_objects = processImage(img)
+        inference_duration, detected_objects = processImage(img, objectType, confidenceThreshold)
         print('Inference duration was ', str(inference_duration))
 
         if len(detected_objects) > 0:
@@ -179,11 +198,13 @@ def score():
             respBody = json.dumps(respBody)
             return Response(respBody, status= 200, mimetype ='application/json')
         else:
-            return Response(status= 204)
-
+            return Response(status= 204)            
     except Exception as e:
         print('EXCEPTION:', str(e))
-        return Response(response='Error processing image', status= 500)
+        return Response(response='Error processing image ' + str(e), status= 500)
+
+
+
 
 # /score-debug routes to score_debug
 # This function scores the image and stores an annotated image for debugging purposes
