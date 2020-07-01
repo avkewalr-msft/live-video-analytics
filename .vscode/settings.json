@@ -1,10 +1,15 @@
 {
     "cSpell.words": [
+        "Bboxes",
         "Yolov",
         "dobj",
         "dtype",
+        "mjpeg",
+        "onnxruntime",
         "pluggable",
         "repos",
+        "strftime",
+        "tolist",
         "yolo"
     ]
 }
