@@ -9,6 +9,7 @@ import io
 import json
 import os
 from datetime import datetime
+import requests
 
 # Imports for the REST API
 from flask import Flask, request, jsonify, Response
@@ -155,7 +156,7 @@ def drawBboxes(image, detected_objects):
         tag = entity['tag']
         objClass = tag['value']        
 
-        draw.rectangle((x1, y1, x2, y2), outline = 'blue', width = 2)
+        draw.rectangle((x1, y1, x2, y2), outline = 'blue', width = 1)
         print('rectangle drawn')
         draw.text((x1, y1), str(objClass), fill = "white", font = textfont)
      
@@ -169,6 +170,17 @@ app = Flask(__name__)
 def defaultPage():
     return Response(response='Hello from Yolov3 inferencing based on ONNX', status=200)
 
+@app.route('/stream/<id>')
+def stream(id):
+    respBody = ("<html>"
+                "<h1>Stream with inferencing overlays</h1>"
+                "<img src=\"/mjpeg/" + id + "\"/>"
+                "</html>")
+
+    return Response(respBody, status= 200)
+
+    #return render_template('mjpeg.html')
+
 # /score routes to scoring function 
 # This function returns a JSON object with inference duration and detected objects
 @app.route("/score", methods=['POST'])
@@ -176,19 +188,37 @@ def score():
     try:
         objectType = None
         confidenceThreshold = 0.0
+
         if (request.args):
             try:
                 objectType = request.args.get('object')
-                confidenceThreshold = float(request.args.get('confidence'))
-            except:
-                print("incorrect query string")                            
+                stream = request.args.get('stream')
+                confidence = request.args.get('confidence')
+                if confidence is not None:
+                    confidenceThreshold = float(confidence)                
+            except Exception as ex:
+                print('EXCEPTION:', str(ex))                                
 
         imageData = io.BytesIO(request.get_data())
+
         # load the image
         img = Image.open(imageData)
 
-        inference_duration, detected_objects = processImage(img, objectType, confidenceThreshold)
-        print('Inference duration was ', str(inference_duration))
+        inference_duration, detected_objects = processImage(img, objectType, confidenceThreshold)        
+
+        try:        
+            if stream is not None:
+                output_img = drawBboxes(img, detected_objects)
+
+                imgBuf = io.BytesIO()
+                output_img.save(imgBuf, format='JPEG')
+
+                # post the image with bounding boxes so that it can be viewed as an MJPEG stream
+                postData = b'--boundary\r\n' + b'Content-Type: image/jpeg\r\n\r\n' + imgBuf.getvalue() + b'\r\n'
+                requests.post('http://127.0.0.1:80/mjpeg_pub/' + stream, data = postData)
+
+        except Exception as ex:
+            print('EXCEPTION:', str(ex))
 
         if len(detected_objects) > 0:
             respBody = {                    
@@ -202,9 +232,6 @@ def score():
     except Exception as e:
         print('EXCEPTION:', str(e))
         return Response(response='Error processing image ' + str(e), status= 500)
-
-
-
 
 # /score-debug routes to score_debug
 # This function scores the image and stores an annotated image for debugging purposes
@@ -260,7 +287,7 @@ def annotate():
         return Response(response='Error processing image', status= 500)
 
 
-# Load and intialize the model
+# Load and initialize the model
 init()
 
 if __name__ == '__main__':

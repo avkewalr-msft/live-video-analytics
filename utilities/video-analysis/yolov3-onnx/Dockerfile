@@ -3,31 +3,35 @@
 
 FROM ubuntu:18.04
 
-# Copy the app file
+# Copy the app file and the tags file
 RUN mkdir /app
 COPY app/yolov3-app.py /app
 COPY  tags.txt /app
 
 # Install python
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get install -y --no-install-recommends python3-pip python3-dev && \
     cd /usr/local/bin && \
     ln -s /usr/bin/python3 python && \
     pip3 install --upgrade pip
 
 # Install python packages
-RUN pip install numpy onnxruntime flask pillow gunicorn && \
+RUN pip install numpy onnxruntime flask pillow gunicorn requests && \
     apt-get clean
 
 # Install runit, nginx
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get install --no-install-recommends -y wget runit nginx
+
+# Install Nchan module. For details goto http://nchan.io
+RUN apt-get update -y && \
+    apt-get install -y libnginx-mod-nchan
 
 # Download the model
 RUN cd /app && \
-    wget https://onnxzoo.blob.core.windows.net/models/opset_10/yolov3/yolov3.tar.gz && \
-    tar -xzf yolov3.tar.gz && \
-    rm -rf yolov3.tar.gz && \
+    wget https://github.com/onnx/models/raw/master/vision/object_detection_segmentation/yolov3/model/yolov3-10.tar.gz && \
+    tar -xzf yolov3-10.tar.gz && \
+    rm -rf yolov3-10.tar.gz && \
     rm -rf test_data_set_0/* && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean && \

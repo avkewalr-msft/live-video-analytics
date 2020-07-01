@@ -1,6 +1,6 @@
 # Yolov3 ONNX model
 
-The following instruction will enable you to build a docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), and [runit](http://smarden.org/runit/).
+The following instructions will enable you to build a Docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), [runit](http://smarden.org/runit/), and [pillow](https://pillow.readthedocs.io/en/stable/index.html).
 
 Note: References to third-party software in this repo are for informational and convenience purposes only. Microsoft does not endorse nor provide rights for the third-party software. For more information on third-party software please see the links provided above.
 
@@ -16,7 +16,7 @@ Note: References to third-party software in this repo are for informational and 
 
 ## Building the docker container
 
-Build the container image (should take some minutes) by running the following docker command from a command window in that directory
+Build the container image (should take some minutes) by running the following Docker command from a command window in that directory
 
 ```bash
     docker build . -t yolov3-onnx:latest
@@ -24,11 +24,13 @@ Build the container image (should take some minutes) by running the following do
 
 ## Running and testing
 
-Run the container using the following docker command
+Run the container using the following Docker command
 
 ```bash
-    docker run  --name my_yolo_container -p 80:80 -d  -i yolov3-onnx:latest
+    docker run  --name my_yolo_container -p 8080:80 -d  -i yolov3-onnx:latest
 ```
+
+Note that you can use any host port that is available instead of 8080.
 
 Test the container using the following commands
 
@@ -37,7 +39,7 @@ Test the container using the following commands
 To get a list of detected objects using the following command
 
 ```bash
-   curl -X POST http://127.0.0.1/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+   curl -X POST http://127.0.0.1:8080/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
 If successful, you will see JSON printed on your screen that looks something like this
@@ -79,28 +81,36 @@ If successful, you will see JSON printed on your screen that looks something lik
 }
 ```
 
+#### Filter objects of interest
+
 To filter the list of detected objects use the following command
 
 ```bash
-   curl -X POST "http://127.0.0.1/score?object=<objectType>" -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+   curl -X POST "http://127.0.0.1:8080/score?object=<objectType>" -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
 The above command will only return objects of objectType
 
+#### Filter objects of interest above a confidence threshold
+
 To filter the list of detected objects above a certain confidence threshold use the following command
 
 ```bash
-   curl -X POST "http://127.0.0.1/score?object=<objectType>&confidence=<confidenceThreshold>" -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+   curl -X POST "http://127.0.0.1:8080/score?object=<objectType>&confidence=<confidenceThreshold>" -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
 In the above command, confidenceThreshold should be specified as a float value.
+
+#### View video stream with inferencing overlays
+
+You can use the container to process video and view the output video with inferencing overlays in a browser. To do so, you can post video frames to the container with stream=<stream-id> as a query parameter (i.e. you will need to post video frames to [http://127.0.0.1:8080/score?stream=test-stream](http://127.0.0.1/score?stream=test-stream)]. The output video can then be viewed by going to [http://127.0.0.1:8080/stream/test-stream](http://127.0.0.1:8080/stream/test-stream).
 
 ### /annotate
 
 To see the bounding boxes overlaid on the image run the following command
 
 ```bash
-   curl -X POST http://127.0.0.1/annotate -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg> --output out.jpeg
+   curl -X POST http://127.0.0.1:8080/annotate -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg> --output out.jpeg
 ```
 
 If successful, you will see a file out.jpeg with bounding boxes overlaid on the input image.
@@ -110,10 +120,10 @@ If successful, you will see a file out.jpeg with bounding boxes overlaid on the 
 To get the list of detected objects and also generate an annotated image run the following command
 
 ```bash
-   curl -X POST http://127.0.0.1/score-debug -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+   curl -X POST http://127.0.0.1:8080/score-debug -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
 ```
 
-If successful, you will see a list of detected objected in JSON. The annotated image will be genereated in the /app/images directory inside the container. You can copy the images out to your host machine by using the following command
+If successful, you will see a list of detected objected in JSON. The annotated image will be generated in the /app/images directory inside the container. You can copy the images out to your host machine by using the following command
 
 ```bash
    docker cp my_yolo_container:/app/images ./
