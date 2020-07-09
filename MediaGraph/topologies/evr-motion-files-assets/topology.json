@@ -1,6 +1,6 @@
 {
 	"@apiVersion": "1.0",
-	"name": "EVRToFilesAndAssetsOnMotionDetection",
+	"name": "EVRToFilesAndAssetsOnMotion",
 	"properties": {
 		"description": "Event-based video recording to local files based on motion events",
 		"parameters": [
@@ -73,8 +73,8 @@
 				],
 				"activationEvaluationWindow": "PT1S",
 				"activationSignalOffset": "PT0S",
-				"minimumActivationTime": "PT5S",
-				"maximumActivationTime": "PT5S"
+				"minimumActivationTime": "PT30S",
+				"maximumActivationTime": "PT30S"
 			}
 		],
 		"sinks": [
