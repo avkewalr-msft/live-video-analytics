@@ -35,7 +35,7 @@ IOT_EDGE_VM_NAME='lva-sample-iot-edge-device'
 IOT_EDGE_VM_ADMIN='lvaadmin'
 IOT_EDGE_VM_PWD="Password@$(shuf -i 1000-9999 -n 1)"
 CLOUD_SHELL_FOLDER="$HOME/clouddrive/lva-sample"
-APPDATA_FOLDER_ON_DEVICE="/var/local/mediaservices"
+APPDATA_FOLDER_ON_DEVICE="/var/lib/azuremediaservices"
 
 checkForError() {
     if [ $? -ne 0 ]; then
@@ -301,8 +301,8 @@ echo "AAD_TENANT_ID=$AAD_TENANT_ID" >> $ENV_FILE
 echo "AAD_SERVICE_PRINCIPAL_ID=$AAD_SERVICE_PRINCIPAL_ID" >> $ENV_FILE
 echo "AAD_SERVICE_PRINCIPAL_SECRET=$AAD_SERVICE_PRINCIPAL_SECRET" >> $ENV_FILE
 echo "INPUT_VIDEO_FOLDER_ON_DEVICE=\"/home/lvaadmin/samples/input\"" >> $ENV_FILE
-echo "OUTPUT_VIDEO_FOLDER_ON_DEVICE=\"/home/lvaadmin/samples/output\"" >> $ENV_FILE
-echo "APPDATA_FOLDER_ON_DEVICE=\"/var/local/mediaservices\"" >> $ENV_FILE
+echo "OUTPUT_VIDEO_FOLDER_ON_DEVICE=\"/var/media\"" >> $ENV_FILE
+echo "APPDATA_FOLDER_ON_DEVICE=\"/var/lib/azuremediaservices\"" >> $ENV_FILE
 echo "CONTAINER_REGISTRY_USERNAME_myacr=$CONTAINER_REGISTRY_USERNAME" >> $ENV_FILE
 echo "CONTAINER_REGISTRY_PASSWORD_myacr=$CONTAINER_REGISTRY_PASSWORD" >> $ENV_FILE
 
@@ -325,13 +325,9 @@ You can find it here:
 ${BLUE}${APP_SETTINGS_FILE}${NC}"
 
 echo -e "
-${GREEN}All done!${NC} \U1F44D\n
-
 Next, copy these generated files into your local copy of the sample app:
 - ${BLUE}${APP_SETTINGS_FILE}${NC}
 - ${BLUE}${ENV_FILE}${NC}
-
-Go to ${GREEN}https://aka.ms/lva-edge-quickstart${NC} to learn more about getting started with ${BLUE}Live Video Analytics${NC} on IoT Edge.
 "
 
 # set up deployment manifest
@@ -346,12 +342,16 @@ sed -i "s/\$AMS_ACCOUNT/$AMS_ACCOUNT/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$AAD_TENANT_ID/$AAD_TENANT_ID/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$AAD_SERVICE_PRINCIPAL_ID/$AAD_SERVICE_PRINCIPAL_ID/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$AAD_SERVICE_PRINCIPAL_SECRET/$AAD_SERVICE_PRINCIPAL_SECRET/" $DEPLOYMENT_MANIFEST_FILE
-sed -i "s/\$OUTPUT_VIDEO_FOLDER_ON_DEVICE/\/home\/lvaadmin\/samples\/output/" $DEPLOYMENT_MANIFEST_FILE
+sed -i "s/\$OUTPUT_VIDEO_FOLDER_ON_DEVICE/\/var\/media/" $DEPLOYMENT_MANIFEST_FILE
 sed -i "s/\$APPDATA_FOLDER_ON_DEVICE/${APPDATA_FOLDER_ON_DEVICE//\//\\/}/" $DEPLOYMENT_MANIFEST_FILE
 
 echo -e "
 You can find the deployment manifest file here:
 - ${BLUE}${DEPLOYMENT_MANIFEST_FILE}${NC}
+
+${GREEN}All done!${NC} \U1F44D\n
+
+Go to ${GREEN}https://aka.ms/lva-edge-quickstart${NC} to learn more about getting started with ${BLUE}Live Video Analytics${NC} on IoT Edge.
 "
 
 # cleanup

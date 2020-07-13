@@ -57,7 +57,11 @@ runcmd:
 
         mkdir /var/local/mediaservices
         mkdir /var/local/mediaservices/tmp
+        mkdir /var/lib/azuremediaservices
+        mkdir /var/media
 
         chown -R lvaadmin /var/local/mediaservices/
+        chown -R lvaadmin /var/lib/azuremediaservices
+        chown -R lvaadmin /var/media
 
       ) &
