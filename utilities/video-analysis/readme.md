@@ -4,13 +4,13 @@ This folder has a set of video analysis related utilities.
 
 ## Contents
 
-| Folders              | Description                                                                                                     |
-|----------------------|-----------------------------------------------------------------------------------------------------------------|
-| `graph_manager`      | Manages media graphs by listing, setting, activating, deleting, and deactivating graph instances and topologies |
-| `resnet-onnx`        | Docker container with Resnet ONNX model                                                                         |
-| `yolov3-onnx`        | Docker container with YoloV3 ONNX model                                                                         |
-| `yolov3-onnx-tiny`   | Docker container with YoloV3 Tiny ONNX model                                                                    |
-| `notebooks`          | Jupyter notebook samples for Live Video Analytics                                                               |
+| Folders              | Description                                         |
+|----------------------|-----------------------------------------------------|
+| `shared`             |                                                     |
+| `resnet-onnx`        | Docker container with Resnet ONNX model             |
+| `yolov3-onnx`        | Docker container with YoloV3 ONNX model             |
+| `yolov3-onnx-tiny`   | Docker container with YoloV3 Tiny ONNX model        |
+| `notebooks`          | Jupyter notebook samples for Live Video Analytics   |
 
 
 ## Contributions needed
