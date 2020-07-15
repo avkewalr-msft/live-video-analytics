@@ -44,6 +44,30 @@
         "type": "String",
         "description": "image encoding for frames",
         "default": "bmp"
+      },
+      {
+        "name": "imageScaleMode",
+        "type": "String",
+        "description": "image scaling mode",
+        "default": "preserveAspectRatio"
+      },
+      {
+        "name": "frameWidth",
+        "type": "String",
+        "description": "Width of the video frame to be received from LVA.",
+        "default": "416"
+      },
+      {
+        "name": "frameHeight",
+        "type": "String",
+        "description": "Height of the video frame to be received from LVA.",
+        "default": "416"
+      },
+      {
+        "name": "frameRate",
+        "type": "String",
+        "description": "Rate of the frames per second to be received from LVA.",
+        "default": "2"
       }
     ],
     "sources": [
@@ -71,7 +95,7 @@
             "nodeName": "rtspSource"
           }
         ],
-        "maximumFps": 2
+        "maximumFps": "${frameRate}"
       },
       {
         "@type": "#Microsoft.Media.MediaGraphHttpExtension",
@@ -87,9 +111,9 @@
         },
         "image": {
           "scale": {
-            "mode": "preserveAspectRatio",
-            "width": "416",
-            "height": "416"
+            "mode": "${imageScaleMode}",
+            "width": "${frameWidth}",
+            "height": "${frameHeight}"
           },
           "format": {
             "@type": "#Microsoft.Media.MediaGraphImageFormatEncoded",
