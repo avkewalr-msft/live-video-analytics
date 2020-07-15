@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 NOTICES AND INFORMATION
 Do Not Translate or Localize
 
@@ -16,10 +15,6 @@ USA
 Notwithstanding any other terms, you may reverse engineer this software to the
 extent required to debug changes to any libraries licensed under the GNU Lesser
 General Public License.
-=======
-Microsoft Rocket Video Analytics Platform uses third-party material as listed 
-below. The attached notices are provided for informational purposes only. 
->>>>>>> 62d22e016aec85935bbac3243204a8cc01deec14
 
 Notice for opencvsharp
 -------------------------------
@@ -301,8 +296,4 @@ Apache License
 
    END OF TERMS AND CONDITIONS
 
-<<<<<<< HEAD
 -------------------------------
-=======
--------------------------------
->>>>>>> 62d22e016aec85935bbac3243204a8cc01deec14
