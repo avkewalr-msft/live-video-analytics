@@ -8,6 +8,7 @@ This folder has a set of video analysis related utilities.
 |----------------------|-----------------------------------------------------|
 | `shared`             |                                                     |
 | `resnet-onnx`        | Docker container with Resnet ONNX model             |
+| `tls-yolov3-onnx`    | Docker container with Secured YoloV3 ONNX model     |
 | `yolov3-onnx`        | Docker container with YoloV3 ONNX model             |
 | `yolov3-onnx-tiny`   | Docker container with YoloV3 Tiny ONNX model        |
 | `notebooks`          | Jupyter notebook samples for Live Video Analytics   |
