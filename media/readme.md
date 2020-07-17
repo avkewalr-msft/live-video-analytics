@@ -35,6 +35,7 @@ It is licensed under a [Creative Commons Attribution 4.0 International License](
 * [Vehicles on freeway - 60 minutes](https://lvamedia.blob.core.windows.net/public/camera-3600s.mkv)
 * [Toy Car Training Dataset](https://lvamedia.blob.core.windows.net/public/ToyCarTrainingImages.zip)
 * [Toy Car Inference Video](https://lvamedia.blob.core.windows.net/public/t2.mkv)
-
+* [People waiting in a room - JPG Image](https://lvamedia.blob.core.windows.net/public/people_waiting.jpg)
+* [People in cafeteria - JPG Image](https://lvamedia.blob.core.windows.net/public/people_in_cafeteria.jpg) 
 
 
