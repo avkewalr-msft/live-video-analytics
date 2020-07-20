@@ -1,5 +1,5 @@
-# Azure IoT Central live video analytics gateway module
-This is an IoT Central gateway module for LVA on IoT Edge. The full tutorial showing how to modify the IoT Edge module code can be found at [Tutorial: Build and register the LVA Gateway Module](https://docs.microsoft.com/azure/iot-central/retail/tutorial-video-analytics-build-module).
+# Azure IoT Central gateway module for Live Video Analytics
+ Live Video Analytics on IoT Edge. It is used when you build and deploy an app for analyzing live video using an Azure IoT Central app template. The full tutorial showing how to modify and use this IoT Edge module code can be found at [Tutorial: Build and register the LVA Gateway Module](https://docs.microsoft.com/azure/iot-central/retail/tutorial-video-analytics-build-module).
 
 To learn how to use Live Video Analytics on IoT Edge see the full documentation at [Live Video Analytics on IoT Edge documentation](https://docs.microsoft.com/en-us/azure/media-services/live-video-analytics-edge/).
 

@@ -48,6 +48,30 @@
                             },
                             "amsAccountName": {
                                 "value": "<YOUR_AZURE_MEDIA_ACCOUNT_NAME>"
+                            },
+                            "sampleImage_analyze": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/analyze_icon.jpg"
+                            },
+                            "sampleImage_bicycle": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/bike_icon.jpg"
+                            },
+                            "sampleImage_blank": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/blank_icon.jpg"
+                            },
+                            "sampleImage_bus": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/bus_icon.jpg"
+                            },
+                            "sampleImage_car": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/car_icon.jpg"
+                            },
+                            "sampleImage_motion": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/motion_icon.jpg"
+                            },
+                            "sampleImage_person": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/person_icon.jpg"
+                            },
+                            "sampleImage_truck": {
+                                "value": "https://raw.githubusercontent.com/Azure/live-video-analytics/master/ref-apps/lva-edge-iot-central-gateway/setup/class_images/truck_icon.jpg"
                             }
                         },
                         "status": "running",
