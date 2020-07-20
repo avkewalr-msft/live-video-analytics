@@ -1,0 +1,519 @@
+{
+    "@id": "urn:AzureMediaServices:LvaEdgeGateway:1",
+    "@type": "CapabilityModel",
+    "implements": [],
+    "displayName": {
+        "en": "LVA Edge Gateway Module"
+    },
+    "contents": [
+        {
+            "@id": "urn:AzureMediaServices:LvaEdgeGateway:LvaEdgeGatewayModule:1",
+            "@type": [
+                "Relationship",
+                "SemanticType/EdgeModule"
+            ],
+            "displayName": {
+                "en": "LVA Edge Gateway Module"
+            },
+            "name": "LvaEdgeGatewayModule",
+            "maxMultiplicity": 1,
+            "target": [
+                {
+                    "@id": "urn:AzureMediaServices:LvaEdgeGatewayModule:1",
+                    "@type": "CapabilityModel",
+                    "implements": [
+                        {
+                            "@type": "InterfaceInstance",
+                            "name": "DeviceInformation",
+                            "displayName": {
+                                "en": "Device information"
+                            },
+                            "schema": {
+                                "@id": "urn:azureiot:DeviceManagement:DeviceInformation:1",
+                                "@type": "Interface",
+                                "displayName": {
+                                    "en": "Device information"
+                                },
+                                "contents": [
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:manufacturer:1",
+                                        "@type": "Property",
+                                        "comment": "Company name of the device manufacturer. This could be the same as the name of the original equipment manufacturer (OEM). Ex. Contoso.",
+                                        "displayName": {
+                                            "en": "Manufacturer"
+                                        },
+                                        "name": "manufacturer",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:model:1",
+                                        "@type": "Property",
+                                        "comment": "Device model name or ID. Ex. Surface Book 2.",
+                                        "displayName": {
+                                            "en": "Device model"
+                                        },
+                                        "name": "model",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:swVersion:1",
+                                        "@type": "Property",
+                                        "comment": "Version of the software on your device. This could be the version of your firmware. Ex. 1.3.45",
+                                        "displayName": {
+                                            "en": "Software version"
+                                        },
+                                        "name": "swVersion",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:osName:1",
+                                        "@type": "Property",
+                                        "comment": "Name of the operating system on the device. Ex. Windows 10 IoT Core.",
+                                        "displayName": {
+                                            "en": "Operating system name"
+                                        },
+                                        "name": "osName",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:processorArchitecture:1",
+                                        "@type": "Property",
+                                        "comment": "Architecture of the processor on the device. Ex. x64 or ARM.",
+                                        "displayName": {
+                                            "en": "Processor architecture"
+                                        },
+                                        "name": "processorArchitecture",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:processorManufacturer:1",
+                                        "@type": "Property",
+                                        "comment": "Name of the manufacturer of the processor on the device. Ex. Intel.",
+                                        "displayName": {
+                                            "en": "Processor manufacturer"
+                                        },
+                                        "name": "processorManufacturer",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:totalStorage:1",
+                                        "@type": "Property",
+                                        "comment": "Total available storage on the device in kilobytes. Ex. 2048000 kilobytes.",
+                                        "displayName": {
+                                            "en": "Total storage"
+                                        },
+                                        "name": "totalStorage",
+                                        "displayUnit": {
+                                            "en": "kilobytes"
+                                        },
+                                        "schema": "long"
+                                    },
+                                    {
+                                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:totalMemory:1",
+                                        "@type": "Property",
+                                        "comment": "Total available memory on the device in kilobytes. Ex. 256000 kilobytes.",
+                                        "displayName": {
+                                            "en": "Total memory"
+                                        },
+                                        "name": "totalMemory",
+                                        "displayUnit": {
+                                            "en": "kilobytes"
+                                        },
+                                        "schema": "long"
+                                    }
+                                ],
+                                "@context": [
+                                    "http://azureiot.com/v1/contexts/IoTModel.json"
+                                ]
+                            }
+                        },
+                        {
+                            "@type": "InterfaceInstance",
+                            "displayName": {
+                                "en": "Lva Edge Gateway Settings"
+                            },
+                            "name": "LvaEdgeGatewaySettings",
+                            "schema": {
+                                "@id": "urn:AzureMediaServices:LvaEdgeGatewaySettings:1",
+                                "@type": "Interface",
+                                "displayName": {
+                                    "en": "Lva Edge Gateway Settings"
+                                },
+                                "contents": [
+                                    {
+                                        "@type": "Property",
+                                        "displayName": {
+                                            "en": "Debug Telemetry"
+                                        },
+                                        "name": "wpDebugTelemetry",
+                                        "writable": true,
+                                        "schema": "boolean"
+                                    },
+                                    {
+                                        "@type": "Property",
+                                        "displayName": {
+                                            "en": "Debug Routed Message"
+                                        },
+                                        "name": "wpDebugRoutedMessage",
+                                        "writable": true,
+                                        "schema": "boolean"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "@type": "InterfaceInstance",
+                            "displayName": {
+                                "en": "Lva Edge Gateway Interface"
+                            },
+                            "name": "LvaEdgeGatewayInterface",
+                            "schema": {
+                                "@id": "urn:AzureMediaServices:LvaEdgeGatewayInterface:1",
+                                "@type": "Interface",
+                                "displayName": {
+                                    "en": "Lva Edge Gateway Interface"
+                                },
+                                "contents": [
+                                    {
+                                        "@type": "Telemetry",
+                                        "displayName": {
+                                            "en": "System Heartbeat"
+                                        },
+                                        "name": "tlSystemHeartbeat",
+                                        "schema": "integer"
+                                    },
+                                    {
+                                        "@type": "Telemetry",
+                                        "displayName": {
+                                            "en": "Free Memory"
+                                        },
+                                        "name": "tlFreeMemory",
+                                        "schema": "long"
+                                    },
+                                    {
+                                        "@type": "Telemetry",
+                                        "displayName": {
+                                            "en": "Connected Cameras"
+                                        },
+                                        "name": "tlConnectedCameras",
+                                        "schema": "long"
+                                    },
+                                    {
+                                        "@type": [
+                                            "Telemetry",
+                                            "SemanticType/State"
+                                        ],
+                                        "displayName": {
+                                            "en": "IoT Central Client State"
+                                        },
+                                        "name": "stIoTCentralClientState",
+                                        "schema": {
+                                            "@type": "Enum",
+                                            "valueSchema": "string",
+                                            "enumValues": [
+                                                {
+                                                    "@type": "EnumValue",
+                                                    "displayName": {
+                                                        "en": "disconnected"
+                                                    },
+                                                    "enumValue": "disconnected",
+                                                    "name": "disconnected"
+                                                },
+                                                {
+                                                    "@type": "EnumValue",
+                                                    "displayName": {
+                                                        "en": "connected"
+                                                    },
+                                                    "enumValue": "connected",
+                                                    "name": "connected"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "@type": [
+                                            "Telemetry",
+                                            "SemanticType/State"
+                                        ],
+                                        "displayName": {
+                                            "en": "Module State"
+                                        },
+                                        "name": "stModuleState",
+                                        "schema": {
+                                            "@type": "Enum",
+                                            "valueSchema": "string",
+                                            "enumValues": [
+                                                {
+                                                    "@type": "EnumValue",
+                                                    "displayName": {
+                                                        "en": "inactive"
+                                                    },
+                                                    "enumValue": "inactive",
+                                                    "name": "inactive"
+                                                },
+                                                {
+                                                    "@type": "EnumValue",
+                                                    "displayName": {
+                                                        "en": "active"
+                                                    },
+                                                    "enumValue": "active",
+                                                    "name": "active"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "@type": [
+                                            "Telemetry",
+                                            "SemanticType/Event"
+                                        ],
+                                        "displayName": {
+                                            "en": "Create Camera"
+                                        },
+                                        "name": "evCreateCamera",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@type": [
+                                            "Telemetry",
+                                            "SemanticType/Event"
+                                        ],
+                                        "displayName": {
+                                            "en": "Delete Camera"
+                                        },
+                                        "name": "evDeleteCamera",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@type": [
+                                            "Telemetry",
+                                            "SemanticType/Event"
+                                        ],
+                                        "displayName": {
+                                            "en": "Module Started"
+                                        },
+                                        "name": "evModuleStarted",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@type": [
+                                            "Telemetry",
+                                            "SemanticType/Event"
+                                        ],
+                                        "displayName": {
+                                            "en": "Module Stopped"
+                                        },
+                                        "name": "evModuleStopped",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@type": [
+                                            "Telemetry",
+                                            "SemanticType/Event"
+                                        ],
+                                        "displayName": {
+                                            "en": "Module Restart"
+                                        },
+                                        "name": "evModuleRestart",
+                                        "schema": "string"
+                                    },
+                                    {
+                                        "@type": "Command",
+                                        "commandType": "asynchronous",
+                                        "request": {
+                                            "@type": "SchemaField",
+                                            "displayName": {
+                                                "en": "Add Camera Request"
+                                            },
+                                            "name": "AddCameraRequest",
+                                            "schema": {
+                                                "@type": "Object",
+                                                "displayName": {
+                                                    "en": "Object"
+                                                },
+                                                "fields": [
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Camera Id"
+                                                        },
+                                                        "name": "AddCameraRequestParams_CameraId",
+                                                        "schema": "string"
+                                                    },
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Camera Name"
+                                                        },
+                                                        "name": "AddCameraRequestParams_CameraName",
+                                                        "schema": "string"
+                                                    },
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Rtsp Url"
+                                                        },
+                                                        "name": "AddCameraRequestParams_RtspUrl",
+                                                        "schema": "string"
+                                                    },
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Rtsp Username"
+                                                        },
+                                                        "name": "AddCameraRequestParams_RtspAuthUsername",
+                                                        "schema": "string"
+                                                    },
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Rtsp Password"
+                                                        },
+                                                        "name": "AddCameraRequestParams_RtspAuthPassword",
+                                                        "schema": "string"
+                                                    },
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Detection Type"
+                                                        },
+                                                        "name": "AddCameraRequestParams_DetectionType",
+                                                        "schema": {
+                                                            "@type": "Enum",
+                                                            "displayName": {
+                                                                "en": "Enum"
+                                                            },
+                                                            "valueSchema": "string",
+                                                            "enumValues": [
+                                                                {
+                                                                    "@type": "EnumValue",
+                                                                    "displayName": {
+                                                                        "en": "Motion Detection"
+                                                                    },
+                                                                    "enumValue": "motion",
+                                                                    "name": "DetectionTypeEnum_Motion"
+                                                                },
+                                                                {
+                                                                    "@type": "EnumValue",
+                                                                    "displayName": {
+                                                                        "en": "Object Detection"
+                                                                    },
+                                                                    "enumValue": "object",
+                                                                    "name": "DetectionTypeEnum_Object"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "response": {
+                                            "@type": "SchemaField",
+                                            "displayName": {
+                                                "en": "AddCameraResponse"
+                                            },
+                                            "name": "AddCameraResponse",
+                                            "schema": "string"
+                                        },
+                                        "displayName": {
+                                            "en": "Add Camera"
+                                        },
+                                        "name": "cmAddCamera"
+                                    },
+                                    {
+                                        "@type": "Command",
+                                        "commandType": "asynchronous",
+                                        "request": {
+                                            "@type": "SchemaField",
+                                            "displayName": {
+                                                "en": "Delete Camera Request"
+                                            },
+                                            "name": "DeleteCameraRequest",
+                                            "schema": {
+                                                "@type": "Object",
+                                                "displayName": {
+                                                    "en": "Object"
+                                                },
+                                                "fields": [
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Camera Id"
+                                                        },
+                                                        "name": "DeleteCameraRequestParams_CameraId",
+                                                        "schema": "string"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "response": {
+                                            "@type": "SchemaField",
+                                            "displayName": {
+                                                "en": "DeleteCameraResponse"
+                                            },
+                                            "name": "DeleteCameraResponse",
+                                            "schema": "string"
+                                        },
+                                        "displayName": {
+                                            "en": "Delete Camera"
+                                        },
+                                        "name": "cmDeleteCamera"
+                                    },
+                                    {
+                                        "@type": "Command",
+                                        "commandType": "asynchronous",
+                                        "request": {
+                                            "@type": "SchemaField",
+                                            "displayName": {
+                                                "en": "Restart Module Request"
+                                            },
+                                            "name": "RestartModuleRequest",
+                                            "schema": {
+                                                "@type": "Object",
+                                                "displayName": {
+                                                    "en": "Object"
+                                                },
+                                                "fields": [
+                                                    {
+                                                        "@type": "SchemaField",
+                                                        "displayName": {
+                                                            "en": "Timeout"
+                                                        },
+                                                        "name": "RestartModuleRequestParams_Timeout",
+                                                        "schema": "integer"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "response": {
+                                            "@type": "SchemaField",
+                                            "displayName": {
+                                                "en": "RestartModuleResponse"
+                                            },
+                                            "name": "RestartModuleResponse",
+                                            "schema": "string"
+                                        },
+                                        "displayName": {
+                                            "en": "Restart Module"
+                                        },
+                                        "name": "cmRestartModule"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "displayName": {
+                        "en": "LVA Edge Gateway Module"
+                    },
+                    "contents": [],
+                    "@context": [
+                        "http://azureiot.com/v1/contexts/IoTModel.json"
+                    ]
+                }
+            ]
+        }
+    ],
+    "@context": [
+        "http://azureiot.com/v1/contexts/IoTModel.json"
+    ]
+}

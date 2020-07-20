@@ -1,0 +1,30 @@
+{
+    "@apiVersion": "1.0",
+    "name": "",
+    "properties": {
+        "description": "Object detection graph using Yolo3 through HTTP Extension",
+        "topologyName": "LvaIotcObjectDetection",
+        "parameters": [
+            {
+                "name": "rtspUrl",
+                "value": ""
+            },
+            {
+                "name": "rtspAuthUsername",
+                "value": ""
+            },
+            {
+                "name": "rtspAuthPassword",
+                "value": ""
+            },
+            {
+                "name": "assetName",
+                "value": ""
+            },
+            {
+                "name": "frameRate",
+                "value": 2
+            }
+        ]
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "@apiVersion": "1.0",
+    "name": "",
+    "properties": {
+        "description": "Motion detection graph with cloud recording",
+        "topologyName": "LvaIotcMotionDetectionWithCvr",
+        "parameters": [
+            {
+                "name": "rtspUrl",
+                "value": ""
+            },
+            {
+                "name": "rtspAuthUsername",
+                "value": ""
+            },
+            {
+                "name": "rtspAuthPassword",
+                "value": ""
+            },
+            {
+                "name": "assetName",
+                "value": ""
+            },
+            {
+                "name": "motionSensitivity",
+                "value": ""
+            }
+        ]
+    }
+}

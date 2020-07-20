@@ -1,0 +1,63 @@
+{
+  "name": "lva-edge-gateway",
+  "version": "1.0.0",
+  "description": "Azure IoT Central gateway module for Azure Media Services LVA Edge",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/jest/bin/jest.js",
+    "tslint": "node ./node_modules/tslint/bin/tslint -p ./tsconfig.json",
+    "build": "node ./node_modules/typescript/bin/tsc -p .",
+    "dockerbuild": "node ./scripts/dockerBuild.js --docker-build",
+    "dockerpush": "node ./scripts/dockerBuild.js --docker-push",
+    "preversion": "npm test",
+    "version": "node ./scripts/dockerBuild.js --docker-build",
+    "postversion": "node ./scripts/dockerBuild.js --docker-push",
+    "postinstall": "node ./scripts/setupDevEnvironment.js"
+  },
+  "author": "sseiber",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/boom": "^9.1.0",
+    "@hapi/hapi": "^19.1.1",
+    "@hapi/wreck": "^17.0.0",
+    "azure-iot-device": "1.17.0",
+    "azure-iot-device-mqtt": "1.15.0",
+    "azure-iot-provisioning-device": "1.8.4",
+    "azure-iot-provisioning-device-mqtt": "1.7.4",
+    "azure-iot-security-symmetric-key": "1.7.4",
+    "fs-extra": "^9.0.1",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
+    "moment": "^2.27.0",
+    "nconf": "^0.10.0",
+    "pjson": "^1.0.9",
+    "spryly": "^2.0.8",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/hapi__hapi": "^19.0.3",
+    "@types/jest": "^26.0.4",
+    "@types/nconf": "0.10.0",
+    "@types/node": "^14.0.18",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.9.6"
+  },
+  "jest": {
+    "rootDir": "./src/",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "transform": {
+      ".tsx?": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "./__mocks__/fileMock.js"
+    }
+  }
+}

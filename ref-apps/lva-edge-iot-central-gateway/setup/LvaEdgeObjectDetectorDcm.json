@@ -1,0 +1,759 @@
+{
+    "@id": "urn:AzureMediaServices:LvaEdgeObjectDetectorDevice:1",
+    "@type": "CapabilityModel",
+    "implements": [
+        {
+            "@type": "InterfaceInstance",
+            "displayName": {
+                "en": "Device Information"
+            },
+            "name": "DeviceInformation",
+            "schema": {
+                "@id": "urn:azureiot:DeviceManagement:DeviceInformation:1",
+                "@type": "Interface",
+                "displayName": {
+                    "en": "Device information"
+                },
+                "contents": [
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:manufacturer:1",
+                        "@type": "Property",
+                        "comment": "Company name of the device manufacturer. This could be the same as the name of the original equipment manufacturer (OEM). Ex. Contoso.",
+                        "displayName": {
+                            "en": "Manufacturer"
+                        },
+                        "name": "manufacturer",
+                        "schema": "string"
+                    },
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:model:1",
+                        "@type": "Property",
+                        "comment": "Device model name or ID. Ex. Surface Book 2.",
+                        "displayName": {
+                            "en": "Device model"
+                        },
+                        "name": "model",
+                        "schema": "string"
+                    },
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:swVersion:1",
+                        "@type": "Property",
+                        "comment": "Version of the software on your device. This could be the version of your firmware. Ex. 1.3.45",
+                        "displayName": {
+                            "en": "Software version"
+                        },
+                        "name": "swVersion",
+                        "schema": "string"
+                    },
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:osName:1",
+                        "@type": "Property",
+                        "comment": "Name of the operating system on the device. Ex. Windows 10 IoT Core.",
+                        "displayName": {
+                            "en": "Operating system name"
+                        },
+                        "name": "osName",
+                        "schema": "string"
+                    },
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:processorArchitecture:1",
+                        "@type": "Property",
+                        "comment": "Architecture of the processor on the device. Ex. x64 or ARM.",
+                        "displayName": {
+                            "en": "Processor architecture"
+                        },
+                        "name": "processorArchitecture",
+                        "schema": "string"
+                    },
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:processorManufacturer:1",
+                        "@type": "Property",
+                        "comment": "Name of the manufacturer of the processor on the device. Ex. Intel.",
+                        "displayName": {
+                            "en": "Processor manufacturer"
+                        },
+                        "name": "processorManufacturer",
+                        "schema": "string"
+                    },
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:totalStorage:1",
+                        "@type": "Property",
+                        "comment": "Total available storage on the device in kilobytes. Ex. 2048000 kilobytes.",
+                        "displayName": {
+                            "en": "Total storage"
+                        },
+                        "name": "totalStorage",
+                        "displayUnit": {
+                            "en": "kilobytes"
+                        },
+                        "schema": "long"
+                    },
+                    {
+                        "@id": "urn:azureiot:DeviceManagement:DeviceInformation:totalMemory:1",
+                        "@type": "Property",
+                        "comment": "Total available memory on the device in kilobytes. Ex. 256000 kilobytes.",
+                        "displayName": {
+                            "en": "Total memory"
+                        },
+                        "name": "totalMemory",
+                        "displayUnit": {
+                            "en": "kilobytes"
+                        },
+                        "schema": "long"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "InterfaceInstance",
+            "displayName": {
+                "en": "IoT Camera Interface"
+            },
+            "name": "IoTCameraInterface",
+            "schema": {
+                "@id": "urn:AzureMediaServices:IoTCameraInterface:1",
+                "@type": "Interface",
+                "displayName": {
+                    "en": "IoT Camera Interface"
+                },
+                "contents": [
+                    {
+                        "@type": "Telemetry",
+                        "displayName": {
+                            "en": "System Heartbeat"
+                        },
+                        "name": "tlSystemHeartbeat",
+                        "schema": "integer"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/State"
+                        ],
+                        "displayName": {
+                            "en": "IoT Central Client State"
+                        },
+                        "name": "stIoTCentralClientState",
+                        "schema": {
+                            "@type": "Enum",
+                            "valueSchema": "string",
+                            "enumValues": [
+                                {
+                                    "@type": "EnumValue",
+                                    "displayName": {
+                                        "en": "disconnected"
+                                    },
+                                    "enumValue": "disconnected",
+                                    "name": "disconnected"
+                                },
+                                {
+                                    "@type": "EnumValue",
+                                    "displayName": {
+                                        "en": "connected"
+                                    },
+                                    "enumValue": "connected",
+                                    "name": "connected"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/State"
+                        ],
+                        "displayName": {
+                            "en": "Camera State"
+                        },
+                        "name": "stCameraState",
+                        "schema": {
+                            "@type": "Enum",
+                            "valueSchema": "string",
+                            "enumValues": [
+                                {
+                                    "@type": "EnumValue",
+                                    "displayName": {
+                                        "en": "inactive"
+                                    },
+                                    "enumValue": "inactive",
+                                    "name": "inactive"
+                                },
+                                {
+                                    "@type": "EnumValue",
+                                    "displayName": {
+                                        "en": "active"
+                                    },
+                                    "enumValue": "active",
+                                    "name": "active"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Camera Name"
+                        },
+                        "name": "rpCameraName",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Rtsp Url"
+                        },
+                        "name": "rpRtspUrl",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Rtsp Auth Username"
+                        },
+                        "name": "rpRtspAuthUsername",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Rtsp Auth Password"
+                        },
+                        "name": "rpRtspAuthPassword",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "AmsDeviceTag"
+                        },
+                        "name": "rpAmsDeviceTag",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Video Playback Host"
+                        },
+                        "name": "wpVideoPlaybackHost",
+                        "writable": true,
+                        "schema": "string"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "InterfaceInstance",
+            "displayName": {
+                "en": "Lva Edge Operations Interface"
+            },
+            "name": "LvaEdgeOperationsInterface",
+            "schema": {
+                "@id": "urn:AzureMediaServices:LvaEdgeOperationsInterface:1",
+                "@type": "Interface",
+                "displayName": {
+                    "en": "Lva Edge Operations Interface"
+                },
+                "contents": [
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Graph Instance Created"
+                        },
+                        "name": "evGraphInstanceCreated",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Graph Instance Deleted"
+                        },
+                        "name": "evGraphInstanceDeleted",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Graph Instance Started"
+                        },
+                        "name": "evGraphInstanceStarted",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Graph Instance Stopped"
+                        },
+                        "name": "evGraphInstanceStopped",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Recording Started"
+                        },
+                        "name": "evRecordingStarted",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Recording Stopped"
+                        },
+                        "name": "evRecordingStopped",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Recording Available"
+                        },
+                        "name": "evRecordingAvailable",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Start LVA Command"
+                        },
+                        "name": "evStartLvaGraphCommandReceived",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Stop LVA Command"
+                        },
+                        "name": "evStopLvaGraphCommandReceived",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Auto Start"
+                        },
+                        "name": "wpAutoStart",
+                        "writable": true,
+                        "schema": "boolean"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Max Inference Capture Time (sec)"
+                        },
+                        "name": "wpMaxVideoInferenceTime",
+                        "writable": true,
+                        "schema": "integer"
+                    },
+                    {
+                        "@type": "Command",
+                        "commandType": "asynchronous",
+                        "response": {
+                            "@type": "SchemaField",
+                            "displayName": {
+                                "en": "StartLvaResponse"
+                            },
+                            "name": "StartLvaResponse",
+                            "schema": "string"
+                        },
+                        "displayName": {
+                            "en": "Start LVA Processing"
+                        },
+                        "name": "cmStartLvaProcessing"
+                    },
+                    {
+                        "@type": "Command",
+                        "commandType": "asynchronous",
+                        "response": {
+                            "@type": "SchemaField",
+                            "displayName": {
+                                "en": "StopLvaResponse"
+                            },
+                            "name": "StopLvaResponse",
+                            "schema": "string"
+                        },
+                        "displayName": {
+                            "en": "Stop LVA Processing"
+                        },
+                        "name": "cmStopLvaProcessing"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "InterfaceInstance",
+            "displayName": {
+                "en": "Lva Edge Diagnostics Interface"
+            },
+            "name": "LvaEdgeDiagnosticsInterface",
+            "schema": {
+                "@id": "urn:AzureMediaServices:LvaEdgeDiagnosticsInterface:1",
+                "@type": "Interface",
+                "displayName": {
+                    "en": "Lva Edge Diagnostics Interface"
+                },
+                "contents": [
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Runtime Error"
+                        },
+                        "name": "evRuntimeError",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Authentication Error"
+                        },
+                        "name": "evAuthenticationError",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Authorization Error"
+                        },
+                        "name": "evAuthorizationError",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Data Dropped"
+                        },
+                        "name": "evDataDropped",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Media Format Error"
+                        },
+                        "name": "evMediaFormatError",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Media Session Established"
+                        },
+                        "name": "evMediaSessionEstablished",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Network Error"
+                        },
+                        "name": "evNetworkError",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Protocol Error"
+                        },
+                        "name": "evProtocolError",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Storage Error"
+                        },
+                        "name": "evStorageError",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Debug Telemetry"
+                        },
+                        "name": "wpDebugTelemetry",
+                        "writable": true,
+                        "schema": "boolean"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "InterfaceInstance",
+            "displayName": {
+                "en": "AI Inference Interface"
+            },
+            "name": "AiInferenceInterface",
+            "schema": {
+                "@id": "urn:AzureMediaServices:AiInferenceInterface:1",
+                "@type": "Interface",
+                "displayName": {
+                    "en": "AI Inference Interface"
+                },
+                "contents": [
+                    {
+                        "@type": "Telemetry",
+                        "displayName": {
+                            "en": "Inference Count"
+                        },
+                        "name": "tlInferenceCount",
+                        "schema": "integer"
+                    },
+                    {
+                        "@type": "Telemetry",
+                        "displayName": {
+                            "en": "Inference"
+                        },
+                        "name": "tlInference",
+                        "schema": {
+                            "@type": "Object",
+                            "displayName": {
+                                "en": "Object"
+                            },
+                            "fields": [
+                                {
+                                    "@type": "SchemaField",
+                                    "displayName": {
+                                        "en": "type"
+                                    },
+                                    "name": "type",
+                                    "schema": "string"
+                                },
+                                {
+                                    "@type": "SchemaField",
+                                    "displayName": {
+                                        "en": "entity"
+                                    },
+                                    "name": "entity",
+                                    "schema": {
+                                        "@type": "Object",
+                                        "displayName": {
+                                            "en": "Object"
+                                        },
+                                        "fields": [
+                                            {
+                                                "@type": "SchemaField",
+                                                "displayName": {
+                                                    "en": "box"
+                                                },
+                                                "name": "box",
+                                                "schema": {
+                                                    "@type": "Object",
+                                                    "displayName": {
+                                                        "en": "Object"
+                                                    },
+                                                    "fields": [
+                                                        {
+                                                            "@type": "SchemaField",
+                                                            "displayName": {
+                                                                "en": "l"
+                                                            },
+                                                            "name": "l",
+                                                            "schema": "double"
+                                                        },
+                                                        {
+                                                            "@type": "SchemaField",
+                                                            "displayName": {
+                                                                "en": "t"
+                                                            },
+                                                            "name": "t",
+                                                            "schema": "double"
+                                                        },
+                                                        {
+                                                            "@type": "SchemaField",
+                                                            "displayName": {
+                                                                "en": "w"
+                                                            },
+                                                            "name": "w",
+                                                            "schema": "double"
+                                                        },
+                                                        {
+                                                            "@type": "SchemaField",
+                                                            "displayName": {
+                                                                "en": "h"
+                                                            },
+                                                            "name": "h",
+                                                            "schema": "double"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "@type": "SchemaField",
+                                                "displayName": {
+                                                    "en": "tag"
+                                                },
+                                                "name": "tag",
+                                                "schema": {
+                                                    "@type": "Object",
+                                                    "displayName": {
+                                                        "en": "Object"
+                                                    },
+                                                    "fields": [
+                                                        {
+                                                            "@type": "SchemaField",
+                                                            "displayName": {
+                                                                "en": "confidence"
+                                                            },
+                                                            "name": "confidence",
+                                                            "schema": "double"
+                                                        },
+                                                        {
+                                                            "@type": "SchemaField",
+                                                            "displayName": {
+                                                                "en": "value"
+                                                            },
+                                                            "name": "value",
+                                                            "schema": "string"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@type": [
+                            "Telemetry",
+                            "SemanticType/Event"
+                        ],
+                        "displayName": {
+                            "en": "Inference Event Video"
+                        },
+                        "name": "evInferenceEventVideoUrl",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Inference Video"
+                        },
+                        "name": "rpInferenceVideoUrl",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Inference Image"
+                        },
+                        "name": "rpInferenceImageUrl",
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Inference Timeout (sec)"
+                        },
+                        "name": "wpInferenceTimeout",
+                        "writable": true,
+                        "schema": "integer"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "InterfaceInstance",
+            "displayName": {
+                "en": "AI Object Detector Interface"
+            },
+            "name": "AiObjectDetectorInterface",
+            "schema": {
+                "@id": "urn:AzureMediaServices:AiObjectDetectorInterface:1",
+                "@type": "Interface",
+                "displayName": {
+                    "en": "AI Object Detector Interface"
+                },
+                "contents": [
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Detection Classes"
+                        },
+                        "name": "wpDetectionClasses",
+                        "writable": true,
+                        "schema": "string"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Confidence Threshold"
+                        },
+                        "name": "wpConfidenceThreshold",
+                        "writable": true,
+                        "schema": "double"
+                    },
+                    {
+                        "@type": "Property",
+                        "displayName": {
+                            "en": "Inference Frame Sample Rate (fps)"
+                        },
+                        "name": "wpInferenceFps",
+                        "writable": true,
+                        "schema": "integer"
+                    }
+                ]
+            }
+        }
+    ],
+    "displayName": {
+        "en": "Lva Edge Object Detector Device"
+    },
+    "@context": [
+        "http://azureiot.com/v1/contexts/IoTModel.json"
+    ]
+}

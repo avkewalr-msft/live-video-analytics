@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+            {
+                "name": "Launch Web Client (Chrome)",
+                "type": "chrome",
+                "request": "launch",
+                "url": "http://localhost:8200/user",
+                "webRoot": "${workspaceFolder}/src",
+                "sourceMaps": true,
+                "smartStep": true,
+                "showAsyncStacks": true
+            },
+            {
+                "type": "node",
+                "request": "launch",
+                "name": "dockerbuild",
+                "runtimeExecutable": "npm",
+                "runtimeArgs": [
+                    "run-script",
+                    "dockerbuild"
+                ],
+                "port": 5858,
+                "skipFiles": [
+                    "<node_internals>/**"
+                ]
+            }
+        ]
+}

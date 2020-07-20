@@ -1,0 +1,89 @@
+/*************************************************************************
+* Use this scratchpad to collect all the IDs, secretes and relevant resource information 
+* from AMS and IoT Central to complete the Live Video Analytics deployment
+* There is a reference to tutorial, section and paragraph
+*************************************************************************/
+
+# Tutorial: Create a video analytics - security and safety application in Azure IoT Central
+## Deploy and configure Azure Media Services
+
+When the deployment is complete, navigate to the Properties page for your Media Services account. Make a note of the Resource Id, you use this value later when you configure the IoT Edge module.
+
+------------------------------------
+[Resource ID]
+------------------------------------
+Sample:
+/subscriptions/[Subscription ID]/resourceGroups/[Resource Group]/providers/microsoft.media/mediaservices/[account name]
+
+
+When the secret is generated, scroll down to the section Copy your credentials to connect your service principal application. Then select JSON. You can copy all the credential information from here in one go. Make a note of this information somewhere safe, you use it later when you configure the IoT Edge device.
+
+Connect to Media Services API (JSON)
+------------------------------------
+{
+	"AadClientId": "<AAD Client ID>",
+	"AadSecret": "<AAD secret>",
+	"AadTenantDomain": "mesh-systems.com",
+	"AadTenantId": "<TENANT_ID>",
+	"AccountName": "<AccountName>",
+	"Location": "East US",
+	"ResourceGroup": "<ResourceGroup>",
+	"SubscriptionId": "<SubscriptionId>",
+	"ArmAadAudience": "https://management.core.windows.net",
+	"ArmEndpoint": "https://management.azure.com"
+}
+------------------------------------
+
+## Create the Azure IoT Central Application
+### Retrieve the configuration data
+
+In the Administration section, select Your application and make a note of the Application URL and the Application ID
+------------------------------------
+Application URL
+[Application URL HERE]
+------------------------------------
+Sample:
+myapp.azureiotcentral.com
+
+------------------------------------
+Application ID
+[Application ID HERE]
+------------------------------------
+Sample:
+1d613b28-272b-4cf9-8a5f-f64f11b3a4c3
+
+Select API Tokens and generate a new token called LVAEdgeToken for the Operator role
+------------------------------------
+API Token
+[API Token HERE]
+------------------------------------
+Sample:
+SharedAccessSignature sr=[GUID]&sig=[SECRET_STRING]=lvaedgetoken&se=[SALT]
+
+In the Administration section, select Device connection, and then select View Keys for SAS-IoT-Devices.
+------------------------------------
+Primary key
+[Primary key HERE]
+------------------------------------
+This is a Base64 secret, about 90 characters long
+
+## Add a gateway device
+### Get the device credentials
+On the Device connection page, make a note of the ID Scope, the Device ID, and the device Primary Key. You use these values later.
+------------------------------------
+ID Scope
+[ID Scope HERE]
+------------------------------------
+Sample: 0neXXXXXXXX
+ 
+------------------------------------
+Device ID
+[Device ID HERE]
+------------------------------------
+Sample: camera-001 
+ 
+------------------------------------
+Primary Key
+[Primary Key HERE]
+------------------------------------
+This is a Base64 secret, about 45 characters long

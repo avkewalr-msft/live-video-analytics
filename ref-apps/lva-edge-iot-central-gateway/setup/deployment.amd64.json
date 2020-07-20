@@ -1,0 +1,125 @@
+{
+    "modulesContent": {
+        "$edgeAgent": {
+            "properties.desired": {
+                "schemaVersion": "1.0",
+                "runtime": {
+                    "type": "docker",
+                    "settings": {
+                        "minDockerVersion": "v1.25",
+                        "loggingOptions": "",
+                        "registryCredentials": {
+                            "<CONTAINER_REGISTRY_NAME>": {
+                                "address": "<CONTAINER_REGISTRY_ADDRESS>",
+                                "password": "<CONTAINER_REGISTRY_PASSWORD>",
+                                "username": "<CONTAINER_REGISTRY_NAME>"
+                            }
+                        }
+                    }
+                },
+                "systemModules": {
+                    "edgeAgent": {
+                        "type": "docker",
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-agent:1.0",
+                            "createOptions": ""
+                        }
+                    },
+                    "edgeHub": {
+                        "type": "docker",
+                        "status": "running",
+                        "restartPolicy": "always",
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-hub:1.0",
+                            "createOptions": "{\"HostConfig\":{\"PortBindings\":{\"5671/tcp\":[{\"HostPort\":\"5671\"}],\"8883/tcp\":[{\"HostPort\":\"8883\"}],\"443/tcp\":[{\"HostPort\":\"443\"}]}}}"
+                        }
+                    }
+                },
+                "modules": {
+                    "LvaEdgeGatewayModule": {
+                        "settings": {
+                            "image": "<YOUR_GATEWAY_IMAGE_NAME>",
+                            "createOptions": "{\"HostConfig\":{\"PortBindings\":{\"9070/tcp\":[{\"HostPort\":\"9070\"}]},\"Binds\":[\"/data/storage:/data/storage\",\"/data/media:/data/media/\"]}}"
+                        },
+                        "type": "docker",
+                        "env": {
+                            "lvaEdgeModuleId": {
+                                "value": "lvaEdge"
+                            },
+                            "amsAccountName": {
+                                "value": "<YOUR_AZURE_MEDIA_ACCOUNT_NAME>"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always",
+                        "version": "1.0"
+                    },
+                    "lvaYolov3": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/lva-utilities/yolov3-onnx:1.0",
+                            "createOptions": "{\"HostConfig\":{\"CpuShares\": \"512\"}}"
+                        },
+                        "type": "docker",
+                        "status": "running",
+                        "restartPolicy": "always",
+                        "version": "1.0"
+                    },
+                    "lvaEdge": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/media/live-video-analytics:1",
+                            "createOptions": "{\"HostConfig\":{\"Binds\":[\"/data/media:/var/media/\"]}}"
+                        },
+                        "type": "docker",
+                        "env": {
+                            "EnableDiagnosticLogging": {
+                                "value": "True"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always",
+                        "version": "1.0"
+                    }
+                }
+            }
+        },
+        "$edgeHub": {
+            "properties.desired": {
+                "schemaVersion": "1.0",
+                "routes": {
+                    "LvaSignalGateTrigger": "FROM /messages/modules/LvaEdgeGatewayModule/outputs/lvaTrigger INTO BrokeredEndpoint(\"/modules/lvaEdge/inputs/lvaTrigger\")",
+                    "LvaDiagnosticsForwarder": "FROM /messages/modules/lvaEdge/outputs/AmsDiagnostics INTO BrokeredEndpoint(\"/modules/LvaEdgeGatewayModule/inputs/lvaDiagnostics\")",
+                    "LvaOperationsForwarder": "FROM /messages/modules/lvaEdge/outputs/AmsOperational INTO BrokeredEndpoint(\"/modules/LvaEdgeGatewayModule/inputs/lvaOperational\")",
+                    "LvaTelemetryForwarder": "FROM /messages/modules/lvaEdge/outputs/lvaTelemetry INTO BrokeredEndpoint(\"/modules/LvaEdgeGatewayModule/inputs/lvaTelemetry\")",
+                    "LvaEdgeGatewayModuleOutput": "FROM /messages/modules/LvaEdgeGatewayModule/outputs/iotc INTO $upstream"
+                },
+                "storeAndForwardConfiguration": {
+                    "timeToLiveSecs": 7200
+                }
+            }
+        },
+        "LvaEdgeGatewayModule": {
+            "properties.desired": {
+                "wpDebugTelemetry": false,
+                "wpDebugRoutedMessage": false
+            }
+        },
+        "lvaEdge": {
+            "properties.desired": {
+                "applicationDataDirectory": "/var/lib/azuremediaservices",
+                "azureMediaServicesArmId": "/subscriptions/[Subscription ID]/resourceGroups/[Resource Group]/providers/microsoft.media/mediaservices/[AMS account name]",
+                "aadEndpoint": "https://login.microsoftonline.com",
+                "aadTenantId": "<FROM_AZURE_PORTAL>",
+                "aadServicePrincipalAppId": "<FROM_AZURE_PORTAL>",
+                "aadServicePrincipalSecret": "<FROM_AZURE_PORTAL>",
+                "aadResourceId": "<FROM_AZURE_PORTAL>",
+                "armEndpoint": "<FROM_AZURE_PORTAL>",
+                "diagnosticsEventsOutputName": "AmsDiagnostics",
+                "operationalEventsOutputName": "AmsOperational",
+                "logLevel": "Information",
+                "logCategories": "Application,Event",
+                "AllowUnsecuredEndpoints": "true",
+                "TelemetryOptOut": false
+            }
+        }
+    }
+}
