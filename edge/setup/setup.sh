@@ -83,8 +83,12 @@ az extension show -n azure-iot -o none
 if [ $? -ne 0 ]; then
     echo -e "Installing the ${BLUE}azure-iot${NC} cli extension."
     az extension add --name azure-iot &> /dev/null
+    az extension add --name azure-cli-iot-ext &> /dev/null
 else
-    echo -e "${BLUE}azure-iot${NC} cli extension was found."
+    echo -e "${BLUE}azure-iot${NC} cli extension was found and updating to latest version."
+    az extension update --name azure-iot &> /dev/null
+    az extension update --name azure-cli-iot-ext &> /dev/null
+    echo -e "${BLUE}azure-iot${NC} cli extension is up to date."
 fi
 
 # check if we need to log in
