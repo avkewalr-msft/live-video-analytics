@@ -103,7 +103,7 @@ In the above command, confidenceThreshold should be specified as a float value.
 
 #### View video stream with inferencing overlays
 
-You can use the container to process video and view the output video with inferencing overlays in a browser. To do so, you can post video frames to the container with stream=<stream-id> as a query parameter (i.e. you will need to post video frames to [http://127.0.0.1:8080/score?stream=test-stream](http://127.0.0.1/score?stream=test-stream). The output video can then be viewed by going to [http://127.0.0.1:8080/stream/test-stream](http://127.0.0.1:8080/stream/test-stream).
+You can use the container to process video and view the output video with inferencing overlays in a browser. To do so, you can post video frames to the container with stream=<stream-id> as a query parameter (i.e. you will need to post video frames to [http://127.0.0.1:8080/score?stream=teststream](http://127.0.0.1/score?stream=teststream). The output video can then be viewed by going to [http://127.0.0.1:8080/stream/test-stream](http://127.0.0.1:8080/stream/teststream).
 
 ### /annotate
 
