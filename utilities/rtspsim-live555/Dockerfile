@@ -18,7 +18,7 @@ RUN apt-get update && \
 
 WORKDIR /live/mediaServer
 
-ADD ./win10.mkv /live/mediaServer/media/
+COPY ./camera-300s.mkv /live/mediaServer/media/
 
 EXPOSE 554
 
