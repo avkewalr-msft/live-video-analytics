@@ -4,9 +4,9 @@ This folder contains a bash script and other files listed below, which can be us
 
 - [setup.sh]() is bash script intended to be use in [Azure Cloud Shell](http://shell.azure.com/). This script makes use of the other files in the folder.
 - [cloud-init.yml]() helps setup an Azure Linux VM as an IoT Edge device, and copies some required files into the VM. You can learn about the syntax [here](https://docs.microsoft.com/azure/virtual-machines/linux/using-cloud-init).
-- [deploy.json] is an [Azure Resource Management template](https://docs.microsoft.com/azure/templates/) for deploying various resources in Azure required by the samples
-- [deployment.template.json] is a template the script uses to generate a [deployment manifest](https://docs.microsoft.com/azure/iot-edge/module-composition), which can be used for deploying Live Video Analytics on IoT Edge module (and others)
-- [LVAEdgeUserRoleDefinition.json] defines a [custom role](https://docs.microsoft.com/azure/role-based-access-control/custom-roles) so that the Live Video Analytics on Edge module can use a service principal with minimal privileges when making calls to Azure Media Services
+- [deploy.json]() is an [Azure Resource Management template](https://docs.microsoft.com/azure/templates/) for deploying various resources in Azure required by the samples
+- [deployment.template.json]() is a template the script uses to generate a [deployment manifest](https://docs.microsoft.com/azure/iot-edge/module-composition), which can be used for deploying Live Video Analytics on IoT Edge module (and others)
+- [LVAEdgeUserRoleDefinition.json]() defines a [custom role](https://docs.microsoft.com/azure/role-based-access-control/custom-roles) so that the Live Video Analytics on Edge module can use a service principal with minimal privileges when making calls to Azure Media Services
 
 You can get to the script via this redirect: https://aka.ms/lva-edge/setup-resources-for-samples
 
