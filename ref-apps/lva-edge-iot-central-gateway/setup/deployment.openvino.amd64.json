@@ -72,15 +72,15 @@
                         "restartPolicy": "always",
                         "version": "1.0"
                     },
-                    "lvaYolov3": {
+                    "OpenVINOModelServerEdgeAIExtensionModule": {
                         "settings": {
-                            "image": "mcr.microsoft.com/lva-utilities/yolov3-onnx:1.0",
-                            "createOptions": "{\"HostConfig\":{\"CpuShares\": \"512\"}}"
+                            "image": "marketplace.azurecr.io/intel_corporation/open_vino",
+                            "createOptions": "{\"HostConfig\":{\"PortBindings\":{\"4000/tcp\":[{\"HostPort\":\"4000\"}]}},\"Cmd\":[\"/ams_wrapper/start_ams.py\",\"--ams_port=4000\",\"--ovms_port=9000\"]}"
                         },
                         "type": "docker",
+                        "version": "1.0",
                         "status": "running",
-                        "restartPolicy": "always",
-                        "version": "1.0"
+                        "restartPolicy": "always"
                     },
                     "lvaEdge": {
                         "settings": {
