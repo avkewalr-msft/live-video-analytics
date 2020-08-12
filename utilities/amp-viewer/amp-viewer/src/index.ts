@@ -45,6 +45,17 @@ const composeOptions: ComposeOptions = {
 async function start() {
     const server = await compose(manifest(), composeOptions);
 
+    const stopServer = async () => {
+        server.log(['shutdown', 'info'], '☮︎ Stopping hapi server');
+        await server.stop({ timeout: 10000 });
+
+        server.log(['shutdown', 'info'], `⏏︎ Server stopped`);
+        process.exit(0);
+    };
+
+    process.on('SIGINT', stopServer);
+    process.on('SIGTERM', stopServer);
+
     server.log(['startup', 'info'], `🚀 Starting HAPI server instance...`);
     await server.start();
 
