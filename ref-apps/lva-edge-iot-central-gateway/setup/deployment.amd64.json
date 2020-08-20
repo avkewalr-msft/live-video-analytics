@@ -8,7 +8,6 @@
                     "settings": {
                         "minDockerVersion": "v1.25",
                         "loggingOptions": ""
-                        }
                     }
                 },
                 "systemModules": {
@@ -129,8 +128,8 @@
                 "aadTenantId": "<FROM_AZURE_PORTAL>",
                 "aadServicePrincipalAppId": "<FROM_AZURE_PORTAL>",
                 "aadServicePrincipalSecret": "<FROM_AZURE_PORTAL>",
-                "aadResourceId": "<FROM_AZURE_PORTAL>",
-                "armEndpoint": "<FROM_AZURE_PORTAL>",
+                "aadResourceId": "https://management.core.windows.net/",
+                "armEndpoint": "https://management.azure.com/",
                 "diagnosticsEventsOutputName": "AmsDiagnostics",
                 "operationalEventsOutputName": "AmsOperational",
                 "logLevel": "Information",
