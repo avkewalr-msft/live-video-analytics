@@ -4,7 +4,7 @@
 # This script deploys resources in Azure for use with Azure Media Services Live Video Analytics samples.              #
 # It is primarily meant to run in https://shell.azure.com/ in the Bash environment. (It will not work in PowerShell.) #
 #                                                                                                                     #
-# You will need an Azure subscription with permissions for creating service principals (owner role provides this).    #                                                                                                                #
+# You will need an Azure subscription with permissions for creating service principals (owner role provides this).    #                                                                                                                
 #                                                                                                                     #
 # Do not be in the habit of executing scripts from the internet with root-level access to your machine. Only trust    #
 # well-known publishers.                                                                                              #
@@ -77,18 +77,16 @@ mkdir -p $(dirname $APP_SETTINGS_FILE) && echo -n "" > $APP_SETTINGS_FILE
 mkdir -p $(dirname $VM_CREDENTIALS_FILE) && echo -n "" > $VM_CREDENTIALS_FILE
 mkdir -p $(dirname $DEPLOYMENT_MANIFEST_FILE) && echo -n "" > $DEPLOYMENT_MANIFEST_FILE
 
-# install the Azure CLI IoT extension
-echo -e "Checking for the ${BLUE}azure-iot${NC} cli extension."
-az extension show -n azure-iot -o none
+# install the Azure IoT extension
+echo -e "Checking ${BLUE}azure-iot${NC} extension."
+az extension show -n azure-iot -o none &> /dev/null
 if [ $? -ne 0 ]; then
-    echo -e "Installing the ${BLUE}azure-iot${NC} cli extension."
+    echo -e "${BLUE}azure-iot${NC} extension not found. Installing ${BLUE}azure-iot${NC}."
     az extension add --name azure-iot &> /dev/null
-    az extension add --name azure-cli-iot-ext &> /dev/null
+    echo -e "${BLUE}azure-iot${NC} extension is now installed."
 else
-    echo -e "${BLUE}azure-iot${NC} cli extension was found and updating to latest version."
     az extension update --name azure-iot &> /dev/null
-    az extension update --name azure-cli-iot-ext &> /dev/null
-    echo -e "${BLUE}azure-iot${NC} cli extension is up to date."
+    echo -e "${BLUE}azure-iot${NC} extension is up to date."														  
 fi
 
 # check if we need to log in
@@ -121,11 +119,11 @@ fi
 
 # select a region for deployment
 echo -e "
-${YELLOW}Please select a region to deploy resources from this list: canadaeast, centralus, eastus2, francecentral, japanwest, northcentralus, switzerlandnorth, uksouth, westcentralus, westus2, eastus2euap, centraluseuap.${NC}
+${YELLOW}Please select a region to deploy resources from this list: centralus, eastus2, francecentral, japanwest, northcentralus, uksouth, westcentralus, westus2, australiaeast, eastasia, southeastasia, japaneast, eastus, ukwest, westus, canadacentral, koreacentral, southcentralus, australiasoutheast, centralindia, brazilsouth, westeurope, northeurope.${NC}
 Or just press enter to use ${DEFAULT_REGION}."
 read -p ">> " REGION
 
-if [[ "$REGION" =~ ^(canadaeast|centralus|eastus2|francecentral|japanwest|northcentralus|switzerlandnorth|uksouth|westcentralus|westus2|eastus2euap|centraluseuap)$ ]]; then
+if [[ "$REGION" =~ ^(centralus|eastus2|francecentral|japanwest|northcentralus|uksouth|westcentralus|westus2|australiaeast|eastasia|southeastasia|japaneast|eastus|ukwest|westus|canadacentral|koreacentral|southcentralus|australiasoutheast|centralindia|brazilsouth|westeurope|northeurope)$ ]]; then
     echo -e "\n${GREEN}Now using:${NC} $REGION"
 else
     echo -e "\n${GREEN}Defaulting to:${NC} ${DEFAULT_REGION}"
@@ -215,7 +213,7 @@ re="SubscriptionId:\s([0-9a-z\-]*)"
 SUBSCRIPTION_ID=$([[ "$AMS_CONNECTION" =~ $re ]] && echo ${BASH_REMATCH[1]})
 
 # create new role definition in the subscription
-if test -z "$(az role definition list -n "$ROLE_DEFINITION_NAME" | grep "roleName")"; then
+ if test -z "$(az role definition list -n "$ROLE_DEFINITION_NAME" | grep "roleName")"; then
     echo -e "Creating a custom role named ${BLUE}$ROLE_DEFINITION_NAME${NC}."
     curl -sL $ROLE_DEFINITION_URL > $ROLE_DEFINITION_FILE
     sed -i "s/\$SUBSCRIPTION_ID/$SUBSCRIPTION_ID/" $ROLE_DEFINITION_FILE
@@ -223,16 +221,17 @@ if test -z "$(az role definition list -n "$ROLE_DEFINITION_NAME" | grep "roleNam
     
     az role definition create --role-definition $ROLE_DEFINITION_FILE -o none
     checkForError
-fi
+ fi
+
 # capture object_id
 OBJECT_ID=$(az ad sp show --id ${AAD_SERVICE_PRINCIPAL_ID} --query 'objectId' | tr -d \")
 
 # create role assignment
-az role assignment create --role "$ROLE_DEFINITION_NAME" --assignee-object-id $OBJECT_ID -o none
-echo -e "The service principal with object id ${OBJECT_ID} is now linked with custom role ${BLUE}$ROLE_DEFINITION_NAME${NC}."
+ az role assignment create --role "$ROLE_DEFINITION_NAME" --assignee-object-id $OBJECT_ID -o none
+ echo -e "The service principal with object id ${OBJECT_ID} is now linked with custom role ${BLUE}$ROLE_DEFINITION_NAME${NC}."
 
 # The brand-new AMS account has a standard streaming endpoint in stopped state. 
-# A Premium streaming endpoint is recommended when recording multiple days’ worth of video
+# A Premium streaming endpoint is recommended when recording multiple daysÃ¢â‚¬â„¢ worth of video
 
 echo -e "
 Updating the Media Services account to use one ${YELLOW}Premium${NC} streaming endpoint."
@@ -323,17 +322,6 @@ echo "    \"deviceId\" : \"$EDGE_DEVICE\"," >> $APP_SETTINGS_FILE
 echo "    \"moduleId\" : \"lvaEdge\"" >> $APP_SETTINGS_FILE
 echo -n "}" >> $APP_SETTINGS_FILE
 
-echo -e "
-The appsettings.json file is for the .NET Core sample application.
-You can find it here:
-${BLUE}${APP_SETTINGS_FILE}${NC}"
-
-echo -e "
-Next, copy these generated files into your local copy of the sample app:
-- ${BLUE}${APP_SETTINGS_FILE}${NC}
-- ${BLUE}${ENV_FILE}${NC}
-"
-
 # set up deployment manifest
 curl -s $DEPLOYMENT_MANIFEST_URL > $DEPLOYMENT_MANIFEST_FILE
 
@@ -350,12 +338,24 @@ sed -i "s/\$OUTPUT_VIDEO_FOLDER_ON_DEVICE/\/var\/media/" $DEPLOYMENT_MANIFEST_FI
 sed -i "s/\$APPDATA_FOLDER_ON_DEVICE/${APPDATA_FOLDER_ON_DEVICE//\//\\/}/" $DEPLOYMENT_MANIFEST_FILE
 
 echo -e "
+The appsettings.json file is for the .NET Core sample application.
+You can find it here:
+${BLUE}${APP_SETTINGS_FILE}${NC}"
+
+echo -e "
 You can find the deployment manifest file here:
-- ${BLUE}${DEPLOYMENT_MANIFEST_FILE}${NC}
+- ${BLUE}${DEPLOYMENT_MANIFEST_FILE}${NC}"
+
+echo -e "
+
+
+Next, copy these generated files into your local copy of the sample app:
+- ${BLUE}${APP_SETTINGS_FILE}${NC}
+- ${BLUE}${ENV_FILE}${NC}
 
 ${GREEN}All done!${NC} \U1F44D\n
 
-Go to ${GREEN}https://aka.ms/lva-edge-quickstart${NC} to learn more about getting started with ${BLUE}Live Video Analytics${NC} on IoT Edge.
+Go to ${GREEN}https://aka.ms/lva-edge-quickstart${NC} to learn more about getting started with ${BLUE}Live Video Analytics${NC} on IoT Edge.					
 "
 
 # cleanup
