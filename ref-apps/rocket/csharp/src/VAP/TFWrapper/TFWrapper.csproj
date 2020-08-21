@@ -12,9 +12,7 @@
     <PackageReference Include="SharpZipLib" Version="$(SharpZipLibVersion)" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(SystemConfigurationConfigurationManagerVersion)" />
     <PackageReference Include="System.Drawing.Common" Version="$(SystemDrawingCommonVersion)" />
-    <Reference Include="TensorFlowSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\TensorFlowSharp.1.12.0\lib\TensorFlowSharp.dll</HintPath>
-    </Reference>
+    <PackageReference Include="TensorFlowSharp" Version="$(TensorFlowSharpVersion)" />
   </ItemGroup>
 
   <ItemGroup>

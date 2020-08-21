@@ -1,173 +1,159 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-import onnxruntime
-from PIL import Image, ImageDraw, ImageFont
-import numpy as np
-import time
+from datetime import datetime
 import io
 import json
 import os
-from datetime import datetime
+import logging
+import time
+from typing import Tuple
+
+from flask import Flask, Response, Request, abort, request
+import numpy as np
+import onnxruntime
+from PIL import Image, ImageDraw, ImageFont
 import requests
 
-# Imports for the REST API
-from flask import Flask, request, jsonify, Response
-
-session = None
-tags = []
-output_dir = 'images'
-
-# Called when the deployed service starts
-def init():
-    global session
-    global tags
-    global output_dir
-    
-    model_path = 'yolov3/yolov3.onnx'
-    # Initialize an inference session with  yoloV3 model
-    session = onnxruntime.InferenceSession(model_path) 
-    if (session != None):
-        print('Session initialized')
-    else:
-        print('Session is not initialized')
-
-    tags_file = 'tags.txt'
-    
-    with open(tags_file) as f:
-        for line in f: 
-            line = line.strip()
-            tags.append(line) 
-
-    if (os.path.exists(output_dir)):
-        print(output_dir + " already exits")
-    else:
-        os.mkdir(output_dir)
-    
-
-def letterbox_image(image, size):
-    '''Resize image with unchanged aspect ratio using padding'''
-    iw, ih = image.size
-    w, h = size
-    scale = min(w/iw, h/ih)
-    nw = int(iw*scale)
-    nh = int(ih*scale)
-
-    image = image.resize((nw,nh), Image.BICUBIC)
-    new_image = Image.new('RGB', size, (128,128,128))
-    new_image.paste(image, ((w-nw)//2, (h-nh)//2))
-
-    return new_image
-
-def preprocess(img):
-    model_image_size = (416, 416)
-    boxed_image = letterbox_image(img, tuple(reversed(model_image_size)))
-    image_data = np.array(boxed_image, dtype='float32')
-    image_data /= 255.
-    image_data = np.transpose(image_data, [2, 0, 1])
-    image_data = np.expand_dims(image_data, 0)
-    
-    return image_data
-
-def postprocess(boxes, scores, indices, iw, ih, objectType=None, confidenceThreshold=0.0):
-    
-    detected_objects = []
-    
-    for idx_ in indices:
-        idx_1 = (idx_[0], idx_[2])
-
-        objectTag = tags[idx_[1].tolist()]
-        confidence = scores[tuple(idx_)].tolist()
-
+class YoloV3Model:
+    def __init__(self):
+        model_path = 'yolov3.onnx'
         
-        y1, x1, y2, x2 = boxes[idx_1].tolist()
+        self._session = onnxruntime.InferenceSession(model_path)
+        tags_file = 'tags.txt'
+        with open(tags_file) as f:
+            self.tags = [line.strip() for line in f.readlines()]
 
-        width = (x2 - x1) / iw
-        height = (y2 - y1) / ih
-        left = x1 / iw
-        top = y1 / ih
-        
-        dobj = {
-            "type" : "entity",
-            "entity" : {
-                "tag" : {
-                    "value" : objectTag,
-                    "confidence" : confidence
-                },
-                "box" : {
-                    "l" : left,
-                    "t" : top,
-                    "w" : width,
-                    "h" : height
+        self.input_size = (416, 416)
+
+
+    def preprocess(self, image: Image) -> np.ndarray:
+        image_data = np.array(image, dtype='float32')
+        image_data /= 255.
+        image_data = np.transpose(image_data, [2, 0, 1])
+        image_data = np.expand_dims(image_data, 0)
+
+        return image_data
+
+
+    def postprocess(self, boxes, scores, indices, image_size: Tuple[int, int], object_type: str = None, confidenceThreshold: float = 0.0) -> list:
+        detected_objects = []
+        image_width, image_height = image_size
+
+        if indices.ndim == 3: 
+            # Tiny YOLOv3 uses a 3D numpy array, while YOLOv3 uses a 2D numpy array
+            indices = indices[0]  
+
+        for index_ in indices:
+            
+            # See https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/yolov3#output-of-model for more details
+            object_tag = self.tags[index_[1].tolist()]
+            confidence = scores[tuple(index_)].tolist()
+            y1, x1, y2, x2 = boxes[(index_[0], index_[2])].tolist()
+            width = (x2 - x1) / image_width
+            height = (y2 - y1) / image_height
+            left = x1 / image_width
+            top = y1 / image_height
+
+            dobj = {
+                "type" : "entity",
+                "entity" : {
+                    "tag" : {
+                        "value" : object_tag,
+                        "confidence" : confidence
+                    },
+                    "box" : {
+                        "l" : left,
+                        "t" : top,
+                        "w" : width,
+                        "h" : height
+                    }
                 }
             }
-        }
 
-        if (objectType is None):
-            detected_objects.append(dobj)
-        else:
-            if (objectType == objectTag) and (confidence > confidenceThreshold):
+            if object_type is None:
                 detected_objects.append(dobj)
+            else:
+                if (object_type == object_tag) and (confidence > confidenceThreshold):
+                    detected_objects.append(dobj)
 
-        
-        
-    return detected_objects
+        return detected_objects
 
-def processImage(img, objectType=None, confidenceThreshold=0.0):
-    try:
+
+    def process_image(self, image: Image, object_type: str = None, confidence_threshold: float = 0.0) -> Tuple[list, float]:
         # Preprocess input according to the functions specified above
-        img_data = preprocess(img)
-        img_size = np.array([img.size[1], img.size[0]], dtype=np.float32).reshape(1, 2)
+        image_data = self.preprocess(image)
+        image_size = np.array([image.size[1], image.size[0]], dtype=np.float32).reshape(1, 2)
 
         inference_time_start = time.time()
-        boxes, scores, indices = session.run(None, {"input_1": img_data, "image_shape":img_size})
+        boxes, scores, indices = self._session.run(None, {"input_1": image_data, "image_shape": image_size})
         inference_time_end = time.time()
-        inference_duration = np.round(inference_time_end - inference_time_start, 2)
+        inference_duration_s = inference_time_end - inference_time_start
         
-        iw, ih = img.size
-        detected_objects = postprocess(boxes, scores, indices, iw, ih, objectType, confidenceThreshold)
-        return inference_duration, detected_objects
-
-    except Exception as e:
-        print('EXCEPTION:', str(e))
-        return 'Error processing image', 500
+        detected_objects = self.postprocess(boxes, scores, indices, image.size, object_type, confidence_threshold)
+        return detected_objects, inference_duration_s
 
 
-def drawBboxes(image, detected_objects):
+def init_logging():
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    if gunicorn_logger != None:
+        app.logger.handlers = gunicorn_logger.handlers
+        app.logger.setLevel(gunicorn_logger.level)
+
+
+def draw_bounding_boxes(image: Image, detected_objects: list):
     objects_identified = len(detected_objects)
     
-    iw, ih = image.size
-    draw = ImageDraw.Draw(image)    
+    image_width, image_height = image.size
+    draw = ImageDraw.Draw(image)
 
     textfont = ImageFont.load_default()
     
-    for pos in range(objects_identified):       
-        entity = detected_objects[pos]['entity'] 
+    for pos in range(objects_identified):
+        entity = detected_objects[pos]['entity']
         box = entity["box"]
         x1 = box["l"]
         y1 = box["t"]
         x2 = box["w"]
         y2 = box["h"]
         
-        x1 = x1 * iw
-        y1 = y1 * ih
-        x2 = (x2 * iw) + x1
-        y2 = (y2 * ih) + y1
+        x1 = x1 * image_width
+        y1 = y1 * image_height
+        x2 = (x2 * image_width) + x1
+        y2 = (y2 * image_height) + y1
         tag = entity['tag']
-        objClass = tag['value']        
+        object_class = tag['value']
 
         draw.rectangle((x1, y1, x2, y2), outline = 'blue', width = 1)
-        print('rectangle drawn')
-        draw.text((x1, y1), str(objClass), fill = "white", font = textfont)
-     
+        draw.text((x1, y1), str(object_class), fill = "white", font = textfont)
+
+    return image
+
+
+def load_image(request: Request):
+    try:
+        image_data = io.BytesIO(request.get_data())
+        image = Image.open(image_data)
+    except Exception:
+        abort(Response(response='Could not decode image', status=400))
+
+    # Sizing and letterboxing is done by the HttpExtension node within LVA
+    if image.size != model.input_size:
+        abort(Response(response=f'Image must be {model.input_size[0]}x{model.input_size[1]}', status=400))
+
     return image
 
 
 app = Flask(__name__)
 
+init_logging()
+
+model = YoloV3Model()
+app.logger.info('Model initialized')
+
 # / routes to the default function which returns 'Hello World'
 @app.route('/', methods=['GET'])
-def defaultPage():
+def default_page():
     return Response(response='Hello from Yolov3 inferencing based on ONNX', status=200)
 
 @app.route('/stream/<id>')
@@ -179,117 +165,81 @@ def stream(id):
 
     return Response(respBody, status= 200)
 
-    #return render_template('mjpeg.html')
-
 # /score routes to scoring function 
 # This function returns a JSON object with inference duration and detected objects
 @app.route("/score", methods=['POST'])
 def score():
-    try:
-        objectType = None
-        confidenceThreshold = 0.0
+    confidence = request.args.get('confidence', default = 0.0, type = float)
+    object_type = request.args.get('object')
+    stream = request.args.get('stream')
 
-        if (request.args):
-            try:
-                objectType = request.args.get('object')
-                stream = request.args.get('stream')
-                confidence = request.args.get('confidence')
-                if confidence is not None:
-                    confidenceThreshold = float(confidence)                
-            except Exception as ex:
-                print('EXCEPTION:', str(ex))                                
+    image = load_image(request)
+    detected_objects, _ = model.process_image(image, object_type, confidence)
 
-        imageData = io.BytesIO(request.get_data())
+    if stream is not None:
+        output_image = draw_bounding_boxes(image, detected_objects)
 
-        # load the image
-        img = Image.open(imageData)
+        image_buffer = io.BytesIO()
+        output_image.save(image_buffer, format='JPEG')
 
-        inference_duration, detected_objects = processImage(img, objectType, confidenceThreshold)        
+        # post the image with bounding boxes so that it can be viewed as an MJPEG stream
+        postData = b'--boundary\r\n' + b'Content-Type: image/jpeg\r\n\r\n' + image_buffer.getvalue() + b'\r\n'
+        requests.post('http://127.0.0.1:80/mjpeg_pub/' + stream, data = postData)
 
-        try:        
-            if stream is not None:
-                output_img = drawBboxes(img, detected_objects)
+    if len(detected_objects) > 0:
+        respBody = {
+            "inferences" : detected_objects
+        }
 
-                imgBuf = io.BytesIO()
-                output_img.save(imgBuf, format='JPEG')
-
-                # post the image with bounding boxes so that it can be viewed as an MJPEG stream
-                postData = b'--boundary\r\n' + b'Content-Type: image/jpeg\r\n\r\n' + imgBuf.getvalue() + b'\r\n'
-                requests.post('http://127.0.0.1:80/mjpeg_pub/' + stream, data = postData)
-
-        except Exception as ex:
-            print('EXCEPTION:', str(ex))
-
-        if len(detected_objects) > 0:
-            respBody = {                    
-                        "inferences" : detected_objects
-                    }
-
-            respBody = json.dumps(respBody)
-            return Response(respBody, status= 200, mimetype ='application/json')
-        else:
-            return Response(status= 204)            
-    except Exception as e:
-        print('EXCEPTION:', str(e))
-        return Response(response='Error processing image ' + str(e), status= 500)
+        respBody = json.dumps(respBody)
+        return Response(respBody, status= 200, mimetype ='application/json')
+    else:
+        return Response(status= 204)
 
 # /score-debug routes to score_debug
 # This function scores the image and stores an annotated image for debugging purposes
 @app.route('/score-debug', methods=['POST'])
 def score_debug():
+    image = load_image(request)
 
-    try:
-        imageData = io.BytesIO(request.get_data())
-        # load the image
-        img = Image.open(imageData)
+    detected_objects, inference_duration_s = model.process_image(image)
+    app.logger.info('Inference took %.2f seconds', inference_duration_s)
 
-        inference_duration, detected_objects = processImage(img)
-        print('Inference duration was ', str(inference_duration))
+    output_image = draw_bounding_boxes(image, detected_objects)
 
-        output_img = drawBboxes(img, detected_objects)
+    # datetime object containing current date and time
+    now = datetime.now()
 
-        # datetime object containing current date and time
-        now = datetime.now()
-        
-        output_img_file = now.strftime("%d_%m_%Y_%H_%M_%S.jpeg")
-        output_img.save(output_dir + "/" + output_img_file)
+    output_dir = 'images'
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
 
-        respBody = {                    
-                    "inferences" : detected_objects
-                    }                   
-        
-        return respBody
-    except Exception as e:
-        print('EXCEPTION:', str(e))
-        return Response(response='Error processing image', status= 500)
+    output_image_file = now.strftime("%d_%m_%Y_%H_%M_%S.jpeg")
+    output_image.save(output_dir + "/" + output_image_file)
+
+    respBody = {
+        "inferences" : detected_objects
+    }
+
+    return respBody
 
 # /annotate routes to annotation function 
 # This function returns an image with bounding boxes drawn around detected objects
 @app.route('/annotate', methods=['POST'])
 def annotate():
-    try:
-        imageData = io.BytesIO(request.get_data())
-        # load the image
-        img = Image.open(imageData)
+    image = load_image(request)
 
-        inference_duration, detected_objects = processImage(img)
-        print('Inference duration was ', str(inference_duration))
+    detected_objects, inference_duration_s = model.process_image(image)
+    app.logger.info('Inference took %.2f seconds', inference_duration_s)
 
-        img = drawBboxes(img, detected_objects)
-        
-        imgByteArr = io.BytesIO()        
-        img.save(imgByteArr, format = 'JPEG')        
-        imgByteArr = imgByteArr.getvalue()                
+    image = draw_bounding_boxes(image, detected_objects)
 
-        return Response(response = imgByteArr, status = 200, mimetype = "image/jpeg")
-    except Exception as e:
-        print('EXCEPTION:', str(e))
-        return Response(response='Error processing image', status= 500)
+    image_bytes = io.BytesIO()
+    image.save(image_bytes, format = 'JPEG')
+    image_bytes = image_bytes.getvalue()
 
-
-# Load and initialize the model
-init()
+    return Response(response = image_bytes, status = 200, mimetype = "image/jpeg")
 
 if __name__ == '__main__':
-    # Run the server
+    # Running the file directly
     app.run(host='0.0.0.0', port=8888)

@@ -1,5 +1,9 @@
 # Install IoT Edge Runtime for CPU Accelerated IoT Edge Devices
-If you are using a virtual machine, you can use the SSH connection string located in the [.env file](.env) to create a terminal session over the VM. Alternatively, with your own preference of connection type, open a terminal window session on the IoT Edge device. The commands in the steps below should be executed on the IoT Edge device through the terminal session.
+
+> <span style="color:red; font-weight:bold"> [!IMPORTANT] </span>  
+> All of the commands in this section should be run on your IoT Edge device.
+
+If you are using a virtual machine, you can use the SSH connection string located in the [.env file](.env) to [create a terminal session over the VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys#ssh-into-your-vm). Alternatively, with your own preference of connection type, open a terminal window session on the IoT Edge device. The commands in the steps below should be executed on the IoT Edge device through the terminal session.
 
 To be able to run commands below, you need to install the `curl` command line tool in case it is not already installed. To install curl, please use the following command:
 
@@ -8,9 +12,12 @@ sudo apt-get -y install curl
 ```
 
 ## Install the Azure IoT Edge Runtime
-In order to run the commands below in the terminal window, be sure to update the URL with the appropriate OS for your IoT Edge Device:  
+In order to run the commands below in the terminal window, be sure to update the URL with the appropriate OS for your IoT Edge device:  
 
+```
+Example:
 https://packages.microsoft.com/config/ubuntu/<YOUR_OS_VERSION>/multiarch/prod.list
+```
 
 Commands to install the IoT Edge Runtime:
 
@@ -52,10 +59,3 @@ sudo sed -i "s#\(device_connection_string: \).*#\1\'$IOT_EDGE_DEVICE_CONN_STRING
 
 sudo systemctl restart iotedge
 ```  
-
-## Restart the machine
-Run the following command in the terminal window to the IoT Edge device:
-
-```shell
-sudo reboot
-```

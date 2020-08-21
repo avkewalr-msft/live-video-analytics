@@ -12,6 +12,7 @@
     <NumSharpVersion>0.20.5</NumSharpVersion>
     <NumSharpBitmapVersion>0.20.4</NumSharpBitmapVersion>
     <OnnxRuntimeGpuVersion>1.1.2</OnnxRuntimeGpuVersion>
+    <TensorFlowSharpVersion>1.12.0</TensorFlowSharpVersion>
 
     <!-- Runtime dependencies -->
     <OpenCvSharp4RuntimeUbuntuVersion>4.0.0.20190108</OpenCvSharp4RuntimeUbuntuVersion>

@@ -18,7 +18,6 @@ class ResnetModel:
         with open('synset.txt', "r") as f:
             self._labelList = [l.rstrip() for l in f]
 
-        #print(self._labelList)
         self._onnxSession = onnxruntime.InferenceSession('resnet50-v2-7.onnx')
 
     def Preprocess(self, cvImage):

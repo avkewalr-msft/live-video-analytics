@@ -1,8 +1,8 @@
-# Yolov3 ONNX model for encryption through the wire I/O (TLS).
+# YOLOv3 ONNX model for encryption through the wire I/O (TLS).
 
 *An alternative for scenarios where the YOLO inferencing container, will run separately from IoT Edge (i.e. you have a spare beefy (hardware capable) server you'd like to use for this intensive task; given the amount of cameras you'll be feeding LVA with, which in turn, will demand simultaneous inferencing from this container). Although possible from a technical standpoint, if the inferencing container will run under IoT Edge's umbrella, a TLS certificate won't bring any added value. In this case, our suggestion is to walk the [regular documented path](../yolov3-onnx/readme.md)*
 
-The following instruction will enable you to build a docker container with [Yolov3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), and [runit](http://smarden.org/runit/). The container exposes port 443 to the outside world.
+The following instructions will enable you to build a Docker container with [YOLOv3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model using [nginx](https://www.nginx.com/), [gunicorn](https://gunicorn.org/), [flask](https://github.com/pallets/flask), and [runit](http://smarden.org/runit/). The container exposes port 443 to the outside world.
 
 > Note that the SSL connection alone won't discriminate clients, allowing port access to services other than LVA. Mechanisms like username/password or http headers would help if necessary.
 
@@ -25,7 +25,7 @@ Note: References to third-party software in this repo are for informational and 
 ### Involving the IT team in the process
 It's really important to involve the right areas here. The organization you're working for, might have it's own policies in place to deal with SSL certificates related issues, such as: naming, providers, TTL (time to live), among other not/technical ones.
 
-### Dropping certificate files for docker container to pick them up
+### Dropping certificate files for Docker container to pick them up
 
 First, create a `certs` directory where you'll copy the certificate files to. This directory will be mounted to the container, where the nginx config file expects it (more on this right after).
 
@@ -42,7 +42,7 @@ Reading material:
 
 Set the right names for the certificate files, to match what you've copied to the `/certs` folder at Host computer level. The file you need to update is [yolov3-app.conf](yolov3-app.conf)
 
-### Building, publishing and running the docker container
+### Building, publishing and running the Docker container
 
 Please update the contents for the nginx configuration file `yolo3-app.conf`.
 ```
@@ -52,15 +52,15 @@ Please update the contents for the nginx configuration file `yolo3-app.conf`.
     ssl_certificate_key /certs/<file-name>-key.pem;
 ```
 
-After getting a certificate, copying its pieces and updating the nginx configuration file, you're ready to begin the image building process.
+After you have retreived the certificate, copied its pieces, and updated the nginx configuration file, you will be ready to begin the image building process.
 
-To build the image, use the docker file named `Dockerfile`.
+To build the image, use the Docker file named `Dockerfile`.
 
 First, a couple assumptions
 
 * We'll be using Azure Container Registry (ACR) to publish our image before distributing it
-* Our local docker is already loged into ACR.
-* Our hypothetical ACR name is "myregistry". Your may defer, so please update it properly along the following commands.
+* Our local Docker container image is already loged into ACR.
+* Our hypothetical ACR name is "myregistry". Your name may defer, so please update it properly in the following commands.
 
 > If you're unfamiliar with ACR or have any questions, please follow this [demo on building and pushing an image into ACR](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli).
 
@@ -141,12 +141,12 @@ Shorter, yes. Use it wisely and consider that real-world production scenarios, m
 With that data, head to the [Dockerfile (for Self-Signed)](Dockerfile.ss), and replace where's indicated.
 
 ### Building, publishing and running the docker container
-To build the image, use the docker file named `Dockerfile.ss`.
+To build the image, use the Docker file named `Dockerfile.ss`.
 
 First, a couple assumptions
 
 * We'll be using Azure Container Registry (ACR) to publish our image before distributing it
-* Our local docker is already loged into ACR.
+* Our local Docker is already loged into ACR.
 * Our hypothetical ACR name is "myregistry". Your may defer, so please update it properly along the following commands.
 
 > If you're unfamiliar with ACR or have any questions, please follow this [demo on building and pushing an image into ACR](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli).
@@ -239,44 +239,44 @@ If successful, you will see JSON printed on your screen that looks something lik
 {
     "inferences": [
         {
+            "type": "entity",
             "entity": {
-                "box": {
-                    "h": 0.3498992351271351,
-                    "l": 0.027884870008988812,
-                    "t": 0.6497463818662655,
-                    "w": 0.212033897746693
-                },
                 "tag": {
-                    "confidence": 0.9857677221298218,
-                    "value": "person"
+                    "value": "person",
+                    "confidence": 0.959613
+                },
+                "box": {
+                    "l": 0.692427,
+                    "t": 0.364723,
+                    "w": 0.084010,
+                    "h": 0.077655
                 }
-            },
-            "type": "entity"
+            }
         },
         {
+            "type": "entity",
             "entity": {
-                "box": {
-                    "h": 0.3593513820482337,
-                    "l": 0.6868949751420454,
-                    "t": 0.6334065123374417,
-                    "w": 0.26539528586647726
-                },
                 "tag": {
-                    "confidence": 0.9851594567298889,
-                    "value": "person"
+                "value": "vehicle",
+                "confidence": 0.929751
+                },
+                "box": {
+                    "l": 0.521143,
+                    "t": 0.446333,
+                    "w": 0.166306,
+                    "h": 0.126898
                 }
-            },
-            "type": "entity"
+            }
         }
     ]
 }
 ```
 
-Terminate the container using the following docker commands
+Terminate the container using the following Docker commands
 
 ```bash
-docker stop tls-yolov3
-docker rm tls-yolov3
+  docker stop tls-yolov3
+  docker rm tls-yolov3
 ```
 
 ### /annotate
@@ -305,9 +305,9 @@ If successful, you will see a list of detected objected in JSON. The annotated i
 
 The entire /images folder will be copied to ./images on your host machine. Image files have the following format dd_mm_yyyy_HH_MM_SS.jpeg
 
-## Upload docker image to Azure container registry
+## Upload Docker image to Azure container registry
 
-Follow instruction in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
+Follow instructions in [Push and Pull Docker images  - Azure Container Registry](http://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli) to save your image for later use on another machine.
 
 ## Deploy as an Azure IoT Edge module
 

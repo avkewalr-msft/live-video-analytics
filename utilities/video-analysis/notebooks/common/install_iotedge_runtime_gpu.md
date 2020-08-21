@@ -1,8 +1,11 @@
 # Install IoT Edge runtime for NVidia GPU Accelerated IoT Edge Devices
 
+> <span style="color:red; font-weight:bold"> [!IMPORTANT] </span>  
+> All of the commands in this section should be run on your IoT Edge device.
+
 This section assumes that your PC have NVidia Tesla K80 GPU card installed and you are using Ubuntu OS version 18.04. For other operating system versions and GPU types, the commands below may need to be updated (e.g., find the appropriate GPU drivers for your Edge device).
 
-If you are using a virtual machine, you can use the SSH connection string located in the [.env file](.env) to create a terminal session over the VM. Alternatively, with your own preference of connection type, open a terminal window session on the IoT Edge device. The commands in the steps below should be executed on the IoT Edge device through the terminal session.
+If you are using a virtual machine, you can use the SSH connection string located in the [.env file](.env) to [create a terminal session over the VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys#ssh-into-your-vm). Alternatively, with your own preference of connection type, open a terminal window session on the IoT Edge device. The commands in the steps below should be executed on the IoT Edge device through the terminal session.
 
 ## Install NVidia Cuda Drivers for your nGPU (Tesla K80 in this case)
 First, install the `curl` command line tool on your Iot Edge device's terminal.
@@ -15,13 +18,13 @@ Next, install the drivers for your nGPU. Note that the installation may take a f
 
 
 ```shell
-wget -O /tmp/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb 
+wget -O /tmp/cuda-repo-ubuntu1804_10.1.243-1_amd64.deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
 
-sudo dpkg -i /tmp/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
+sudo dpkg -i /tmp/cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
 
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub 
 
-rm -f /tmp/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
+rm -f /tmp/cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
 
 sudo apt-get -y update
 
@@ -76,21 +79,21 @@ sudo systemctl restart docker
 ```
 
 ## Test the Installation and Access to GPU Within a Container
-<!-- # sudo docker run --gpus all nvidia/cuda:10.0-base nvidia-smi -->
+<!-- # sudo docker run --gpus all nvidia/cuda:10.1-base nvidia-smi -->
 ```shell
-sudo docker run --runtime nvidia nvidia/cuda:10.0-base nvidia-smi
+sudo docker run --runtime nvidia nvidia/cuda:10.1-base nvidia-smi
 ```
 Here is the sample output from the command:
 ```
 +-----------------------------------------------------------------------------+ 
-| NVIDIA-SMI 450.36.06    Driver Version: 450.36.06    CUDA Version: xx.0     | 
+| NVIDIA-SMI 450.51.06    Driver Version: 450.51.06    CUDA Version: xx.0     | 
 |-------------------------------+----------------------+----------------------+ 
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC | 
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. | 
 |                               |                      |               MIG M. | 
 |===============================+======================+======================| 
 |   0  Tesla K80           On   | 00000001:00:00.0 Off |                    0 | 
-| N/A   47C    P0    55W / 149W |    482MiB / 11441MiB |      0%      Default | 
+| N/A   47C    P0    24W / 149W |    482MiB / 11441MiB |      0%      Default | 
 |                               |                      |                  N/A | 
 +-------------------------------+----------------------+----------------------+ 
 
@@ -102,10 +105,12 @@ Here is the sample output from the command:
 +-----------------------------------------------------------------------------+ 
 ```
 ## Install the Azure IoT Edge Runtime
-In order to run the commands below in the terminal window, be sure to update the URL with the appropriate OS for your IoT Edge Device:  
+In order to run the commands below in the terminal window, be sure to update the URL with the appropriate OS for your IoT Edge device:  
 
+```
+Example:
 https://packages.microsoft.com/config/ubuntu/<YOUR_OS_VERSION>/multiarch/prod.list
-
+```
 
 Commands to install the IoT Edge Runtime:
 
