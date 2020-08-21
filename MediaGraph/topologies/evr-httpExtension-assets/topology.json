@@ -75,7 +75,7 @@
                     "nodeName": "rtspSource"
                   }
                 ],
-                "maximumFps": 2
+                "maximumFps": 10
             },
             {
             "@type": "#Microsoft.Media.MediaGraphHttpExtension",
