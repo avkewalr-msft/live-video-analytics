@@ -19,8 +19,8 @@ LVA sample using [YOLOv4](https://github.com/onnx/models/tree/master/vision/obje
 
 | #   | Framework | Extension | Accelerator             | Test Cases Passed<sup>*</sup> |                                                                   |
 |:---:|:---:      |:---:      |:---:                    |:--:                           |:--:                                                               |
-| 1   | ONNX      | gRPC      | Intel® CPU              | 1, 2, 3                       |[Launch](yolo/yolov4/yolov4-grpc-icpu-onnx/readme.md)              | 
-| 2   | Darknet   | HTTP      | Intel® CPU              | 2, 3                          |[Launch](yolo/yolov4/yolov4-http-icpu-darknet/readme.md)           | 
+| 1   | ONNX      | gRPC      | Intel® CPU              | 1, 2, 3                       |[Launch](Yolo/yolov4/yolov4-grpc-icpu-onnx/readme.md)              | 
+| 2   | Darknet   | HTTP      | Intel® CPU              | 2, 3                          |[Launch](Yolo/yolov4/yolov4-http-icpu-darknet/readme.md)           | 
 
 
 ### <u>YOLOv3</u>
@@ -28,17 +28,17 @@ LVA sample using [YOLOv3](https://pjreddie.com/darknet/yolo/), a real-time convo
 
 | #   | Framework | Extension | Accelerator             | Test Cases Passed<sup>*</sup> |                                                                   |
 |:---:|:---:      |:---:      |:---:                    |:--:                           |:--:                                                               |
-| 3   | ONNX      | HTTP      | Intel® CPU              | 1, 2                          |[Launch](yolo/yolov3/yolov3-http-icpu-onnx/readme.md)              | 
-| 4   | ONNX      | HTTP      | NVidia GPU              | 1, 2, 3                       |[Launch](yolo/yolov3/yolov3-http-ngpu-onnx/readme.md)              | 
-| 5   | ONNX      | gRPC      | Intel® CPU              | 2                             |[Launch](yolo/yolov3/yolov3-grpc-icpu-onnx/readme.md)              | 
+| 3   | ONNX      | HTTP      | Intel® CPU              | 1, 2                          |[Launch](Yolo/yolov3/yolov3-http-icpu-onnx/readme.md)              | 
+| 4   | ONNX      | HTTP      | NVidia GPU              | 1, 2, 3                       |[Launch](Yolo/yolov3/yolov3-http-ngpu-onnx/readme.md)              | 
+| 5   | ONNX      | gRPC      | Intel® CPU              | 2                             |[Launch](Yolo/yolov3/yolov3-grpc-icpu-onnx/readme.md)              | 
 
 ### <u>Tiny YOLOv3</u>
 LVA sample using Tiny YOLOv3, a lightweight variant of the YOLOv3 neural network.
 
 | #   | Framework | Extension | Accelerator             | Test Cases Passed<sup>*</sup> |                                                                   |
 |:---:|:---:      |:---:      |:---:                    |:--:                           |:--:                                                               |
-| 6   | ONNX      | HTTP      | Intel® CPU              |                               |[Launch](yolo/tinyyolov3/tinyyolov3-http-icpu-onnx/readme.md)      | 
-| 7   | ONNX      | gRPC      | Intel® CPU              |                               |[Launch](yolo/tinyyolov3/tinyyolov3-http-icpu-onnx/readme.md)      | 
+| 6   | ONNX      | HTTP      | Intel® CPU              |                               |[Launch](Yolo/tinyyolov3/tinyyolov3-http-icpu-onnx/readme.md)      | 
+| 7   | ONNX      | gRPC      | Intel® CPU              |                               |[Launch](Yolo/tinyyolov3/tinyyolov3-grpc-icpu-onnx/readme.md)      | 
 
 ### <u>ResNet</u>
 LVA sample using [ResNet](https://github.com/onnx/models/tree/master/vision/classification/resnet), a residual neural network for image classification.
