@@ -1,4 +1,35 @@
-# Compiling the protobuf files for python
+# YOLOv3 ONNX models with gRPC
+
+The following instructions will enable you to build a Docker container with a [YOLOv3](http://pjreddie.com/darknet/yolo/) [ONNX](http://onnx.ai/) model running behind a gRPC endpoint.
+
+
+## Contributions needed
+
+* Improved logging
+
+
+## Prerequisites
+
+1. [Install Docker](http://docs.docker.com/docker-for-windows/install/) on your machine
+2. Install [curl](http://curl.haxx.se/)
+
+## Building the Docker container
+
+To build the container image locally, run the following Docker command from a terminal in that directory. The process should take a few minutes to complete. 
+
+YOLOv3:
+```bash
+    docker build -f yolov3.dockerfile . -t lvaextension:grpc-yolov3-onnx-v1.0
+```
+
+> <span> [!TIP] </span>  
+> If you do not wish to build the local Dockerfile, you may pull it off of Microsoft Container Registry and skip the following step <br>
+> `docker run --name my_yolo_container -p 8080:80 -d  -i mcr.microsoft.com/lva-utilities/lvaextension:grpc-yolov3-onnx-v1.0`
+
+## Running and testing
+Please see [this](https://aka.ms/lva-grpc-quickstart) quickstart.
+
+## Compiling the protobuf files for python
 
 Install the protoc tool for python:
 
