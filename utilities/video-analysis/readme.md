@@ -7,6 +7,7 @@ This folder has a set of video analysis related utilities.
 | Folders              | Description                                                              |
 |----------------------|--------------------------------------------------------------------------|
 | `notebooks`          | Jupyter notebook samples for Live Video Analytics                        |
+| `ovms`               | OpenVINO™ Model Server – AI Extension from Intel                        |
 | `resnet-onnx`        | Docker container with ResNet ONNX model                                  |
 | `shared`             | Graph manager script to manage graphs                                    |
 | `tls-yolov3-onnx`    | Docker container with Secured YOLOv3 ONNX model                          |
