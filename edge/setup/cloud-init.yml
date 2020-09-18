@@ -52,6 +52,7 @@ runcmd:
         curl https://lvamedia.blob.core.windows.net/public/camera-300s.mkv > /home/lvaadmin/samples/input/camera-300s.mkv
         curl https://lvamedia.blob.core.windows.net/public/lots_284.mkv > /home/lvaadmin/samples/input/lots_284.mkv
         curl https://lvamedia.blob.core.windows.net/public/lots_015.mkv > /home/lvaadmin/samples/input/lots_015.mkv
+        curl https://lvamedia.blob.core.windows.net/public/t2.mkv > /home/lvaadmin/samples/input/t2.mkv
 
         chown -R lvaadmin /home/lvaadmin/samples/
 
