@@ -1,6 +1,6 @@
 {
 	"@apiVersion": "1.0",
-	"name": "EVRtoAssetsOnMotionDetecion",
+	"name": "EVRtoAssetsOnMotionDetection",
 	"properties": {
 		"description": "Event-based video recording to Assets based on motion events",
 		"parameters": [
