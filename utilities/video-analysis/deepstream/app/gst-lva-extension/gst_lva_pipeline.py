@@ -68,7 +68,7 @@ class Gst_Lva_Pipeline:
 		if (configFile is None):
 			configFile = "sample.txt"	
 		
-		pipeline = "appsrc name=lvasource ! videoconvert ! nvvideoconvert nvbuf-memory-type=1 ! capsfilter caps=video/x-raw(memory:NVMM) ! m.sink_0 nvstreammux name=m batch-size=1 width={} height={} batched-push-timeout=33000 nvbuf-memory-type=1 ! nvinfer name=primary-inference config-file-path={} ! nvvideoconvert name=converter nvbuf-memory-type=1 ! videoconvert name=output-convert ! video/x-raw,format=BGR ! appsink name=lvasink".format(width, height, configFile)
+		pipeline = "appsrc name=lvasource ! videoconvert ! nvvideoconvert nvbuf-memory-type=1 ! capsfilter caps=video/x-raw(memory:NVMM) ! m.sink_0 nvstreammux name=m batch-size=1 width={} height={} batched-push-timeout=33000 nvbuf-memory-type=1 ! nvinfer name=primary-inference config-file-path={} ! nvvideoconvert name=converter nvbuf-memory-type=1 ! videoconvert name=output-convert ! video/x-raw,format=RGB ! appsink name=lvasink".format(width, height, configFile)
 		self.MJPEGOutput = os.environ['MJPEG_OUTPUT']	
 
 		print('graphName = {}, width = {}, height = {}, configuration: {}'.format(graphName, width, height, configFile))
