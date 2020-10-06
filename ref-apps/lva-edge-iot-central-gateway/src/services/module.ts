@@ -543,9 +543,6 @@ export class ModuleService {
 
             this.server.log(['ModuleService', 'info'], `Client is connected`);
 
-            // TODO:
-            // Should the module twin interface get connected *BEFORE* opening
-            // the moduleClient above?
             this.moduleTwin = await this.moduleClient.getTwin();
             this.moduleTwin.on('properties.desired', this.onHandleModuleProperties);
 
