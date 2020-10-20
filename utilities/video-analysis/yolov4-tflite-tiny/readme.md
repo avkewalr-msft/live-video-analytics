@@ -33,43 +33,43 @@ Test the container using the following commands.
 To get a list of detected objects, use the following command.
 
 ```bash
-curl -X POST http://127.0.0.1/score -H "Content-Type: image/jpeg" --data-binary @<image_file_in_jpeg>
+curl -X POST http://127.0.0.1/score -H "Content-Type: image/jpeg" --data-binary @<full_path_to_image_file_in_jpeg>
 ```
 If successful, you will see JSON printed on your screen that looks something like this
 ```json
 {
-    "inferences": [                
-        {
-            "entity": {
-                "box": {
-                    "h": 0.3498992351271351,
-                    "l": 0.027884870008988812,
-                    "t": 0.6497463818662655,
-                    "w": 0.212033897746693
-                },
-                "tag": {
-                    "confidence": 0.9857677221298218,
-                    "value": "person"
-                }
-            },
-            "type": "entity"
+  "inferences": [
+    {
+      "type": "entity",
+      "entity": {
+        "tag": {
+          "value": "zebra",
+          "confidence": "0.8333446"
         },
-        {
-            "entity": {
-                "box": {
-                    "h": 0.3593513820482337,
-                    "l": 0.6868949751420454,
-                    "t": 0.6334065123374417,
-                    "w": 0.26539528586647726
-                },
-                "tag": {
-                    "confidence": 0.9851594567298889,
-                    "value": "person"
-                }
-            },
-            "type": "entity"
+        "box": {
+          "l": "0.6046585",
+          "t": "0.4014857",
+          "w": "0.21853799",
+          "h": "0.49041268"
         }
-    ]
+      }
+    },
+    {
+      "type": "entity",
+      "entity": {
+        "tag": {
+          "value": "giraffe",
+          "confidence": "0.769461"
+        },
+        "box": {
+          "l": "0.33088243",
+          "t": "0.0015953871",
+          "w": "0.5128964",
+          "h": "0.83996487"
+        }
+      }
+    }
+  ]
 }
 ```
 

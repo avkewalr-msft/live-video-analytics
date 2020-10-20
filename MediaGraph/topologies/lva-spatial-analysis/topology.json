@@ -1,0 +1,148 @@
+{
+    "@apiVersion": "1.0",
+    "name": "InferencingWithCVExtension",
+    "properties": {
+      "description": "Analyzing Live Video with Computer Vision for Spatial Analysis",
+      "parameters": [
+        {
+          "name": "rtspUserName",
+          "type": "String",
+          "description": "rtsp source user name.",
+          "default": "dummyUserName"
+        },
+        {
+          "name": "rtspPassword",
+          "type": "String",
+          "description": "rtsp source password.",
+          "default": "dummyPassword"
+        },
+        {
+          "name": "rtspUrl",
+          "type": "String",
+          "description": "rtsp Url"
+        },
+        {
+          "name": "grpcUrl",
+          "type": "String",
+          "description": "inferencing Url",
+          "default": "tcp://spatialAnalysis:50051"
+        },
+        {
+          "name": "frameRate",
+          "type": "String",
+          "description": "Limit the rate of the frames per second to send to the computerVisionExtension.",
+          "default": "2"
+        },
+        {
+          "name": "spatialanalysisusername",
+          "type": "String",
+          "description": "spatialanalysis endpoint username",
+          "default": "not-in-use"
+        },
+        {
+          "name": "spatialanalysispassword",
+          "type": "String",
+          "description": "spatialanalysis endpoint password",
+          "default": "not-in-use"  
+        }
+      ],
+      "sources": [
+        {
+          "@type": "#Microsoft.Media.MediaGraphRtspSource",
+          "name": "rtspSource",
+          "transport": "tcp",
+          "endpoint": {
+            "@type": "#Microsoft.Media.MediaGraphUnsecuredEndpoint",
+            "url": "${rtspUrl}",
+            "credentials": {
+              "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",
+              "username": "${rtspUserName}",
+              "password": "${rtspPassword}"
+            }
+          }
+        }
+      ],
+      "processors": [
+        {
+          "@type": "#Microsoft.Media.MediaGraphFrameRateFilterProcessor",
+          "name": "frameRateFilter",
+          "inputs": [
+            {
+              "nodeName": "rtspSource"
+            }
+          ],
+          "maximumFps": "${frameRate}"
+        },
+        {
+          "@type": "#Microsoft.Media.MediaGraphCognitiveServicesVisionExtension",
+          "name": "computerVisionExtension",
+          "endpoint": {
+            "@type": "#Microsoft.Media.MediaGraphUnsecuredEndpoint",
+            "url": "${grpcUrl}",
+            "credentials": {
+              "@type": "#Microsoft.Media.MediaGraphUsernamePasswordCredentials",
+              "username": "${spatialanalysisusername}",
+              "password": "${spatialanalysispassword}"
+            }
+          },
+          "image": {
+            "scale": {
+              "mode": "pad",
+              "width": "1408",
+              "height": "786"
+            },
+            "format": {
+              "@type": "#Microsoft.Media.MediaGraphImageFormatRaw",
+              "pixelFormat": "bgr24"
+            }
+          },
+          "inputs": [
+            {
+              "nodeName": "frameRateFilter"
+            }
+          ]
+        },
+        {
+            "@type": "#Microsoft.Media.MediaGraphSignalGateProcessor",
+            "name": "signalGateProcessor",
+            "inputs": [
+              {
+                "nodeName": "computerVisionExtension"
+              },
+              {
+                "nodeName": "rtspSource"
+              }
+            ],
+            "activationEvaluationWindow": "PT1S",
+            "activationSignalOffset": "PT0S",
+            "minimumActivationTime": "PT30S",
+            "maximumActivationTime": "PT30S"
+          }
+      ],
+      "sinks": [
+        {
+            "@type": "#Microsoft.Media.MediaGraphAssetSink",
+            "name": "assetSink",
+            "assetNamePattern": "sampleAssetFromEVR-CV-LVAEdge-${System.DateTime}",
+            "segmentLength": "PT30S",
+            "LocalMediaCacheMaximumSizeMiB": "200",
+            "localMediaCachePath": "/var/lib/azuremediaservices/tmp/",
+            "inputs": [
+                {
+                    "nodeName": "signalGateProcessor"
+                }
+            ]
+        },
+        {
+          "@type": "#Microsoft.Media.MediaGraphIoTHubMessageSink",
+          "name": "hubSink",
+          "hubOutputName": "inferenceOutput",
+          "inputs": [
+            {
+              "nodeName": "computerVisionExtension"
+            }
+          ]
+        }
+      ]
+    }
+  }

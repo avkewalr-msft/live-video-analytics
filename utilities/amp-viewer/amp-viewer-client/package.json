@@ -7,7 +7,7 @@
         "test": "node ./node_modules/jest/bin/jest.js",
         "tslint": "node ./node_modules/tslint/bin/tslint -p ./tsconfig.json -e '**/client_dist/**'",
         "build": "./node_modules/.bin/webpack --color --config configs/webpack.prod.js --mode production",
-        "copybuild": "./node_modules/cpr/bin/cpr client_dist ../amp-viewer/client_dist -d",
+        "copybuild": "rimraf ../amp-viewer/client_dist && ncp client_dist ../amp-viewer/client_dist",
         "preversion": "npm test",
         "version": "npm run build",
         "start": "./node_modules/.bin/webpack-dev-server --config ./configs/webpack.dev.js --mode development"
@@ -16,7 +16,6 @@
     "license": "MIT",
     "dependencies": {
         "babel-polyfill": "^6.26.0",
-        "cpr": "^3.0.1",
         "eventemitter2": "^4.1.0",
         "fs-extra": "^9.0.1",
         "history": "^4.10.1",
@@ -24,10 +23,12 @@
         "mobx": "^5.15.4",
         "mobx-react": "^6.2.2",
         "moment": "^2.27.0",
+        "ncp": "^2.0.0",
         "query-string": "^6.13.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-router-dom": "^5.2.0",
+        "rimraf": "^3.0.2",
         "semantic-ui-react": "^0.88.2",
         "whatwg-fetch": "^3.2.0"
     },
