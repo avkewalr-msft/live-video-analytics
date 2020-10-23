@@ -30,9 +30,9 @@ It is licensed under a [Creative Commons Attribution 4.0 International License](
 
 
 ## Other dataset
-* [Vehicles on freeway - 5 minutes](https://lvamedia.blob.core.windows.net/public/camera-300s.mkv)
-* [Vehicles on freeway - 30 minutes](https://lvamedia.blob.core.windows.net/public/camera-1800s.mkv)
-* [Vehicles on freeway - 60 minutes](https://lvamedia.blob.core.windows.net/public/camera-3600s.mkv)
+* [Vehicles on freeway - 5 minutes](https://avamedia.blob.core.windows.net/public/camera-300s.mkv)
+* [Vehicles on freeway - 30 minutes](https://avamedia.blob.core.windows.net/public/camera-1800s.mkv)
+* [Vehicles on freeway - 60 minutes](https://avamedia.blob.core.windows.net/public/camera-3600s.mkv)
 * [Toy Car Training Dataset](https://lvamedia.blob.core.windows.net/public/ToyCarTrainingImages.zip)
 * [Toy Car Inference Video](https://lvamedia.blob.core.windows.net/public/t2.mkv)
 * [People waiting in a room - JPG Image](https://lvamedia.blob.core.windows.net/public/people_waiting.jpg)
