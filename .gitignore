@@ -358,3 +358,6 @@ MigrationBackup/
 
 # Ignore Mac DS_Store files
 .DS_Store
+
+#github codespaces
+pythonenv3.8

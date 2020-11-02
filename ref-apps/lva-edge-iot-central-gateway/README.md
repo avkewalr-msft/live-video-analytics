@@ -34,17 +34,17 @@ Open the cloned **live-video-analytics** repository and cd into the *ref-apps/lv
 1. Edit the *./setup/imageConfig.json* file to update the image named based on your container registry name:
     ```
     {
-        "arch": "amd64",
+        "arch": "[amd64|arm64v8]",
         "imageName": "[Server].azurecr.io/lva-edge-gateway",
         "versionTag": "latest"
     }
     ```
-1. Use the VS Code terminal to run the docker login command. Use the same credentials that you provided in the deployment manifest for the modules.
+3. Use the VS Code terminal to run the docker login command. Use the same credentials that you provided in the deployment manifest for the modules.
     ```
     docker login [your server].azurecr.io
     ```
 
-1. Use the VS Code terminal to run the commands to build the image and push it to your docker container registry. The build scripts deploy the image to your container registry. The output in the VS Code terminal window shows you if the build is successful.
+4. Use the VS Code terminal to run the commands to build the image and push it to your docker container registry. The build scripts deploy the image to your container registry. The output in the VS Code terminal window shows you if the build is successful.
     ```
     npm run dockerbuild
     npm run dockerpush
