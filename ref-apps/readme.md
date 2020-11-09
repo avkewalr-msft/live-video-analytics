@@ -6,6 +6,7 @@
 |---|---|
 | `lva-edge-iot-central-gateway` | IoT Central gateway module LVA edge |
 | `rocket` | Microsoft Rocket for Live Video Analytics |
+| `Vision on Edge for Manufacturing Industry` | Reference App for computer vision scenarios in manufacturing based on Live Video Analytics |
 
 ## Related
 
