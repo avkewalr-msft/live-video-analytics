@@ -1,4 +1,4 @@
-# Vision on Edge for Manufacturing Inductry - Powered by Live Video Analytics 
+# Vision on Edge for Manufacturing Industry - Powered by Live Video Analytics 
 
 Putting together a video analytics solution on the edge especially for operators not well versed in AI is not a non-trivial task. It need skills in video analytics, deep learning, edge computing and cloud services. 
 
